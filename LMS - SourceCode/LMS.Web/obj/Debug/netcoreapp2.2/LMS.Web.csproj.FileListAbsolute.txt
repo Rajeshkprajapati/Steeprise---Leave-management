@@ -1,0 +1,6 @@
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Web\obj\Debug\netcoreapp2.2\LMS.Web.csprojAssemblyReference.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Web\obj\Debug\netcoreapp2.2\LMS.Web.csproj.CoreCompileInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Web\obj\Debug\netcoreapp2.2\LMS.Web.RazorAssemblyInfo.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Web\obj\Debug\netcoreapp2.2\LMS.Web.RazorAssemblyInfo.cs
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Web\obj\Debug\netcoreapp2.2\LMS.Web.AssemblyInfoInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Web\obj\Debug\netcoreapp2.2\LMS.Web.AssemblyInfo.cs

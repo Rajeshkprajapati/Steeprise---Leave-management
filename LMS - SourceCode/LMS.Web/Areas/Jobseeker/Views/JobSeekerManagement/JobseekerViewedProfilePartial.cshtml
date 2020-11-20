@@ -1,0 +1,58 @@
+﻿@using LMS.Model.DataViewModel.JobSeeker
+@model JobSeekerViewedProfile
+<div id="titlebar">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Viewed Profile</h2>
+            <!-- Breadcrumbs -->
+            <nav id="breadcrumbs">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="/JobSeekerManagement/Dashboard">Dashboard</a></li>
+                    <li>Viewed Profile</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <!-- Table-->
+    <div class="col-lg-6 col-md-6">
+        <div class="dashboard-list-box margin-top-0">
+            <div class="dashboard-list-box-content">
+                <!-- Table -->
+                <table class="manage-table resumes responsive-table">
+                    <tr>
+                        <th><i class="fa fa-tags"></i> Company</th>
+                        <th><i class="fa fa-file-text"></i> Viewed on</th>
+                    </tr>
+                    <!-- Item #1 -->
+                    @if (ViewBag.ViewedProfile != null && Enumerable.Count(ViewBag.ViewedProfile) > 0)
+                    {
+                        foreach (var item in ViewBag.ViewedProfile)
+                        {
+                            <tr>
+                                <td>@item.CompanyName</td>
+                                <td>@item.ModifiedViewedOn</td>
+                            </tr>
+
+                        }
+
+                    }
+                    else
+                    {
+                        <tr><td>No data available!</td></tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copyrights -->
+    <div class="col-md-12">
+        <div class="copyrights">© 2019 WorkScout. All Rights Reserved.</div>
+    </div>
+</div>
+

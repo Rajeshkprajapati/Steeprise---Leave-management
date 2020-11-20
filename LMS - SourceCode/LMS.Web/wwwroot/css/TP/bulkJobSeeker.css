@@ -1,0 +1,35 @@
+﻿div.listpgWraper {
+    max-height: 500px;
+}
+
+table[id^="jobPostSummary_"] tr:nth-child(1) {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+table[id^="jobPostSummary_"] tr td:last-child {
+    white-space: nowrap;
+}
+
+    table[id^="jobPostSummary_"] tr td:last-child ol {
+        list-style-type: decimal;
+        margin-left: 20px;
+    }
+
+table[id^="jobPostSummary_"] tr td {
+    border-right: 1px solid lightgrey;
+}
+
+    table[id^="jobPostSummary_"] tr td p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 250px;
+        overflow: hidden;
+    }
+
+.summar-header {
+    text-align: center;
+}
+.BulkExportbtn {
+    margin: 0px 0px 7px 8px;
+}

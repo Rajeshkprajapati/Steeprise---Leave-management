@@ -1,0 +1,52 @@
+﻿<form id="frmEducationalDetails_0">
+    <input type="hidden" name="Id" value="0"/>
+    <div class="formrow">
+        <label for="Qualification">Qualification*:</label>
+        <select class="form-control" name="Qualification" onchange="changeCourseCategory(this)">      
+        </select>
+    </div>
+    <div class="formrow">
+        <label for="Course">Course*:</label>
+        <select class="form-control" name="Course">
+        </select>
+    </div>
+    <div class="formrow">
+        <label for="Specialization">Specialization*:</label>
+        <input type="text" name="Specialization" class="form-control" placeholder="Specialization">
+    </div>
+    <div class="formrow">
+        <label for="University">University/College*:</label>
+        <input type="text" name="University" required class="form-control" placeholder="Institute Name">
+    </div>
+    <div class="formrow">
+        <label for="CourseType">Course Type*:</label>
+        <div class="form-group">
+            <label class="radio-inline">
+                <input type="radio" name="CourseType" value="">
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="CourseType" value="">
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="CourseType" value="">
+            </label>
+        </div>
+    </div>
+    <div class="formrow">
+        <label for="Percentage">Percentage*:</label>
+        <input type="number" name="Percentage" class="form-control" placeholder="Percentage (%)" >
+    </div>
+    <div class="formrow">
+        <label for="PassingYear">Passing Year*:</label>
+        <select class="form-control" name="PassingYear">
+            @{
+                int currYear = DateTime.Now.Year;
+                @for (int i = (currYear - 50); i <= (currYear + 1); i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            }
+        </select>
+    </div>
+    <a id="btnAddAnOtherAcademic" onclick="createEducationalDetailsForm(this)">+add another academic</a>
+</form>

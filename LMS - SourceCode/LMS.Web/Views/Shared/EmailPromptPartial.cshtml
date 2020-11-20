@@ -1,0 +1,54 @@
+﻿@model EmailViewModel
+<style>
+    .labelspace {
+        margin-bottom: 0.7rem;
+        font-weight: bold;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <form>
+            <input type="hidden" name="MessageId" value="@ViewBag.MessageId" />
+            <input type="hidden" name="SenderId" value="@ViewBag.SenderId" />
+            <input type="hidden" name="ReceiverId" value="@ViewBag.ReceiverId" />
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="txtFrom" class="labelspace">From</label>
+                </div>
+                <div class="col-md-12">
+                    <input type="text" readonly class=" form-control" name="SenderEmail" value="@Model.From" id="txtFrom" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="txtTo"  class="labelspace">To</label>
+                </div>
+                <div class="col-md-12">
+                    <input type="text" readonly class=" form-control" name="ReceiverEmail" value="@(string.Join(',',Model.To))" id="txtTo" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="txtSubject"  class="labelspace">Subject</label>
+                </div>
+                <div class="col-md-12">
+                    <input type="text" class=" form-control" name="Subject" value="@Model.Subject" id="txtSubject" required/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="txtBody"  class="labelspace">Body</label>
+                </div>
+                <div class="col-md-12">
+                    <textarea id="txtBody" rows="8" cols="30" maxlength="600"
+                              class="form-control ckeditor" name="Body" required></textarea>
+                    @*<input type="text" class=" form-control" name="Body" value="@Model.Body" id="txtBody" />*@
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    CKEDITOR.replace('txtBody');
+</script>

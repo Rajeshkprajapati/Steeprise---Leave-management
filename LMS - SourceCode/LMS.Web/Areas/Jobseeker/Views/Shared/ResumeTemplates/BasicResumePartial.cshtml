@@ -1,0 +1,176 @@
+﻿@using LMS.Model.DataViewModel.JobSeeker
+
+@model ResumeViewModel;
+
+<div id="resumeContainer">
+    <div style="border-bottom: 1px solid #9a9a9a;padding-bottom: 20px;padding-top: 20px;">
+        <table style="text-align: center;width:100%;">
+            <tr>
+                <td>
+                    <h2>@Model.PersonalDetails.FullName</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>@Model.PersonalDetails.FullAddress</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>@Model.PersonalDetails.Email</label>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="border-bottom: 1px solid #9a9a9a;padding-bottom: 20px;padding-top: 20px;">
+        <table style="width:100%;">
+            <tr>
+                <td>
+                    <h4>Carrier Objective</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @{
+                        string expDesc = string.Empty;
+                        string[] texp = Convert.ToString(Model.PersonalDetails.TotalExperience).Split(".");
+                        if (null != texp && texp.Length==2)
+                        {
+                            expDesc = $"with {texp[0]} year(s) and {texp[1]} month(s) of experience";
+                        }
+                    <p>
+                        Looking for an opportunity @expDesc to utilise my acquired skills and training to help the company and my 
+                        future peers grow. I want my efforts to make a considerable difference to the company and help in
+                        their consequent success.
+                    </p>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="border-bottom: 1px solid #9a9a9a;padding-bottom: 20px;padding-top: 20px;">
+        @{
+
+            string[] skills = 
+                Model.Skills.SkillSets.Split(new string[] { Constants.CommaSeparator }, StringSplitOptions.RemoveEmptyEntries);
+        <table style="width:100%;">
+            <tr>
+                <td>
+                    <h4>Key Skills</h4>
+                </td>
+            </tr>
+            @foreach (string skill in skills)
+            {
+                <tr>
+                    <td style="width: 50%;padding-bottom: 10px;">
+                        @skill
+                    </td>
+                </tr>
+            }
+        </table>
+        }
+    </div>
+
+    <div style="border-bottom: 1px solid #9a9a9a;padding-bottom: 20px;padding-top: 20px;">
+        <table style="width:100%;">
+            <tr>
+                <td>
+                    <h4>Professional Experience</h4>
+                </td>
+            </tr>
+            @foreach (var exp in Model.ExperienceDetails)
+            {
+                <tr>
+                    <td style="padding-bottom: 25px;">
+                        <label style="font-weight:bold;">@exp.Organization, @exp.WorkLocationName | @exp.WorkingFrom – @exp.WorkingTill</label>
+                        <p>@exp.Designation</p>
+                        <p>
+                            @exp.JobProfile
+                        </p>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div style="border-bottom: 1px solid #9a9a9a;padding-bottom: 20px;padding-top: 20px;">
+        <table style="width:100%;">
+            <tr>
+                <td>
+                    <h4>Education</h4>
+                </td>
+            </tr>
+            @foreach (var edu in Model.EducationalDetails)
+            {
+                <tr>
+                    <td style="padding-bottom: 25px;">
+                        <label><span style="font-weight:bold;">@edu.University</span> | @edu.PassingYear | @edu.Percentage (%)</label>
+                        <p>
+                            @edu.CourseName
+                        </p>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div style="padding-bottom: 20px;padding-top: 20px;">
+        <table style="width:100%;">
+            <tr>
+                <td>
+                    <h4>Personal Details</h4>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 10px;">
+                    <label style="font-weight:bold">DOB :</label>
+                </td>
+                <td style="padding-bottom: 10px;">
+                    @Model.PersonalDetails.DOB
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 10px;">
+                    <label style="font-weight:bold">Address :</label>
+                </td>
+                <td style="padding-bottom: 10px;">
+                    @Model.PersonalDetails.FullAddress
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 10px;">
+                    <label style="font-weight:bold">Gender  :</label>
+                </td>
+                <td style="padding-bottom: 10px;">
+                    @Model.PersonalDetails.GenderName
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 10px;">
+                    <label style="font-weight:bold">Mobile  :</label>
+                </td>
+                <td style="padding-bottom: 10px;">
+                    @Model.PersonalDetails.MobileNo
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 10px;">
+                    <label style="font-weight:bold">Email   :</label>
+                </td>
+                <td style="padding-bottom: 10px;">
+                    @Model.PersonalDetails.Email
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 10px;">
+                    <label style="font-weight:bold">Marital Status  :</label>
+                </td>
+                <td style="padding-bottom: 10px;">
+                    @Model.PersonalDetails.MaritalStatusName
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

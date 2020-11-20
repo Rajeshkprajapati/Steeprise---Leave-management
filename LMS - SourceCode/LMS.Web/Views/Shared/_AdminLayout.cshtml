@@ -1,0 +1,346 @@
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>@ViewData["Title"]</title>
+    <link href="~/lib/jquery/jquery-ui.min.css" rel="stylesheet" />
+    @*<link rel="shortcut icon" type="image/png" href="~/images/favicon-16x16.png" />*@
+    <link href="~/lib/owl-carousel/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/main.css" rel="stylesheet" />
+    <link href="~/css/custom.css" rel="stylesheet" />
+    <link href="~/css/CommanPopup.css" rel="stylesheet" />
+    <link href="~/css/Loader.css" rel="stylesheet" />
+    <link href="~/css/Admin/adminLayout.css" rel="stylesheet" />
+    <link href="~/Assets/css/colors.css" rel="stylesheet" />
+    <link href="~/Assets/css/style.css" rel="stylesheet" />
+    <link href="~/Assets/PopBox/messagebox.css" rel="stylesheet" />
+    <style>
+        .userimg {
+            vertical-align: middle;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+        </style>
+   
+</head>
+<body>
+    @{
+        UserViewModel user = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+        <!-- Header
+           ================================================== -->
+        <header class="sticky-header">
+            <div class="container">
+                <div class="sixteen columns">
+                    <!-- Logo -->
+                    <div id="logo">
+                        <h1><a href="index-2.html"><img src="~/Assets/images/logo.png" alt="Job Portal" /></a></h1>
+                    </div>
+                    <!-- Menu -->
+                    <nav id="navigation" class="menu">
+                        <ul id="responsive">
+
+                            @if (user.RoleName == Constants.DemandAggregationRole)
+                            {
+                                <li>
+                                    <a href="javascript:void(0)">DashBoard</a>
+                                    <ul>
+                                        <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="DemandAggregation">Demand Aggregation</a></li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li>
+                                    <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">DashBoard</a>
+                                    @*<ul>
+                                        <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Summary</a></li>
+                                        <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="DemandAggregation">Demand Aggregation</a></li>
+                                    </ul>*@
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">Administrator<i class="fa fa-bell notification-bell" id="aggregate-notification-bell" aria-hidden="true"></i></a>
+                                    <ul>
+                                        @*<li>
+                                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="GetAllUsers">
+                                                Manage Users
+                                                <span class="badge notification-badge" id="manage-users-badge"></span>
+                                            </a>
+                                        </li>*@
+                                        @*<li><a asp-area="Admin" asp-controller="Designation" asp-action="GetDesignation"> Add Designation</a></li>
+                                            <li><a asp-area="Admin" asp-controller="JobIndustryArea" asp-action="GetJobIndustryArea">Add Job Category</a></li>*@
+                                        <li><a asp-area="Admin" asp-controller="JobTitle" asp-action="GetJobTitle">Add Job Role</a></li>
+                                        @*<li><a asp-area="Admin" asp-controller="SuccessStoryVideo" asp-action="GetSuccessStoryVideo">Success Story</a></li>*@
+                                        <li><a asp-area="Shared" asp-controller="BulkJobPost" asp-action="Index">Bulk Job Post</a></li>
+                                        <li><a asp-area="Admin" asp-controller="PlacedCandidate" asp-action="Index">Upload Hired Candidate</a></li>
+                                        <li><a asp-area="Admin" asp-controller="PlacedCandidate" asp-action="AllPlacedCandidate">View Hired Candidate</a></li>
+                                        <li><a asp-area="Admin" asp-controller="ManageCityState" asp-action="GetAllCity">Manage City</a></li>
+                                        <li><a asp-area="Admin" asp-controller="ManageCityState" asp-action="StateList">Manage States</a></li>
+                                        <li><a asp-area="Admin" asp-controller="ManageJobs" asp-action="FeaturedJobs">Featured Jobs</a></li>
+                                        <li><a asp-area="Admin" asp-controller="ManageJobs" asp-action="Jobs">Modify Job Details</a></li>
+                                        <li><a asp-area="Admin" asp-controller="UsersReviews" asp-action="UsersReviews">Users Review</a></li>
+                                        <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="GetAllBulkJobs">Delete Bulk Upload</a></li>
+                                    </ul>
+                                </li>
+                            }
+
+                            @*<li><a href="#">Recruiters</a></li>
+                                <li class="dropdown">
+                                    <a href="#">Jobs</a>
+                                </li>
+                                <li>
+                                    <a href="#">Companies</a>
+                                </li>*@
+
+                            @if (user != null)
+                            {
+                                <li class="userbtn float-right">
+                                    @if (user.ProfilePic != "")
+                                    {
+                                        <a href="javascript:void(0);" id="profileImage">
+                                            <img src=@user.ProfilePic alt="" class="userimg"  />
+                                            
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href=""><img src="~/ProfilePic/Avatar.jpg" alt=""  class="userimg" /></a>
+                                    }
+                                    <ul>
+                                        <li>@*<a asp-area="Admin" asp-controller="Dashboard" asp-action="GetAllUsers"><i class="fa fa-tachometer" aria-hidden="true"></i> @user.FullName</a>*@</li>
+                                        <li><a href="javascript:void(0);"><i class="fa fa-tachometer" aria-hidden="true"></i> @user.FullName</a></li>
+
+                                        <li><a href="/Auth/CreateNewPassword/"><i class="fa fa-key" aria-hidden="true">&nbsp;</i>Change Password</a></li>
+                                        <li><a href="/Auth/Logout/"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                    <!-- Navigation -->
+                    <div id="mobile-navigation">
+                        <a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="clearfix"></div>
+    }
+
+    @*loader*@
+    <div id="loader" hidden>
+        <img id="imgloader" src="~/images/ajax-loader1.gif" />
+    </div>
+    @RenderBody()
+
+    @* ...................... *@
+
+    <!--Footer-->
+    <div class="margin-top-30"></div>
+
+    <div id="footer">
+        <!-- Main -->
+        <div class="container">
+
+            <div class="seven columns">
+                <h4>About</h4>
+                <p>Morbi convallis bibendum urna ut viverra. Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper.</p>
+                <a href="#" class="button">Get Started</a>
+            </div>
+
+            <div class="three columns">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Our Blog</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Hiring Hub</a></li>
+                </ul>
+            </div>
+
+            <div class="three columns">
+                <h4>Press</h4>
+                <ul class="footer-links">
+                    <li><a href="#">In the News</a></li>
+                    <li><a href="#">Press Releases</a></li>
+                    <li><a href="#">Awards</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Timeline</a></li>
+                </ul>
+            </div>
+
+            <div class="three columns">
+                <h4>Browse</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Freelancers by Category</a></li>
+                    <li><a href="#">Freelancers in USA</a></li>
+                    <li><a href="#">Freelancers in UK</a></li>
+                    <li><a href="#">Freelancers in Canada</a></li>
+                    <li><a href="#">Freelancers in Australia</a></li>
+                    <li><a href="#">Find Jobs</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom -->
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="sixteen columns">
+                    <h4>Follow Us</h4>
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+                        <li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+                        <li><a class="linkedin" href="#"><i class="icon-linkedin"></i></a></li>
+                    </ul>
+                    <div class="copyrights">©  Copyright 2018 by <a href="#">Work Scout</a>. All Rights Reserved.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--Footer end-->
+    <!-- Modal HTML -->
+    <div id="alertpopup" class="modal1 fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="iconbox" class="icon-box">
+                        <i id="iconPopup" class="" aria-hidden="true"></i>
+                    </div>
+                    <h4 class="modal-title" id="tagiging"></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center" id="tagginMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSuccess" onclick="dissmissModal()" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AlertPopUp with out Reload -->
+    <div id="popwithoutRedirect" class="modal1 fade" role="dialog" tabindex="-1" aria-hidden="true" align="center">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="iconbox" class="icon-box">
+                        <i id="iconPopup" class="fa fa-exclamation" aria-hidden="true"></i>
+                    </div>
+                    <h4 class="modal-title" id="tagiging">Alert!</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center" id="popmessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnPopupWithoutReload" onclick="closeAlertPop()" class="btn btn-success btn-block" data-dismiss="modal1">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end-->
+    <!-- Confirmation Modal Begin -->
+    <div id="confimationModel" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-confirm" id="confirmBox">
+            <div class="modal-content">
+                <input type="hidden" id="userId" />
+                <input type="hidden" id="EmailId" />
+                <div class="modal-body" title="Confirmation Required">
+                    <p class="text-center" style="font-size:15px">Are you sure?</p>
+                </div>
+                <div class="modal-footer" id="confirmButtons">
+                    <button class="btn btn-success btnyes" value="No" id="btnYes">Yes</button>
+                    <button class="btn btn-success btnno" data-dismiss="modal">NO</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Confirmation Model End -->
+    <!--Delete Confirmation Modal Begin -->
+    <div id="confimationDeleteModel" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" align="center">
+        <div class="modal-dialog modal-confirm" id="confirmDelBox">
+            <div class="modal-content">
+
+                <div class="modal-body" title="Confirmation Required">
+                    <p class="text-center" style="font-size:15px">Are you sure?</p>
+                </div>
+                <div class="modal-footer" id="confirmDelButtons">
+                    <button class="btn btn-success" id="btndelete" data-dismiss="modal">Yes</button>
+                    <button class="btn btn-success" data-dismiss="modal">NO</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Delete Confirmation  Model End -->
+    <!-- success popup without redirect Starts-->
+    <div id="WRSuccessPopup" class="modal1 fade" role="dialog" tabindex="-1" aria-hidden="true" align="center">
+
+        <div id="WRSuccessPopupModel" class="modal-dialog modal-confirm">
+            <div class="modal-content" style="width:100%!important">
+                <div class="modal-header">
+                    <div id="wriconbox" class="icon-box">
+                        <i id="wriconPopup" class="fa fa-exclamation" aria-hidden="true"></i>
+                    </div>
+                    <h4 class="modal-title" id="wrtagiging"></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center" id="wrtagginMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="" class="btn btn-success btn-block" data-dismiss="modal" onclick="">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Custom Modal HTML Ends-->
+
+
+    <script src="~/Assets/scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Assets/scripts/jquery-migrate-3.1.0.min.js"></script>
+    <script src="~/Assets/scripts/custom.js"></script>
+    <script src="~/Assets/scripts/jquery.superfish.js"></script>
+    <script src="~/Assets/scripts/jquery.themepunch.tools.min.js"></script>
+    <script src="~/Assets/scripts/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/Assets/scripts/jquery.themepunch.showbizpro.min.js"></script>
+    <script src="~/Assets/scripts/jquery.flexslider-min.js"></script>
+    <script src="~/Assets/scripts/chosen.jquery.min.js"></script>
+    <script src="~/Assets/scripts/jquery.magnific-popup.min.js"></script>
+    <script src="~/Assets/scripts/waypoints.min.js"></script>
+    <script src="~/Assets/scripts/jquery.counterup.min.js"></script>
+    <script src="~/Assets/scripts/jquery.jpanelmenu.js"></script>
+    <script src="~/Assets/scripts/stacktable.js"></script>
+    <script src="~/Assets/scripts/slick.min.js"></script>
+    <script src="~/Assets/scripts/headroom.min.js"></script>
+    <script src="~/Assets/PopBox/messagebox.js"></script>
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery-ui.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+    <script src="~/js/Shared/sharedjs.js"></script>
+    <script src="~/js/Admin/adminLayout.js"></script>
+    <script src="~/js/common.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/_layout.js"></script>
+    <script src="~/js/Validation.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

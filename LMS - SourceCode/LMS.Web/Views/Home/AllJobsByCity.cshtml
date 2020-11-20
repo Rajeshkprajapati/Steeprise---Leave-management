@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewData["Title"] = "City wise jobs";
+}
+
+<style>
+    .pagination {
+        display: contents !important;
+    }
+</style>
+
+@{
+    UserViewModel user = Context.Session.Get<UserViewModel>
+        (Constants.SessionKeyUserInfo);
+    if (user != null)
+    {
+        @if (user.RoleName == "Admin")
+        {
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+        }
+        else
+        {
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+    }
+
+<!-- Titlebar
+================================================== -->
+<div id="titlebar">
+    <div class="container">
+        <div class="ten columns">
+            <span>We found best matching:</span>
+            <h2>Jobs of cities</h2>
+        </div>
+        <div class="six columns">
+            <a href="/JobSeekerManagement" class="button">Search more jobs</a>
+        </div>
+    </div>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="container">
+    <!-- Recent Jobs -->
+    <div class="eleven columns">
+        <div class="padding-right">
+            <div class="listings-container">
+                @{
+                    UserViewModel userData = Context.Session.Get<UserViewModel>
+                    (Constants.SessionKeyUserInfo);
+                    if (userData != null)
+                    {
+                        @if (ViewBag.AllJobsCity != null)
+                        {
+                            @foreach (var jobs in ViewBag.AllJobsCity)
+                            {
+                                <a href="/Job/JobDetails/?jobid=@jobs.JobPostId" class="listing full-time">
+                                    <div class="listing-logo">
+                                        <img src="@jobs.CompanyLogo" alt="">
+                                    </div>
+                                    <div class="listing-title">
+                                        <h4> @jobs.JobTitle <span class="listing-type">@jobs.EmploymentStatus</span></h4>
+                                        <ul class="listing-icons">
+                                            <li><i class="ln ln-icon-Management"></i> @jobs.CompanyName</li>
+                                            <li><i class="ln ln-icon-Map2"></i> @jobs.City</li>
+                                            <li><i class="ln ln-icon-Money-2"></i>@jobs.CTC</li>
+                                            <li><div class="listing-date new">@jobs.NumberOfDays&#8203;d ago</div></li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            }
+
+                        }
+                        else
+                        {
+                            <p> No data found</p>
+                        }
+                    }
+                    else
+                    {
+                        @if (ViewBag.AllJobsCity != null)
+                        {
+                            @foreach (var jobs in ViewBag.AllJobsCity)
+                            {
+                                <a onclick="WarningPopup()" class="listing full-time">
+                                    <div class="listing-logo">
+                                        <img src="@jobs.CompanyLogo" alt="">
+                                    </div>
+                                    <div class="listing-title">
+                                        <h4> @jobs.JobTitle <span class="listing-type">@jobs.EmploymentStatus</span></h4>
+                                        <ul class="listing-icons">
+                                            <li><i class="ln ln-icon-Management"></i> @jobs.CompanyName</li>
+                                            <li><i class="ln ln-icon-Map2"></i> @jobs.City</li>
+                                            <li><i class="ln ln-icon-Money-2"></i>@jobs.CTC</li>
+                                            <li><div class="listing-date new">@jobs.NumberOfDays&#8203;d ago</div></li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            }
+
+                        }
+                        else
+                        {
+                            <p> No data found</p>
+                        }
+
+                    }
+
+                }
+            </div>
+            <div class="pagination-container">
+                <nav class="pagination">
+                    <ul id="pagin">
+                       
+                    </ul>
+                </nav>
+                <nav class="pagination-next-prev">
+                    <ul>
+                        <li><a href="#" class="prev">Previous</a></li>
+                        <li><a href="#" class="next">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Widgets -->
+    <div class="five columns">
+        <!-- Sort by -->
+        <div class="widget">
+            <img src="~/Assets/images/app-images-v3.png" width="100%">
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- Widgets / End -->
+
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/Jobseeker/JobDetails.js"></script>
+    <script src="~/js/Shared/pagination.js"></script>
+}

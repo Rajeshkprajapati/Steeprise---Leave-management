@@ -1,0 +1,129 @@
+﻿@using LMS.Model.DataViewModel.Shared;
+
+@model UserViewModel;
+
+@{
+    ViewData["Title"] = "Registration";
+}
+<!-- Titlebar
+================================================== -->
+@*<div id="titlebar" class="single">
+    <div class="container">
+        <div class="sixteen columns">
+            <h2>Job Seeker Registarton</h2>
+            <nav id="breadcrumbs">
+                <ul>
+                    <li>You are here:</li>
+                    <li><a href="#">Home</a></li>
+                    <li>Registarton</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>*@
+
+<!-- Content
+================================================== -->
+<!-- Container -->
+<div class="container">
+    <div class="my-account">
+        <div class="tabs-container">
+            <!-- Register -->
+            <div class="tab-content" id="tab2">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="socialmedia">
+                            Register Via:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <ul class="social-icons">
+                            <li>
+                                <a class="facebook" href="#"><i class="icon-facebook"></i></a>
+                                <a class="gplus" href="#"><i class="icon-gplus"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <form method="post" class="register" action="/Auth/SubmitRegistration">
+                    <p class="form-row form-row-wide">
+                        <label for="username2">
+                            First Name:
+                            <i class="ln ln-icon-Male"></i>
+                            <input type="text" class="input-text" name="Firstname" id="Firstname" value="" />
+                        </label>
+                    </p>
+
+                    <p class="form-row form-row-wide">
+                        <label for="username2">
+                            Last Name:
+                            <i class="ln ln-icon-Male"></i>
+                            <input type="text" class="input-text" name="Lastname" id="Lastname" value="" />
+                        </label>
+                    </p>
+                    <p class="form-row" >
+                        <label>
+                            Gender:                            
+                            <input type="radio" name="Gender" value="Male" />Male
+                            <input type="radio" name="Gender" value="Female"/>Female
+                        </label>
+                    </p>
+
+                    <p class="form-row form-row-wide">
+                        <label for="email2">
+                            Email Address:
+                            <i class="ln ln-icon-Mail"></i>
+                            <input type="text" class="input-text" name="email" id="email" value="" />
+                        </label>
+                    </p>
+
+                    <p class="form-row form-row-wide">
+                        <label for="password1">
+                            Password:
+                            <i class="ln ln-icon-Lock-2"></i>
+                            <input class="input-text" type="password" name="password" id="password" />
+                        </label>
+                    </p>
+                    <p class="form-row form-row-wide">
+                        <label for="email2">
+                            Experiance:
+                            <i class="ln ln-icon-Mouse-2"></i>
+                            <input type="number" min="0" max="10" class="input-text" name="TotalExperience" id="Experience" value="" />
+                        </label>
+                    </p>
+                    <p class="form-row form-row-wide">
+                        <label for="email2">
+                            Mobile:
+                            <i class="ln ln-icon-Smartphone"></i>
+                            <input type="number" maxlength="10" class="input-text" name="MobileNo" id="mobile" value="" />
+                        </label>
+                    </p>
+                    <p class="form-row form-row-wide">
+                        <label for="email2">
+                            Skills:
+                            <i class="ln ln-icon-Wrench"></i>
+                            <input type="text" class="input-text" name="Skills" id="Skills" value="" />
+                        </label>
+                    </p>
+                    <p class="form-row form-row-wide">
+                        <label for="email2">
+                            Industry:
+                            <i class="ln ln-icon-Building"></i>
+                            <input type="text" class="input-text" name="JobIndustryArea" id="JobIndustryArea" value="" />
+                        </label>
+                    </p>
+                    <p class="form-row form-row-wide">
+                        <label for="email2">
+                            Preferred Location:
+                            <i class="ln ln-icon-Map-Marker2"></i>
+                            <input type="text" class="input-text" name="PreferredLocation1" id="PreferredLocation" value="" />
+                        </label>
+                    </p>
+                    <p class="form-row">
+                        <input type="submit" class="button border fw margin-top-10" name="register" value="Register" />
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

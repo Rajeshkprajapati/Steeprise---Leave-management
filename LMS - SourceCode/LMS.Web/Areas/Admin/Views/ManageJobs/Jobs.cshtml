@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Jobs";
+}
+<link href="~/lib/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet" />
+<link href="~/lib/Calendar/css/tail.datetime-default-red.css" rel="stylesheet" />
+<link href="~/css/Admin/jobModification.css" rel="stylesheet" />
+<link href="~/css/employer-dashboard.css" rel="stylesheet" />
+<!-- Page Title start -->
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">@ViewData["Title"]</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb">
+                    <a href="/Home/Index/">Home</a> /
+                    <span>Welcome to @ViewData["Title"]</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+
+<div class="listpgWraper">
+    <div class="container">
+        <div class="row col-md-offset-1">
+            <div id="jobsContainer" class="col-md-10">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
+    <script src="~/lib/Calendar/js/tail.datetime.js"></script>
+    <script src="~/js/multiselector.js"></script>
+    <script src="~/js/Admin/JobManager/jobmodifications.js"></script>
+}
+
+

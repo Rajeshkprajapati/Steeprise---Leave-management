@@ -1,0 +1,161 @@
+﻿@using LMS.Model.DataViewModel.Shared
+@model UserViewModel
+@{
+    ViewData["Title"] = "ContactUs";
+}
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+<style>
+    input[type="text"] {
+        font-size: 16px;
+    }
+
+    #details {
+        font-size: 16px;
+    }
+</style>
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Contact Us</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Contact Us</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<!-- Contact us -->
+<div class="inner-page">
+    <div class="container">
+        <div class="contact-wrap">
+            <div class="row">
+                @*<div class="col-md-12 column">
+                        <div class="title">
+                            <span>We Are Here For Your Help</span><br />
+                            <p><h2>GET IN TOUCH FAST</h2></p>
+                        </div>
+                    </div>*@
+
+                @{
+                    @if (ViewBag.Contact != null)
+                    {
+                        <div class="alert alert-success" role="alert"><label style="margin-left: 300px;">@ViewBag.Contact</label></div>
+                    }
+                    @if (ViewBag.ContactError != null)
+                    {
+                        <div class="alert alert-danger" role="alert"><label style="margin-left: 300px;">@ViewBag.ContactError</label></div>
+                    }
+                }
+                <!-- Contact Info -->
+                <div class="col-md-4 column">
+                    <div class="contact-now">
+                        <div class="contact">
+                            <span><i class="fa fa-home"></i></span>
+                            <div class="information">
+                                <strong>Address:</strong>
+                                <p>NASSCOM Plot 7 to 10, Sector 126, Noida - 201303 </p>
+                            </div>
+                        </div>
+                        <!-- Contact Info -->
+                        <div class="contact">
+                            <span><i class="fa fa-envelope"></i></span>
+                            <div class="information">
+                                <strong>Email Address:</strong>
+                                <p>@{@ViewBag.ContactUs}</p>
+                            </div>
+                        </div>
+                        <!-- Contact Info -->
+                        <div class="contact">
+                            <span><i class="fa fa-phone"></i></span>
+                            <div class="information">
+                                <strong>Phone No:</strong>
+                                <p>Board No: 0120 4990111  – Ext: 137</p>
+                                <p>Direct No: 0120 4990137</p>
+                            </div>
+                        </div>
+                        <!-- Contact Info -->
+                    </div>
+                    <!-- Contact Now -->
+                </div>
+
+                <!-- Contact form -->
+
+                <div class="col-md-8 column">
+                    <div class="contact-form">
+                        <div id="message"></div>
+                        <form method="post" action="/Home/ConatctUs/" name="contactform" id="contactform">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input name="fullname" type="text" id="name" placeholder="Full Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" maxlength="10" minlength="10" name="phone" id="phone" placeholder="Phone Number" required>
+                                </div>
+                                @{
+                                    var user = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+                                    @if (user != null)
+                                    {
+                                        <div class="col-md-12">
+                                            <input name="email" type="text" id="email" value="@user.Email" readonly>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-12">
+                                            <input name="email" type="text" id="email" placeholder="Email">
+                                        </div>
+                                    }
+                                }
+                                <div class="col-md-12">
+                                    <textarea rows="6" class="text-area-editor" name="details" id="details" placeholder="Details"></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <button title="" class="button" type="submit" id="submit">Submit Now</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Google Map -->
+@*<div class="googlemap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d193572.19492844533!2d-74.11808565615137!3d40.70556503857166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1481975053066" allowfullscreen></iframe>
+    </div>*@
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            //SpecialCharAndAlphabet($('#phone'));
+            $('#phone').keypress(function (e) {
+                $("#error_sp_msg").remove();
+                var k = e.keyCode,
+                    $return = (k >= 48 && k <= 57);
+                if (!$return) {
+                    $("<span/>", {
+                        "id": "error_sp_msg",
+                    }).insertAfter($(this));
+                    return false;
+                }
+            });
+            $('#name').each(function () {
+                $(this).keypress(function (e) {
+                    $("#error_sp_msg").remove();
+                    var k = e.keyCode,
+                        $return = ((k > 64 && k < 91) || (k > 96 && k < 123) || k === 8 || k === 32);
+                    if (!$return) {
+                        $("<span/>", {
+                            "id": "error_sp_msg",
+                        }).insertAfter($(this));
+                        return false;
+                    }
+                });
+            });
+        });
+    </script>
+}

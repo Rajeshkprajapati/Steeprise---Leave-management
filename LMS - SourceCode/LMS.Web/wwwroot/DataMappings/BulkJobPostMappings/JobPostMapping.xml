@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<JobDetail>
+  <Column>
+    <FileKey>Sl No</FileKey>
+    <DataKey>SequenceNo</DataKey>
+    <DataIndex>0</DataIndex>
+    <Type>Integer</Type>
+    <DefaultValue>0</DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Corporate Name</FileKey>
+    <DataKey>CompanyName</DataKey>
+    <DataIndex>1</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>State</FileKey>
+    <DataKey>StateCode</DataKey>
+    <DataIndex>2</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Job Location/ District</FileKey>
+    <DataKey>CityCode</DataKey>
+    <DataIndex>3</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Job Title</FileKey>
+    <DataKey>JobTitleByEmployer</DataKey>
+    <DataIndex>4</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>  
+  <Column>
+    <FileKey>SPOC</FileKey>
+    <DataKey>SPOC</DataKey>
+    <DataIndex>5</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>SPOC Mail id</FileKey>
+    <DataKey>SPOCEmail</DataKey>
+    <DataIndex>6</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>SPOC Contact</FileKey>
+    <DataKey>SPOCContact</DataKey>
+    <DataIndex>7</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Salary in INR (CTC) P.A.</FileKey>
+    <DataKey>CTC</DataKey>
+    <DataIndex>8</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Qualification Reqd</FileKey>
+    <DataKey>HiringCriteria</DataKey>
+    <DataIndex>9</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Min Exp</FileKey>
+    <DataKey>MinExp</DataKey>
+    <DataIndex>10</DataIndex>
+    <Type>Integer</Type>
+    <DefaultValue>0</DefaultValue>
+  </Column>  
+   <Column>
+    <FileKey>Max Exp</FileKey>
+    <DataKey>MaxExp</DataKey>
+    <DataIndex>11</DataIndex>
+    <Type>Integer</Type>
+    <DefaultValue>0</DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Job Type</FileKey>
+    <DataKey>JobType</DataKey>
+    <DataIndex>12</DataIndex>
+    <Type>Integer</Type>
+    <DefaultValue>0</DefaultValue>
+  </Column>   
+  <Column>
+    <FileKey>Job Description</FileKey>
+    <DataKey>JobDetails</DataKey>
+    <DataIndex>13</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Total</FileKey>
+    <DataKey>Total</DataKey>
+    <DataIndex>14</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Date of Posting (YYYY-MM-DD)</FileKey>
+    <DataKey>PositionStartDate</DataKey>
+    <DataIndex>15</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Date of Expiry(YYYY-MM-DD)</FileKey>
+    <DataKey>PositionEndDate</DataKey>
+    <DataIndex>16</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+</JobDetail>

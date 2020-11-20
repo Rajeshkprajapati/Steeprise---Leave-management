@@ -1,0 +1,406 @@
+﻿@using LMS.Model.DataViewModel.Employer.SearchResume
+@model SearchResumeListViewModel
+@{
+    ViewData["Title"] = "Show Candidate Detail";
+}
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+@*<div class="pageTitle">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <h1 class="page-heading">Candidate Details</h1>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Candidate Name</span></div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!-- Page Title End -->
+@*<div class="listpgWraper">
+        <div class="container">
+
+            <!-- Job Header start -->
+            <div class="job-header">
+                <div class="jobinfo">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8">
+                            <!-- Candidate Info -->
+                            <div class="candidateinfo">
+                                @if (@Model.ProfilePic == "")
+                                {
+                                    <div class="userPic"><img src="~/ProfilePic/Avatar.jpg" alt=""></div>
+                                }
+                                else
+                                {
+                                    <div class="userPic"><img src="@Model.ProfilePic" alt=""></div>
+                                }
+                                <div class="title">@Model.FirstName @Model.LastName</div>
+                                <div class="desi">@Model.JobTitle</div>
+                                <div class="loctext"><i class="fa fa-history" aria-hidden="true"></i>Member Since, @Model.CreatedOn.ToString("MMMM") @Model.CreatedOn.ToString("dd"), @Model.CreatedOn.ToString("yyyy")</div>
+                                <div class="loctext"><i class="fa fa-map-marker" aria-hidden="true"></i> @Model.CityName, @Model.StateName (@Model.CountryName)</div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <label class="label label-success" id="result" hidden></label>
+
+                        </div>
+
+
+                        <div class="col-md-4 col-sm-4">
+                            <!-- Candidate Contact -->
+                            <div class="candidateinfo">
+                                <div class="loctext"><i class="fa fa-phone" aria-hidden="true"></i> (+91) @Model.MobileNo</div>
+                                <div class="loctext"><i class="fa fa-envelope" aria-hidden="true"></i> @Model.Email</div>
+
+                                <div class="cadsocial">
+
+                                    @if (!string.IsNullOrWhiteSpace(Model.LinkedinProfile))
+                                    {
+                                    <a href="@Model.LinkedinProfile" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                                    }
+                                    else
+                                    {
+                                        @*<a href="@Model.LinkedinProfile" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- Buttons -->
+
+                <div class="jobButtons">
+                    @if (!string.IsNullOrWhiteSpace(Model.Resume))
+                    {
+                        <a href="@Model.Resume" target="_blank" class="btn"><i class="fa fa-download" aria-hidden="true"></i> Download CV</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0);" style="pointer-events:none;" class="btn"><i class="fa fa-download" aria-hidden="true"></i> Download CV</a>
+                    }
+                    <a onclick="SendMail('@Model.Email','@Model.FirstName')" class="btn"><i class="fa fa-envelope" aria-hidden="true"></i> Send Message</a>
+                </div>
+
+            </div>
+
+            <!-- Job Detail start -->
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- About Employee start -->
+                    <div class="job-header">
+                        <div class="contentbox" style="min-height:213px">
+                            <h3>About me</h3>
+                            <p>@Model.AboutMe</p>
+
+                        </div>
+                    </div>
+
+                    <!-- Education start -->
+                    <div class="job-header">
+                        <div class="contentbox">
+                            <h3>Education</h3>
+                            <ul class="educationList">
+                                @if (Model.EducationalDetails == null)
+                                {
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <p>No Data Found</p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                }
+                                else
+                                {
+                                    @foreach (var item in Model.EducationalDetails)
+                                    {
+                                        <li>
+                                            @if (item.CourseName != null && item.CourseName != "")
+                                            {
+                                                <div class="date">
+                                                    Passing <br />Year<br />
+                                                    @item.PassingYear
+                                                </div>
+                                                <h4>@item.CourseName</h4>
+                                                <p>@item.University</p>
+                                                <p>Score @item.Percentage %</p>
+                                                <div class="clearfix"></div>
+                                            }
+                                            else
+                                            {
+                                                <p>N/A</p>
+                                            }
+                                        </li>
+                                    }
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Experience start -->
+                    <div class="job-header">
+                        <div class="contentbox">
+                            <h3>Experience</h3>
+
+                            <ul class="experienceList">
+                                @if (Model.ExperienceDetails == null)
+                                {
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <p>No Data Found</p>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                }
+                                else
+                                {
+                                    @foreach (var item in Model.ExperienceDetails)
+                                    {
+                                        <li>
+
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <h4>@item.Organization</h4>
+                                                    <div class="row">
+                                                        <div class="col-md-6">www.companywebsite.com</div>
+                                                        <div class="col-md-6">From @item.WorkingFrom |Current Company- @item.Organization|</div>
+
+                                                    </div>
+                                                    <p>@item.JobProfile</p>
+
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    }
+                                }
+
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <!-- Candidate Detail start -->
+                    <div class="job-header">
+                        <div class="jobdetail">
+                            <h3>Candidate Detail</h3>
+                            <ul class="jbdetail">
+                                <li class="row">
+                                    <div class="col-md-6 col-xs-6">Experience</div>
+                                    <div class="col-md-6 col-xs-6"><span>@(Model.TotalExperience > 0 ? string.Format("{0} Year(s)", Model.TotalExperience) : "Fresher")</span></div>
+                                </li>
+                                <li class="row">
+                                    <div class="col-md-6 col-xs-6">Age</div>
+                                    @if (Model.DateOfBirth != null)
+                                    {
+                                        <div class="col-md-6 col-xs-6"><span>@Model.DateOfBirth Years</span></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-6 col-xs-6"><span>Not Available</span></div>
+                                    }
+                                </li>
+                                <li class="row">
+                                    <div class="col-md-6 col-xs-6">Current Salary <i class="fa fa-inr" aria-hidden="true"></i></div>
+                                    <div class="col-md-6 col-xs-6"><span class="permanent">@Model.CurrentSalary</span></div>
+                                </li>
+                                <li class="row">
+                                    <div class="col-md-6 col-xs-6">Expected Salary <i class="fa fa-inr" aria-hidden="true"></i></div>
+                                    <div class="col-md-6 col-xs-6"><span class="">@Model.ExpectedSalary</span></div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Google Map start -->
+                    <div class="job-header">
+                        <div class="jobdetail">
+                            <h3>Skills</h3>
+                            <div class="skillswrap">
+                                <!-- Skill -->
+                                <h5>@Model.Skills.SkillSets</h5>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Company start -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Modal -->
+    <div id="myModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="iconbox" class="icon-box">
+                        <i id="iconPopup" class="" aria-hidden="true"></i>
+                    </div>
+                    <h4 class="modal-title" id="tagiging"></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center" id="tagginMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSuccess" style="display:block" onclick="location.reload(true)" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                    <button id="btnWarning" style="display:none" onclick="location.reload(true)" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+<div id="titlebar" class="resume">
+    <div class="container">
+        <div class="ten columns">
+            <div class="resume-titlebar">
+                @if (Model.ProfilePic == "")
+                {
+                    <img src="~/ProfilePic/Avatar.jpg" alt="">
+                }
+                else
+                {
+                    <img src="@Model.ProfilePic" alt="">
+                }
+                <div class="resumes-list-content">
+                    <h4>@Model.FirstName @Model.LastName<span>@Model.JobTitle</span></h4>
+                    <span class="icons"><i class="fa fa-map-marker"></i>@Model.CityName, @Model.StateName</span>
+                    <!--<span class="icons"><i class="fa fa-money"></i> $100 / hour</span> -->
+                    <span class="icons"><a href="#"><i class="fa fa-link"></i> Website</a></span>
+                    <span class="icons"><i class="fa fa-envelope"></i> @Model.Email</span>
+                    <div class="skills">
+                        <span>@Model.Skills.SkillSets</span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="six columns">
+            <div class="two-buttons">
+                @if (!string.IsNullOrWhiteSpace(Model.Resume))
+                {
+                    <a href="@Model.Resume" target="_blank" class="btn"><i class="fa fa-download" aria-hidden="true"></i> Download CV</a>
+                }
+                else
+                {
+                    <a href="javascript:void(0);" style="pointer-events:none;" class="btn"><i class="fa fa-download" aria-hidden="true"></i> Download CV</a>
+                }
+                <a onclick="SendMail('@Model.Email','@Model.FirstName')" class="button"><i class="fa fa-envelope" aria-hidden="true"></i> Send Message</a>
+                <!-- <a href="#small-dialog" class="popup-with-zoom-anim button"><i class="fa fa-envelope"></i> Send Message</a> -->
+
+                <div id="small-dialog" class="zoom-anim-dialog mfp-hide apply-popup">
+                    <div class="small-dialog-headline">
+                        <h2>Send Message to @Model.FirstName @Model.LastName</h2>
+                    </div>
+                    <div class="small-dialog-content">
+                        <form action="#" method="get">
+                            <input type="text" placeholder="Full Name" value="@Model.FirstName @Model.LastName" readonly />
+                            <input type="text" placeholder="Email Address" value="@Model.Email" readonly />
+                            <textarea placeholder="Message"></textarea>
+                            <button class="send">Send Application</button>
+                        </form>
+                    </div>
+
+                </div>
+                <!-- <a href="#" class="button dark"><i class="fa fa-star"></i> Bookmark This Resume</a> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="container">
+    <!-- Recent Jobs -->
+    <div class="eight columns">
+        <div class="padding-right">
+            <h3 class="margin-bottom-15">About Me</h3>
+            <p class="margin-reset">
+                @Model.AboutMe
+            </p>
+
+        </div>
+    </div>
+
+    <!-- Widgets -->
+    <div class="eight columns">
+        <h3 class="margin-bottom-20">Education</h3>
+        <!-- Resume Table -->
+        <dl class="resume-table">
+            @if (Model.EducationalDetails == null)
+            {
+                <dd>
+                    <strong>No Data Found</strong>
+                </dd>
+            }
+            else
+            {
+                @foreach (var item in Model.EducationalDetails)
+                {
+                    <dt>
+                        @if (item.CourseName != null && item.CourseName != "")
+                        {
+                            <small class="date">@item.PassingYear</small>
+                            <strong>@item.CourseName</strong>
+                            <strong>@item.University</strong>
+                            <strong>Score @item.Percentage %</strong>
+                        }
+                        else
+                        {
+                            <strong>N/A</strong>
+                        }
+                    </dt>
+                }
+            }
+
+        </dl>
+        <h3 class="margin-bottom-20">Experience</h3>
+        <dl class="resume-table">
+            @if (Model.ExperienceDetails == null)
+            {
+                <dd>
+                    <strong>No Data Found</strong>
+                </dd>
+            }
+            else
+            {
+                @foreach (var item in Model.ExperienceDetails)
+                {
+                    <dt>
+                        <small class="date">@item.WorkingFrom - @item.WorkingTill</small>
+                        <strong>@item.Organization</strong>
+                        <strong>@item.Designation</strong>
+                    </dt>
+                }
+            }
+
+        </dl>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+
+    <script src="~/js/Employer/SearchResume/SearchResume.js"></script>
+}
+

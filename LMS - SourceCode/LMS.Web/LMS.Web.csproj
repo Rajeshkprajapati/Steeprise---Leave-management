@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <Optimize>false</Optimize>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\Templates\BulkJobPostTemplate\**" />
+    <Content Remove="wwwroot\Templates\BulkJobPostTemplate\**" />
+    <EmbeddedResource Remove="wwwroot\Templates\BulkJobPostTemplate\**" />
+    <None Remove="wwwroot\Templates\BulkJobPostTemplate\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.94.2" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Employer\Data\" />
+    <Folder Include="Areas\Employer\Models\" />
+    <Folder Include="Areas\Jobseeker\Data\" />
+    <Folder Include="Areas\Jobseeker\Models\" />
+    <Folder Include="Areas\Shared\Data\" />
+    <Folder Include="Areas\Shared\Models\" />
+    <Folder Include="Areas\TrainingPartner\Data\" />
+    <Folder Include="Areas\TrainingPartner\Models\" />
+    <Folder Include="Models\" />
+    <Folder Include="wwwroot\lib\datatable\" />
+    <Folder Include="wwwroot\lib\tag-editor\" />
+    <Folder Include="wwwroot\Resume\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Assets\fonts\fontawesome-webfont93e3.svg" />
+    <None Include="wwwroot\Assets\fonts\fontello0bee.svg" />
+    <None Include="wwwroot\Assets\fonts\lineariconsca27.svg" />
+    <None Include="wwwroot\Assets\scripts\chosen.jquery.min.js" />
+    <None Include="wwwroot\Assets\scripts\custom.js" />
+    <None Include="wwwroot\Assets\scripts\headroom.min.js" />
+    <None Include="wwwroot\Assets\scripts\jquery-3.4.1.min.js" />
+    <None Include="wwwroot\Assets\scripts\jquery-migrate-3.1.0.min.js" />
+    <None Include="wwwroot\Assets\scripts\jquery.counterup.min.js" />
+    <None Include="wwwroot\Assets\scripts\jquery.flexslider-min.js" />
+    <None Include="wwwroot\Assets\scripts\jquery.gmaps.min.js" />
+    <None Include="wwwroot\Assets\scripts\jquery.jpanelmenu.js" />
+    <None Include="wwwroot\Assets\scripts\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\Assets\scripts\jquery.superfish.js" />
+    <None Include="wwwroot\Assets\scripts\jquery.themepunch.revolution.min.js" />
+    <None Include="wwwroot\Assets\scripts\jquery.themepunch.showbizpro.min.js" />
+    <None Include="wwwroot\Assets\scripts\jquery.themepunch.tools.min.js" />
+    <None Include="wwwroot\Assets\scripts\slick.min.js" />
+    <None Include="wwwroot\Assets\scripts\stacktable.js" />
+    <None Include="wwwroot\Assets\scripts\waypoints.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LMS.Business\LMS.Business.csproj" />
+    <ProjectReference Include="..\LMS.Logger\LMS.Logger.csproj" />
+    <ProjectReference Include="..\LMS.Model\LMS.Model.csproj" />
+    <ProjectReference Include="..\LMS.Utility\LMS.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

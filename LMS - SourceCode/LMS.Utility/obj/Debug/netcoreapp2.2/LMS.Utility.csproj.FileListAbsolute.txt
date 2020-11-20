@@ -1,0 +1,11 @@
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\bin\Debug\netcoreapp2.2\LMS.Utility.deps.json
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\bin\Debug\netcoreapp2.2\LMS.Utility.runtimeconfig.json
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\bin\Debug\netcoreapp2.2\LMS.Utility.runtimeconfig.dev.json
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\bin\Debug\netcoreapp2.2\LMS.Utility.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\bin\Debug\netcoreapp2.2\LMS.Utility.pdb
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\obj\Debug\netcoreapp2.2\LMS.Utility.csproj.CoreCompileInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\obj\Debug\netcoreapp2.2\LMS.Utility.AssemblyInfoInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\obj\Debug\netcoreapp2.2\LMS.Utility.AssemblyInfo.cs
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\obj\Debug\netcoreapp2.2\LMS.Utility.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\obj\Debug\netcoreapp2.2\LMS.Utility.pdb
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Utility\obj\Debug\netcoreapp2.2\LMS.Utility.csprojAssemblyReference.cache

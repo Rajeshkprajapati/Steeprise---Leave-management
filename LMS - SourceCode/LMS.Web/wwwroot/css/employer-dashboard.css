@@ -1,0 +1,112 @@
+﻿div#contentHolder > div div.formrow input[type=text],
+div#contentHolder > div div.formrow textarea {
+    background: white !important;
+}
+
+div#contentHolder > div div.formrow img {
+    max-height: 100px;
+    max-width: 100px;
+    border-radius: 50%;
+}
+
+div#contentHolder > div div.formrow:last-child {
+    margin-bottom: 5px;
+}
+
+div#contentHolder > div table {
+    margin-top: 10px;
+}
+
+div#contentHolder > div div.formrow {
+    margin-top: 20px;
+}
+
+ul.searchList {
+    margin-top: 10px;
+}
+
+div.inbox {
+    cursor: pointer;
+}
+
+div#contentHolder > div:first-child {
+    padding:10px;
+}
+
+div#contentHolder > div:first-child i.fa.fa-calendar {
+    color: red;
+}
+
+div#contentHolder > div:first-child input#dateToFilterMessages{
+    background:white;
+}
+
+div#contentHolder > div {
+    border: 1px solid lightgrey;
+    max-height: 500px;
+    overflow: auto;
+    margin-left:0px;
+    margin-right:0px;
+}
+
+.job-edit-icon {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+    color: blue;
+}
+
+div.modal-dialog {
+    margin: auto;
+}
+
+div.modal-dialog div.modal-body {
+    overflow:auto;
+}
+
+.data-not-available {
+    text-align: center;
+    height: 200px;
+    margin-top: 15%;
+    color: red;
+    font-size: 16px;
+}
+
+div.resource-counters-container{
+    display:flex;
+}
+
+div.resource-counters-container{
+    margin-bottom:10px;
+}
+
+div.resource-counters-container > label {
+    align-self: center;
+}
+
+div.form-group.row > label{
+    margin-bottom:10px;
+}
+
+.col-md-4.formrow {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+button.multiselect.dropdown-toggle.btn.btn-default.multiselector {
+    padding: 10px 20px;
+}
+.searchJobseekerbtn {
+    height: 39px;
+}
+.dataTables_filter, #tableJobSeekersList_length {
+    display: none;
+}
+.empdashboardTextField {
+    margin-bottom:2px;
+}
+
+
+
+
+

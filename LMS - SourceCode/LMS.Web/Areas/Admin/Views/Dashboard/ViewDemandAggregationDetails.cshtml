@@ -1,0 +1,71 @@
+﻿@model IEnumerable<LMS.Model.DataViewModel.Admin.Dashboard.DemandAggregationDetailsViewModel>
+
+@{
+    ViewData["Title"] = "Demand Aggregation Details";
+}
+
+<link href="~/lib/datatable/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">@ViewData["Title"]</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>@ViewData["Title"]</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="listpgWraper table-responsive">
+    @if (null != Model && Model.Count() > 0)
+    {
+        <table class="table table-striped table-hover table-bordered" id="tableDemandAggregation">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Country</th>
+                    <th>State</th>
+                    <th>City</th>
+                    <th>Job Role</th>
+                    <th>Financial Year</th>
+                    <th>Posted By</th>
+                    <th>Q1</th>
+                    <th>Q2</th>
+                    <th>Q3</th>
+                    <th>Q4</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var detail in Model)
+                {
+                <tr>
+                    <td>@detail.Company</td>
+                    <td>@detail.Country</td>
+                    <td>@detail.State</td>
+                    <td>@detail.City</td>
+                    <td>@detail.JobRole</td>
+                    <td>@detail.FinancialYear</td>
+                    <td>@detail.CreatedBy</td>
+                    <td>@detail.Quarter1</td>
+                    <td>@detail.Quarter2</td>
+                    <td>@detail.Quarter3</td>
+                    <td>@detail.Quarter4</td>
+                    <td>@detail.Total</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/Admin/Dashboard/demandAggregationDetails.js"></script>
+}

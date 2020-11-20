@@ -1,0 +1,301 @@
+﻿@using LMS.Model.DataViewModel.Employer.SearchResume
+@model IEnumerable<SearchResumeListViewModel>
+@{
+    ViewData["Title"] = "SearchResume";
+}
+@*<link href="~/lib/jquery/jquery-ui.min.css" rel="stylesheet" />*@
+@*<link href="~/css/Employer/search-resume.css" rel="stylesheet" />*@
+<!-- Page Title start -->
+<style>
+    .pagination {
+        display: contents !important;
+    }
+</style>
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Resume Listing</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb">
+                    <a href="/Home/Index/">Home</a> /
+                    <a asp-controller="EmployerManagement" asp-action="SearchResume">Resume Search</a> /
+                    <span>Resume List</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+@*
+    @{
+        var filters = ViewBag.Searches as SearchResumeViewModel;
+        var SearchesInJson = JsonConvert.SerializeObject(filters);
+        <input type="hidden" id="hdnFilters" value="@SearchesInJson">
+        <div class="listpgWraper">
+            <div class="container">
+                <!-- Search Result and sidebar start -->
+                <div class="row main-resumes-container" id="main-section">
+                    <div class="col-md-3 col-sm-6 left-pane-filter">
+                        <!-- Side Bar start -->
+                        <div class="sidebar">
+                            <!-- Jobs By Title -->
+                            <!-- title end -->
+                            <!-- Jobs By City -->
+                            <div class="widgetprofile">
+                                <h4 class="widget-title">Resume By City</h4>
+                                <input type="text" class="filter-search-box" placeholder="Search" />
+                                <ul class="optionlist" style="padding-right:6%">
+                                    @{
+                                        if (ViewBag.City != null && ViewBag.City.Count > 0)
+                                        {
+                                            int j = 0;
+                                            foreach (var item in ViewBag.City)
+                                            {
+                                                if (item.CountValue > 0)
+                                                {
+                                                    <li>
+                                                        <input type="checkbox" @if (filters.City.Any(c => c == item.CityCode)) { <text> checked</text> } name="checkname" id="Name_@j" value="@item.CityCode" onchange="SearchCity(this)" />
+                                                        <label for="Name_@j"></label>
+                                                        @item.City <span>@item.CountValue</span>
+                                                    </li>
+                                                    j = j + 1;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                            <li>
+                                <label style="color:red;"> Cities not found</label>
+                            </li>
+                        }
+                    }
+                </ul>
+
+            </div>
+        </div>
+        <!-- Side Bar end -->
+    </div>
+    <div class="col-md-9 col-sm-12 pre-scrollable resume-search-result">
+        @* <input type="hidden" value="@ViewBag.filterData" id="hdnFilterData" />
+        @if (Model.Count() < 1)
+        {
+            <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong>&nbsp; Candidates not found</div>
+
+        }
+        <!-- Search List -->
+        <ul class="searchList">
+            <!-- job start -->
+            @foreach (var item in Model)
+            {
+                <li>
+            <div class="row">
+                <div class="col-md-2 col-sm-2">
+
+                    @if (item.ProfilePic == "")
+                    {
+                        <div class="jobimg"><img src="~/images/jobs/jobimg.jpg" alt="Jobseeker photo" /></div>
+                    }
+                    else
+                    {
+                        <div class="jobimg"><img src="@item.ProfilePic" alt="Jobseeker photo" /></div>
+                    }
+                </div>
+                <div class="col-md-10 col-sm-10">
+                    <div class="jobinfo">
+                <h3 style="margin-bottom:0px !important;"><a href="/SearchResume/ShowCandidateDetail/?userId=@item.UserId">@item.FirstName @item.LastName </a></h3><br />
+
+                <div class="location"><label class="fulltime">Email</label>   - <span>@item.Email</span></div>
+        @if (@item.Skills == null)
+        {
+            <div class="location"><label class="fulltime">Skill </label></div>
+        }
+        else
+        {
+            <div class="location"><label class="fulltime">Skill </label> - <span>@item.Skills.SkillSets</span></div>
+        }
+        <div class="location fulltime">
+            <label class="fulltime">Resume </label>   - <b>
+                @if (string.IsNullOrWhiteSpace(item.Resume))
+                {
+                    <span>N/A</span>
+                }
+                else
+                {
+                    <a href="@item.Resume">Download Resume</a>
+                }
+            </b>
+        </div>
+        <div class="location ">@*<label class="fulltime">Job Role </label>   - <span>@item.SSCJobRole</span>*@   @*<label class="fulltime">City </label>   - <span>@item.CityName</span></div>*@
+
+        @*<div class="location setempolyerlist"></div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                    <!-- job end -->
+                                </ul>
+                            </div>
+                            <!-- Pagination end -->
+                        </div>
+                    </div>
+                </div>
+
+            }
+        *@
+
+        @{
+            var filters = ViewBag.Searches as SearchResumeViewModel;
+            var SearchesInJson = JsonConvert.SerializeObject(filters);
+            <input type="hidden" id="hdnFilters" value="@SearchesInJson">
+            <div class="container">
+                <!-- Recent Jobs -->
+                <div class="eleven columns">
+                    <div class="padding-right">
+                        @if (Model.Count() < 1)
+                        {
+                            <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong>&nbsp; Candidates not found</div>
+
+                        }
+                        else
+                        {
+
+                            <ul class="resumes-list alternative">
+                                @foreach (var item in Model)
+                                {
+
+                                    <li class="listing">
+                                        <a href="/SearchResume/ShowCandidateDetail/?userId=@item.UserId">
+                                            @if (item.ProfilePic == "")
+                                            {
+                                                <img src="~/images/jobs/jobimg.jpg" alt="Jobseeker photo" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@item.ProfilePic" alt="Jobseeker">
+                                            }
+                                            <div class="resumes-list-content">
+                                                <h4>@item.FirstName @item.LastName <span>@item.JobTitle</span></h4>
+                                                <!--<h4>John Doe <span>UX/UI Graphic Designer</span></h4>
+                                                <span><i class="fa fa-money"></i> $100 / hour</span> -->
+                                                <span><i class="fa fa-envelope" aria-hidden="true"></i>@item.Email</span>
+                                                <span>
+                                                    <i class="fa fa-map-marker"></i>
+                                                    @if (String.IsNullOrWhiteSpace(item.CityName))
+                                                    {
+                                                        @item.CityName
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>N/A</span>
+                                                    }
+                                                </span>
+                                                <p>@item.AboutMe</p>
+
+                                                <div class="skills">
+                                                    @*@string[] skill = @item.Skills.SkillSets.Split(',');*@
+                                                    <span>@item.Skills.SkillSets</span>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </a>
+                                        <div class="clearfix"></div>
+                                    </li>
+
+
+                                }
+                            </ul>
+                        }
+                        <div class="clearfix"></div>
+                        <div class="pagination-container">
+                            <nav class="pagination">
+                                <ul id="pagin"></ul>
+                            </nav>
+                            <nav class="pagination-next-prev">
+                                <ul>
+                                    <li><a class="prev">Previous</a></li>
+                                    <li><a class="next">Next</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widgets -->
+                <div class="five columns">
+
+                    <!-- Rate/Hr -->
+                    <div class="widget">
+                        <h4>Resume By City</h4>
+                        <input type="text" class="filter-search-box" placeholder="Search" />
+                        <ul class="checkboxes expandible expanded">
+                            @{
+                                if (ViewBag.City != null && ViewBag.City.Count > 0)
+                                {
+                                    int j = 0;
+                                    foreach (var item in ViewBag.City)
+                                    {
+                                        if (item.CountValue > 0)
+                                        {
+                                            <li>
+                                                <input type="checkbox" @if (filters.City.Any(c => c == item.CityCode)) { <text> checked</text> } name="checkname" id="Name_@j" value="@item.CityCode" onchange="SearchCity(this)" />
+                                                <label for="Name_@j"></label>
+                                                @item.City <span>@item.CountValue</span>
+                                            </li>
+                                            j = j + 1;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <li>
+                                        <label style="color:red;"> Cities not found</label>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+                <!-- Widgets / End -->
+            </div>
+        }
+
+        @section Scripts
+            {
+            <script>
+                $(document).ready(function () {
+                    pageSize = 3;
+                    incremSlide = 3;
+                    startPage = 0;
+                    numberPage = 0;
+                    $('ul.expandible').each(function () {
+                        var $ul = $(this),
+                            $lis = $ul.find('li:gt(4)'),
+                            isExpanded = $ul.hasClass('expanded');
+                        $lis[isExpanded ? 'show' : 'hide']();
+
+                        if ($lis.length > 0) {
+                            $ul
+                                .append($('<span class="showmore"><li class="expand">' + (isExpanded ? 'Show Less' : 'Show More') + '</li></span>')
+                                    .click(function (event) {
+                                        var isExpanded = $ul.hasClass('expanded');
+                                        event.preventDefault();
+                                        $(this).html(isExpanded ? 'Show More' : 'Show Less');
+                                        $ul.toggleClass('expanded');
+                                        $lis.toggle();
+                                    }));
+                        }
+                    });
+                });
+            </script>
+            <script src="~/js/Employer/SearchResume/SearchResumeList.js"></script>
+            <script src="~/js/Shared/pagination.js"></script>
+        }
+
+
+

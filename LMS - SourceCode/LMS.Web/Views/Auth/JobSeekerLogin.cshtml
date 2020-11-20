@@ -1,0 +1,70 @@
+﻿@using LMS.Model.DataViewModel.Shared;
+@{
+    ViewData["Title"] = "Job Seeker Login";
+}
+@model UserViewModel
+
+<link href="~/css/Auth/auth.css" rel="stylesheet" />
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+    <div class="container">
+        <div class="sixteen columns">
+            <h2 class="LoginHeading">Job Seeker Login</h2>
+            <nav id="breadcrumbs">
+                <ul>
+                    <li>You are here:</li>
+                    <li><a href="#">Home</a></li>
+                    <li>Job Seeker Login</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Content
+================================================== -->
+<!-- Container -->
+<div class="container">
+    <div class="my-account">
+        <div class="tabs-container">
+            <!-- Login -->
+            <div class="tab-content" id="tab1">
+                <div asp-validation-summary="All" asp- class="text-danger-custom">
+                </div>
+                <form method="post" class="login" asp-action="Login">
+                    <p class="form-row form-row-wide">
+                        <label for="username">
+                            Username:
+                            <i class="ln ln-icon-Male"></i>
+                            <input type="text" class="input-text" asp-for="Email" id="Email" value="" placeholder="Enter Email" />
+                        </label>
+                    </p>
+                    <p class="form-row form-row-wide">
+                        <label for="password">
+                            Password:
+                            <i class="ln ln-icon-Lock-2"></i>
+                            <input class="input-text" type="password" asp-for="Password" id="password" placeholder="Enter Password" />
+                        </label>
+                    </p>
+                    <p class="form-row">
+                            <input type="submit" class="button border fw margin-top-10" name="login" value="Login" />
+                            @*<a class="btn btn-info" asp-action="GoogleLogin">Log In With Google</a>
+                            <label for="rememberme" class="rememberme">
+                                <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember Me
+                            </label>*@
+                        </p>
+                    <div class="form-row form-row-wide">
+                        <span class="col-sm-6" style="padding-left:0px !important;font-weight:bold">
+                            <a href="#" class="headingReg">Lost Your Password?</a>
+                        </span>
+                        <span class="col-sm-6" style="text-align:right;font-weight:bold">
+                            <a href="/Auth/JobseekerRegistration" class="headingReg">New Registration</a>
+                        </span>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

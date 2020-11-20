@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewData["Title"] = "Demand Aggregation";
+}
+
+<link href="~/css/admin-dashboard.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-multiselect//css/bootstrap-multiselect.css" rel="stylesheet" />
+
+<div class="listpgWraper">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row formrow">
+                <div class="col-md-12 demand-aggregation-colors-info">
+                </div>
+            </div>
+            <div class="formrow row">
+                <div class="formrow col-md-1 non-instructed-row">
+                    <select class="form-control" id="ddlFinancialYear" onchange="yearChanged(this)">
+                        @{
+                            int currYear = DateTime.Now.Year;
+                            @for (int i = (currYear - 2); i <= currYear; i++)
+                            {
+                                if (i == currYear)
+                                {
+                                    <option selected value="@i">@i</option>
+                                }
+                                else
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="formrow col-md-2 non-instructed-row">
+                    <select class="form-control" id="ddlUserRole" onchange="roleChangedToFilterGraph(this)">
+                        <option value="1">Bulk Upload</option>
+                        <option value="3">Direct Employer Upload</option>
+                        <option value="0">All</option>
+                    </select>
+                </div>
+                <div class="formrow col-md-8">
+                    <div class="formrow col-md-4 filter-instruction">
+                        <span>(*Select max 5 employers at a time)</span>
+                        <input type="hidden" id="hdnDemandByEmployer" />
+                        <select id="ddlDemandByEmployer" multiple="multiple" class="form-control" asp-items="@(new SelectList(ViewBag.Employers,"UserId", "CompanyName"))"></select>
+                    </div>
+                    <div class="formrow col-md-4 filter-instruction">
+                        <span>(*Select max 5 job roles at a time)</span>
+                        <input type="hidden" id="hdnDemandByJobRoles" />
+                        <select id="ddlDemandByJobRoles" multiple="multiple" class="form-control" asp-items="@(new SelectList(ViewBag.JobRoles,"JobTitleId", "JobTitleName"))"></select>
+                    </div>
+                    <div class="formrow col-md-4 filter-instruction">
+                        <span>(*Select max 5 states at a time)</span>
+                        <input type="hidden" id="hdnDemandByStates" />
+                        <select id="ddlDemandByStates" multiple="multiple" class="form-control" asp-items="@(new SelectList(ViewBag.States,"StateCode", "State"))"></select>
+                    </div>
+                </div>
+                <div class="formrow col-md-1 non-instructed-row">
+                    <a class="btn btn-sm btn-primary" onclick="return exportDemandAggregationReport(this);" href="javascript:void(0);" target="_blank">Export</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6 demandAggrigationcss">
+                    <div class="col-md-12 graph-container">
+                        <div class="col-md-12">
+                            <h5> Total Jobs Posted</h5>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="error-class"></label>
+                            <canvas id="demandByEmployersBar" data-forWhichBasis="DemandByEmployers"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6 demandAggrigationcss">
+                    <div class="col-md-12 graph-container">
+                        <div class="col-md-12">
+                            <h5>Total demand by Job Roles</h5>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="error-class"></label>
+                            <canvas id="demandByJobRolesBar" data-forWhichBasis="DemandByJobRoles"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6 demandAggrigationcss">
+                    <div class="col-md-12 graph-container">
+                        <div class="col-md-12">
+                            <h5>Total Demand by States</h5>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="error-class"></label>
+                            <canvas id="demandByStatesBar" data-forWhichBasis="DemandByStates"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-12 col-xs-12 col-lg-6 demandAggrigationcss">
+                    <div class="col-md-12 graph-container">
+                        <div class="col-md-12">
+                            <h5>Total Demand by Quarter</h5>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="error-class"></label>
+                            <canvas id="demandByQuarterBar" data-forWhichBasis="DemandByQuarter"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/Admin/Index/Chart2.js"></script>
+    <script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
+    <script src="~/js/multiselector.js"></script>
+    <script src="~/js/Admin/Dashboard/adminDashboard.js"></script>
+}

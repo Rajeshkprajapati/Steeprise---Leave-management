@@ -1,0 +1,136 @@
+﻿@model IEnumerable<LMS.Model.DataViewModel.Admin.ManageUsers.ManageUsersViewModel>
+@{
+    ViewData["Title"] = "All Users";
+}
+
+<!-- Titlebar -->
+<div id="titlebar">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Breadcrumbs -->
+            <nav id="breadcrumbs">
+                <ul>
+                    <li><a href="#">Admin</a></li>
+                    <li>Manage Users</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+
+    <!-- Table-->
+    <div class="col-lg-12 col-md-12">
+        <div class="dashboard-list-box margin-top-30">
+            <div class="dashboard-list-box-content">
+                <!-- Table -->
+                <table class="manage-table resumes responsive-table" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th hidden>#</th>
+                            <th><i class="fa fa-user"></i> User</th>
+                            <th><i class="fa fa-file-text"></i> Last Name</th>
+                            <th><i class="fa fa-envelope"></i> Email</th>
+                            <th><i class="fa fa-calendar"></i> Created Date</th>
+                            <th><i class="fa fa-pie-chart"></i> Role</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <!-- Item #1 -->
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td hidden>@user.Userid</td>
+                                <td>
+                                    @if (!user.IsViewed)
+                                    {
+                                        <span class="un-viewed-notation">*&nbsp;&nbsp;</span>
+                                    }
+                                    <label>
+                                        @user.FirstName
+                                    </label>
+                                </td>
+                                <td style="width:115px;">@user.LastName</td>
+                                <td>@user.Email</td>
+                                <td>@user.CreatedDate.ToString("MM/dd/yyyy HH:mm:ss")</td>
+                                <td>@user.RoleName</td>
+                                <td class="action">
+                                    <a href="javascript:void(0);" data-toggle="modal" data-name="@user.FirstName @user.LastName" data-target="#PopUpModal" onclick="edit(this)"><i class="fa fa-pencil"></i> Edit</a>
+                                    <a href="javascript:void(0);" onclick="ConfrimationDeleteMessage(@user.Userid)"><i class="fa fa-remove"></i> Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loader" hidden>
+    <img id="imgloader" src="~/images/ajax-loader1.gif" />
+</div>
+
+<div class="modal fade" id="PopUpModal" tabindex="-1" role="dialog" aria-labelledby="locationModalCenter" aria-hidden="true" style="background-color: rgb(128 128 128 / 88%);">
+    <div class="dashboard-content">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 popupdata">
+                <label class="close close-model" data-dismiss="modal">&times;</label>
+                <div class="dashboard-list-box margin-top-5">
+                    <h4 id="PopUpModalLabel">Edit Record</h4>
+                    <div class="dashboard-list-box-content">
+                        <div class="submit-page">
+                            <div class="form" style="display:none">
+                                <h5>User ID</h5>
+                                <input type="text" name="UserId" id="UserId" class="search-field eduModeltxtbox" placeholder="User Id">
+                            </div>
+
+                            <div class="form" style="width:100%">
+                                <h5>First Name</h5>
+                                <input type="text" name="FName" id="FName" class="search-field eduModeltxtbox" placeholder="First Name">
+                            </div>
+                            <div class="form" style="width:100%">
+                                <h5>Last Name</h5>
+                                <input type="text" name="LName" id="LName" class="search-field eduModeltxtbox" placeholder="Last Name">
+                            </div>
+                            <div class="form" style="width:100%">
+                                <h5>Email</h5>
+                                <input type="text" name="Email" id="Email" class="search-field eduModeltxtbox" placeholder="Email" readonly>
+                            </div>
+                            <div class="form" style="display:none">
+                                <h5>Password</h5>
+                                <input type="password" name="psd" id="psd" class="search-field eduModeltxtbox" placeholder="Last Name">
+                            </div>
+
+                            <div class="form" style="width:100%">
+                                <h5>Role</h5>
+                                <select class="selectDropdown" id="Role" readonly>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Student">Student</option>
+                                    <option value="Corporate">Corporate</option>
+                                    <option value="Staffing Partner">Staffing Partner</option>
+                                    <option value="Training Partner">Training Partner</option>
+                                </select>
+                            </div>
+
+                            <div class="form">
+                                <input type="submit" class="button border fw margin-top-10 pull-right" onclick="Updatedata()" value="Update data" />
+
+                            </div>
+                            <div class="form">
+                                <input type="button" class="button border fw margin-top-10 " data-dismiss="modal" value="Close" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/datatable/js/jquery.dataTables.min.js"></script>
+<script src="~/lib/datatable/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/js/Admin/ManageUsers/ManageUsers.js"></script>

@@ -1,0 +1,62 @@
+﻿.widgettitles.gp-standard-titles {
+    border-bottom: 2px solid #efa41c;
+}
+.widgettitles {
+    font-family: Kadwa,"Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 18px;
+    /*font-weight: 20px;*/
+    font-size: large;
+    font-style: normal;
+    color: #000;
+    font-size: 20px;
+    margin-bottom:25px;
+    padding-bottom:5px;
+}
+.btn-primary {
+    color: #fff !important;
+    background-color: #1f1cef !important;
+    border-color: #1f1cef !important;
+}
+.frameVideo {
+    width:100%;
+    height:100%;
+ }
+.buttonLabel {
+    width: 100%;
+    text-transform: uppercase;
+    margin-top: 3px;
+}
+.updateLbl {
+    font-size: 17px;
+    margin-top: 5px
+}
+.dateicon{
+    float: right;
+   
+}
+.div12 {
+    margin-bottom:20px;
+    text-align:left;
+}
+.custom-file-label {
+    width:100%!important;
+    
+}
+.pre-scrollable {
+    max-height: 700px!important;
+   
+}
+.col-md-6,.col-md-4 {
+    margin-top: 5px;
+}
+.reviewdiv {
+    margin-top:-25px;
+}
+
+@media (min-width: 992px)
+{
+    .modal-confirm .modal-content {
+        
+        max-width: 50%!important;
+    }
+}

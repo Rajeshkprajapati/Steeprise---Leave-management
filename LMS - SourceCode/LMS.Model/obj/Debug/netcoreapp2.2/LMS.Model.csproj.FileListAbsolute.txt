@@ -1,0 +1,16 @@
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\bin\Debug\netcoreapp2.2\LMS.Model.deps.json
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\bin\Debug\netcoreapp2.2\LMS.Model.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\bin\Debug\netcoreapp2.2\LMS.Model.pdb
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Authentication.Abstractions.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Http.Features.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Authentication.Abstractions.xml
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Http.Features.xml
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\bin\Debug\netcoreapp2.2\Microsoft.AspNetCore.Mvc.ViewFeatures.xml
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\obj\Debug\netcoreapp2.2\LMS.Model.csprojAssemblyReference.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\obj\Debug\netcoreapp2.2\LMS.Model.csproj.CoreCompileInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\obj\Debug\netcoreapp2.2\LMS.Model.AssemblyInfoInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\obj\Debug\netcoreapp2.2\LMS.Model.AssemblyInfo.cs
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\obj\Debug\netcoreapp2.2\LMS.Model.csproj.CopyComplete
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\obj\Debug\netcoreapp2.2\LMS.Model.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Model\obj\Debug\netcoreapp2.2\LMS.Model.pdb

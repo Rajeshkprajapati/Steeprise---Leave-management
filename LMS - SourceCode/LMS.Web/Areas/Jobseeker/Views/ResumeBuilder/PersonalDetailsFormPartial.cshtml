@@ -1,0 +1,76 @@
+﻿<form method="post" id="personalDetails" onsubmit="savePersonalDetails(this,event)">
+    <div class="formrow">
+        <label for="FirstName">First Name:</label>
+        <input type="text" name="FirstName" class="form-control" placeholder="First Name">
+    </div>
+    <div class="formrow">
+        <label for="LastName">Last Name:</label>
+        <input type="text" name="LastName" class="form-control" placeholder="Last Name">
+    </div>
+    <div class="formrow">
+        <label for="Email">Email:</label>
+        <input type="email" name="Email" class="form-control" placeholder="Email">
+    </div>
+    <div class="formrow">
+        <label for="MobileNo">Contact Number:</label>
+        <input type="text" name="MobileNo" class="form-control" placeholder="Contact No." maxlength="10">
+    </div>
+    <div class="formrow">
+        <label for="Address1">Address 1:</label>
+        <input type="text" name="Address1" class="form-control" placeholder="Address Line 1" required>
+    </div>
+    <div class="formrow">
+        <label for="Address2">Address 2:</label>
+        <input type="text" name="Address2" class="form-control" placeholder="Address Line 2">
+    </div>
+    <div class="formrow">
+        <label for="Address3">Address 3:</label>
+        <input type="text" name="Address3" class="form-control" placeholder="Address Line 3">
+    </div>
+    <div class="formrow">
+        <label for="Country">Country:</label>
+        <select name="Country" onchange="getStates(this)" class="form-control">
+        </select>
+    </div>
+    <div class="formrow">
+        <label for="State">State:</label>
+        <select name="State" onchange="getCities(this)" class="form-control">
+        </select>
+    </div>
+    <div class="formrow">
+        <label for="City">City:</label>
+        <select name="City" class="form-control">
+        </select>
+    </div>
+    <div class="formrow">
+        <label for="MaritalStatus">Marital Status:</label>
+        <div class="form-group">
+            <label class="radio-inline">
+                <input type="radio" name="MaritalStatus" value="">
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="MaritalStatus" value="">
+            </label>
+        </div>
+    </div>
+    <div class="formrow">
+        <label for="Gender">Gender:</label>
+        <div class="form-group">
+            <label class="radio-inline">
+                <input type="radio" name="Gender"  value="">
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="Gender" value="">
+            </label>
+        </div>
+    </div>
+    <div class="formrow">
+        <label for="DOB">Date of Birth:</label>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="date" name="DOB" id="DOB" class="demo form-control unstyled dobCalander" placeholder="Please enter date of birth">
+             </div>
+        </div>
+    </div>
+    <input type="submit" class="btn" value="Save and Continue">
+</form>

@@ -1,0 +1,91 @@
+﻿@using LMS.Model.DataViewModel.Employer.JobPost
+@model IEnumerable<JobPostViewModel>
+<div class="row">
+   <div class="col-md-12 table-responsive">
+
+        @if (Model.Count() > 0)
+        {
+            <button id="tableDelete" class="btn btn-primary pull-right" style="margin-bottom:5px;margin-left:5px;" onclick="ConfrimationDeleteMessage()" value="">Delete</button>
+            <table id="dataTable" class="display table table-striped table-bordered dt-responsive nowrap">
+                <thead>
+                    <tr>
+                        <th hidden>
+                            JobPostId
+                        </th>
+                        <th>
+                            Compnay Name
+                        </th>
+                        <th>
+                            Job Title
+                        </th>
+                        <th>
+                            State
+                        </th>
+                        <th>
+                            City
+                        </th>
+                        <th>
+                            Job Type
+                        </th>
+                        <th>
+                            CTC
+                        </th>
+                        <th>
+                            Posted On
+                        </th>
+                        <th>
+                            <input type="checkbox" id="allselectcheckbox" class=""  onchange="SelectAll()">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var jobs in Model)
+                    {
+                        <tr>
+                            @*<td>
+                                @employee.CandidateId
+                            </td>*@
+                            <td hidden>
+                                @jobs.JobPostId
+                            </td>
+                            <td>
+                                @jobs.CompanyName
+                            </td>
+                            <td>
+                                @jobs.JobTitleByEmployer
+                            </td>
+                            <td>
+                                @jobs.State
+                            </td>
+                            <td>
+                                @jobs.City
+                            </td>
+                            <td>
+                                @jobs.JobTypeSummary
+                            </td>
+                            <td>
+                                @jobs.CTC
+                            </td>
+                            <td>
+                                @jobs.PostedOn
+                            </td>
+                            <td class="tableButtonCenter">
+                                <input type="checkbox" class="checkBoxClass" value="@jobs.JobPostId" id="bulkDeleteChkbox" name="bulkDeleteChkbox" onchange="SelectJob(this)">
+                                @*<button type="submit" class="btn btn-danger btn-sm" onclick="ConfrimationDeleteMessage(@jobs.JobPostId)">Delete</button>*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="row data-not-available">
+                <label>
+                    Data not found to display
+                </label>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/js/Admin/BulkJobDelete/BulkJobDelete.js"></script>

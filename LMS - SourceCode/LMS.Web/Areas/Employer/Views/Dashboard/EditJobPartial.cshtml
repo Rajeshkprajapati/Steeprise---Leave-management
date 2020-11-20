@@ -1,0 +1,320 @@
+﻿@using LMS.Model.DataViewModel.Employer.JobPost;
+@model JobPostViewModel
+
+<div class="row col-md-12">
+    @if (Convert.ToString(@ViewData["RoleName"]) == "Admin")
+    {
+        <form>
+            <input type="hidden" name="JobPostId" value="@Model.JobPostId" />
+            <div class="form-group row">
+                <label class="col-md-2" for="companyName">Company Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class=" form-control" name="CompanyName" value="@Model.CompanyName" id="companyName" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="jobTitle">Job Title</label>
+                <div class="col-sm-10">
+                    <input type="text" class=" form-control" name="JobTitleByEmployer" value="@Model.JobTitleByEmployer" id="jobTitle" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="jobRole">Job Role</label>
+                <div class="col-sm-10">
+                    <input type="hidden" id="hdnJobRoleIds" name="JobTitleId" value="@Model.JobTitleId" />
+                    <select class="chosen-select" multiple="multiple" asp-items="@(new SelectList(ViewBag.JobRoles, "JobTitleId", "JobTitleName"))" id="jobRole"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="country">Country</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="CountryCode" asp-items="@(new SelectList(ViewBag.Countries, "CountryCode", "Country", Model.CountryCode))" id="country"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="state">State</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="state" onchange="stateChange(this.value)" name="StateCode" asp-items="@(new SelectList(ViewBag.States, "StateCode", "State", Model.StateCode))"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="city">City</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="city" name="CityCode" asp-items="@(new SelectList(ViewBag.Cities, "CityCode", "City", Model.CityCode))"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="monthlySalary">Posting Date</label>
+                <div class="col-sm-10">
+                    <input type="date" class=" form-control unstyled" id="PostingDate" name="PositionStartDate" placeholder="yyyy-mm-dd" value="@Model.PositionStartDate" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="monthlySalary">Expiry Date</label>
+                <div class="col-sm-10">
+                    <input type="date" min="2020-01-01" max="2030-12-31" class=" form-control unstyled" id="ExpiryDate" name="PositionEndDate" placeholder="yyyy-mm-dd" value="@Model.PositionEndDate" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="ctc">CTC</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="ctc" name="CTC" value="@Model.CTC" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="hiringCriteria">Hiring Criteria</label>
+                <div class="col-sm-10">
+                    <input type="text" class=" form-control" id="hiringCriteria" name="HiringCriteria" value="@Model.HiringCriteria" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="jobType">Job Type</label>
+                <div class="col-sm-10">
+                    <input type="hidden" id="jobType" name="JobType" value="@Model.JobType" />
+                    <input type="text" class=" form-control" id="jobTypeSummary" name="JobTypeSummary" value="@Model.JobTypeSummary" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="financialYear">Financial Year</label>
+                <div class="col-sm-10">
+                    <input type="text" class=" form-control" id="financialYear" name="FinancialYear" value="@Model.FinancialYear" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2">Quarterly Openings</label>
+                <div class="col-md-10">
+                    <div class="resource-counters-container col-md-3">
+                        <label for="quarter1">Q1&nbsp;&nbsp;</label>
+                        <input type="number" class=" form-control" id="quarter1" @(Model.IsQuarter1ReadOnly ? "readonly" : "") name="Quarter1" value="@Model.Quarter1" />
+                    </div>
+                    <div class="resource-counters-container col-md-3">
+                        <label for="quarter2">Q2&nbsp;&nbsp;</label>
+                        <input type="number" class=" form-control" id="quarter2" @(Model.IsQuarter2ReadOnly ? "readonly" : "") name="Quarter2" value="@Model.Quarter2" />
+                    </div>
+                    <div class="resource-counters-container col-md-3">
+                        <label for="quarter3">Q3&nbsp;&nbsp;</label>
+                        <input type="number" class=" form-control" id="quarter3" @(Model.IsQuarter3ReadOnly ? "readonly" : "") name="Quarter3" value="@Model.Quarter3" />
+                    </div>
+                    <div class="resource-counters-container col-md-3">
+                        <label for="quarter4">Q4&nbsp;&nbsp;</label>
+                        <input type="number" class=" form-control" id="quarter4" name="quarter4" @(Model.IsQuarter4ReadOnly ? "readonly" : "") value="@Model.Quarter4" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="spoc">SPOC</label>
+                <div class="col-sm-10">
+                    <input type="text" class=" form-control" id="spoc" name="ContactPerson" value="@Model.ContactPerson" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="spocEmail">SPOC Email</label>
+                <div class="col-sm-10">
+                    <input type="text" class=" form-control" id="spocEmail" name="SPOCEmail" value="@Model.SPOCEmail" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="spocContact">SPOC Contact</label>
+                <div class="col-sm-10">
+                    <input type="text" class=" form-control" id="spocContact" name="Mobile" value="@Model.Mobile" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="jobDetails">Job Details</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control ckeditor" cols="25" name="JobDetails" id="jobDetails">@Model.JobDetails</textarea>
+                </div>
+            </div>
+            @if (Convert.ToString(@ViewData["RoleName"]) == "Admin")
+            {
+                <div class="form-group row">
+                    <label class="col-md-2" for="featured">Featured</label>
+                    <div class=" form-group col-md-10">
+                        <div class="col-md-1">
+                            <input @(Convert.ToString(@Model.Featured) == "True" ? "checked='checked'" : string.Empty) type="checkbox" name="featured" class="form-check-input" id="featured">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="display order" style="margin-top:5%">Display Order</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" class=" form-control" id="displayorder" min="0" max="20" name="displayorder" value="@Model.DisplayOrder" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </form>
+    }
+    else
+    {
+        <form>
+            <input type="hidden" name="JobPostId" value="@Model.JobPostId" />
+            <div class="form-group row">
+                <label class="col-md-2" for="companyName">Company Name</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class=" form-control" name="CompanyName" value="@Model.CompanyName" id="companyName" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="jobTitle">Job Title</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class=" form-control" name="JobTitleByEmployer" value="@Model.JobTitleByEmployer" id="jobTitle" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="jobRole">Job Role</label>
+                <div class="col-sm-10">
+                    <input type="hidden" id="hdnJobRoleIds" name="JobTitleId" value="@Model.JobTitleId" />
+                    <select class="chosen-select" multiple asp-items="@(new SelectList(ViewBag.JobRoles, "JobTitleId", "JobTitleName"))" id="jobRole">                        
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="country">Country</label>
+                <div class="col-sm-10">
+                    <select class="form-control disable-click" name="CountryCode" asp-items="@(new SelectList(ViewBag.Countries, "CountryCode", "Country", Model.CountryCode))" id="country"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="state">State</label>
+                <div class="col-sm-10">
+                    <select class="form-control disable-click" id="state" name="StateCode" asp-items="@(new SelectList(ViewBag.States, "StateCode", "State", Model.StateCode))"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="city">City</label>
+                <div class="col-sm-10">
+                    <select class="form-control disable-click" id="city" name="CityCode" asp-items="@(new SelectList(ViewBag.Cities, "CityCode", "City", Model.CityCode))"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="monthlySalary">Posting Date</label>
+                <div class="col-sm-10">
+                    <input type="date" readonly class=" form-control unstyled" id="PostingDates" name="PositionStartDate" value="@Model.PositionStartDate" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="monthlySalary">Expiry Date</label>
+                <div class="col-sm-10">
+                    <input type="date" class=" form-control unstyled" id="ExpiryDate" name="PositionEndDate" value="@Model.PositionEndDate" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="ctc">CTC</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class=" form-control" id="ctc" name="CTC" value="@Model.CTC" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="hiringCriteria">Hiring Criteria</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class=" form-control" id="hiringCriteria" name="HiringCriteria" value="@Model.HiringCriteria" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="jobType">Job Type</label>
+                <div class="col-sm-10">
+                    <input type="hidden" id="jobType" name="JobType" value="@Model.JobType" />
+                    <input type="text" readonly class=" form-control" id="jobTypeSummary" name="JobTypeSummary" value="@Model.JobTypeSummary" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="financialYear">Financial Year</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class=" form-control" id="financialYear" name="FinancialYear" value="@Model.FinancialYear" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2">Openings</label>
+                <div class="col-md-10">
+                    <input type="text" readonly class=" form-control" id="NoPosition" name="NoPosition" value="@Model.NoPosition" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="spoc">SPOC</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class=" form-control" id="spoc" name="ContactPerson" value="@Model.ContactPerson" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="spocEmail">SPOC Email</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class=" form-control" id="spocEmail" name="SPOCEmail" value="@Model.SPOCEmail" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="spocContact">SPOC Contact</label>
+                <div class="col-sm-10">
+                    <input type="text" readonly class=" form-control" id="spocContact" name="Mobile" value="@Model.Mobile" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2" for="jobDetails">Job Details</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control text-area-editor" cols="25" name="JobDetails" id="jobDetails">@Model.JobDetails</textarea>
+                </div>
+            </div>
+            @if (Convert.ToString(@ViewData["RoleName"]) == "Admin")
+            {
+                <div class="form-group row">
+                    <label class="col-md-2" for="featured">Featured</label>
+                    <div class=" form-group col-md-10">
+                        <div class="col-md-1">
+                            <input @(Convert.ToString(@Model.Featured) == "True" ? "checked='checked'" : string.Empty) type="checkbox" name="featured" class="form-check-input" id="featured">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="display order" style="margin-top:5%">Display Order</label>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" class=" form-control" id="displayorder" min="0" max="20" name="displayorder" value="@Model.DisplayOrder" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </form>
+    }
+</div>
+
+<script>
+    CKEDITOR.replace('jobDetails');
+    $(document).ready(function () {
+        //debugger;
+        $("#jobRole").chosen({width:"100%"});
+        $(".chosen-select-no-single").chosen({});
+        //var my_val = 3,4,6;
+        //var str_array = my_val.split(',');
+        var str_array = '@Model.JobTitleId.Replace(" ", "")';
+        //console.log(str_array);        
+        var arr = str_array.split(',');
+        //console.log(arr);        
+        $("#jobRole").val(arr).trigger("chosen:updated");
+
+        //......................
+        function initCalendar(TextBox) {
+            dobCalendar = tail.DateTime(TextBox, {
+                dateFormat: "YYYY-mm-dd",
+                timeFormat: false,
+                position: "bottom",
+                closeButton: false,
+                dateEnd: new Date('01/01/2030'),
+                dateStart: new Date('01/01/2020')
+            })
+                .on("open", () => {
+
+                })
+                .on("close", () => {
+
+                })
+                .on("change", () => {
+
+                });
+            //dobCalendar.selectDate(date.getFullYear(), date.getMonth(), date.getDate());
+        };
+        initCalendar("input[type=date]#ExpiryDate");
+        if ($('#PostingDate').length) {
+            initCalendar("input[type=date]#PostingDate");
+        }
+
+    });
+</script>
+
+

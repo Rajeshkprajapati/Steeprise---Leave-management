@@ -1,0 +1,224 @@
+﻿  <!-- Titlebar -->
+<div id="titlebar">
+    <div class="row">
+        <div class="col-md-12">
+            @{
+                UserViewModel usrData = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+                <h2>Hi, @usrData.FirstName!</h2>
+            }
+          
+            <!-- Breadcrumbs -->
+            <nav id="breadcrumbs">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li>Dashboard</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 calendar-div">
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <h6>From</h6>
+                <div class="input-group">
+
+                    <input type="date" required id="picdate" class="demo form-control unstyled" style="height:40px!important" placeholder="Start Date">
+                    <div id="datetime-demo-holder" class="datetime-folder"></div>
+                    <div class="input-group-addon">
+                        <a href="javascript:void(0);" id="picdate1" onclick="toggleStartCalendar()">  <i class="fa fa-calendar" style="font-size:26px;color:#ad212b;" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="form-group">
+                <h6>To</h6>
+                <div class="input-group">
+                    <input type="date" required id="endpicdate" class="demo form-control unstyled" style="height:40px!important" onchange="TDate()" placeholder="End Date">
+                    <div id="datetime-demo-holder" class="datetime-folder"></div>
+                    <div class="input-group-addon">
+                        <a href="javascript:void(0);" id="picdate2" onclick="toggleEndCalendar()">  <i class="fa fa-calendar" style="font-size:26px;color:#ad212b;" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1">
+            <h6>&nbsp;</h6>
+            <input type="button" value="Get Data" onclick="getDateRange()" class="btn btn-primary" style="color: #e6ece6;height: 39px;">
+        </div>
+    </div>
+</div>
+<!-- Content -->
+<div class="row">
+    <!-- Item -->
+    <div class="col-lg-3 col-md-6" id="Employerdaywise">
+        <div class="dashboard-stat color-1">
+            <div class="dashboard-stat-content"><h4 class="counter" id="lblEmpRegistration">0</h4> <span>Employer Registration</span></div>
+            <div class="dashboard-stat-icon"><i class="ln ln-icon-File-Link"></i></div>
+        </div>
+    </div>
+    <!-- Item -->
+    <div class="col-lg-3 col-md-6" id="jobPostDatewise">
+        <div class="dashboard-stat color-2">
+            <div class="dashboard-stat-content"><h4 class="counter" id="lblJobPost">0</h4> <span>Total Job Post</span></div>
+            <div class="dashboard-stat-icon"><i class="ln ln-icon-Bar-Chart"></i></div>
+        </div>
+    </div>
+
+    <!-- Item -->
+    <div class="col-lg-3 col-md-6" id="resumePost">
+        <div class="dashboard-stat color-3">
+            <div class="dashboard-stat-content"><h4 class="counter" id="lblResumePost">0</h4> <span>Total Resume Post</span></div>
+            <div class="dashboard-stat-icon"><i class="ln ln-icon-Business-ManWoman"></i></div>
+        </div>
+    </div>
+
+    <!-- Item -->
+    <div class="col-lg-3 col-md-6" id="studentdaywise">
+        <div class="dashboard-stat color-4">
+            <div class="dashboard-stat-content"><h4 class="counter" id="lblStudentRegistration">0</h4> <span>Job Seeker</span></div>
+            <div class="dashboard-stat-icon"><i class="ln ln-icon-Add-UserStar "></i></div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="dashboard-list-box margin-top-0">
+            <h4>Analytical Dashboard</h4>
+            <div class="dashboard-list-box-content">
+                <div class="submit-page">
+
+                    <div class="form" style="width:33%">
+                        <h5 for="FYear">Year</h5>
+                        <select data-placeholder="Full-Time" name="FYear" class="chosen-select-no-single" id="yearofdata">
+                            @{
+                                int currYear = DateTime.Now.Year;
+                                @for (int i = (currYear - 1); i <= (currYear + 1); i++)
+                                {
+                                    if (i == currYear)
+                                    {
+                                        <option selected value="@i">@i</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form" style="width:33%">
+                        <h5 for="Gender">Gender</h5>
+                        <select data-placeholder="Full-Time" name="Gender" class="chosen-select-no-single" id="genderApplied">
+                            @{
+                                foreach (var item in ViewBag.Genders)
+                                {
+                                    if (item.GenderCode == "all")
+                                    {
+                                        <option selected value="@item.GenderCode">@item.Gender</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.GenderCode">@item.Gender</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form" style="width:33%">
+                        <h5 for="States">States</h5>
+                        <select data-placeholder="Full-Time" name="States" class="chosen-select-no-single" id="statewise">
+                            <option value="" selected>All</option>
+                            @{
+                                foreach (var item in ViewBag.State)
+                                {
+                                    <option value="@item.StateCode">@item.State</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Jobs -->
+    <div class="col-lg-6 col-md-12">
+        <div class="dashboard-list-box margin-top-20">
+            <h4>Active Jobs</h4>
+            <ul>
+                <li>
+                    <div class="graph-holder" id="jobPostedGraphContainer">
+                        <label class="no-graph-available" id="noJobsPostedGraphAvailable">No Graph Available</label>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <!-- User Registration -->
+    <div class="col-lg-6 col-md-12">
+        <div class="dashboard-list-box margin-top-20">
+            <h4>User Registration</h4>
+            <ul>
+                <li>
+                    <div class="graph-holder" id="userRegistrationGraphContainer">
+                        <label class="no-graph-available" id="noUserRegistrationGraphAvailable">No Graph Available</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Applied Jobs -->
+    <div class="col-lg-6 col-md-12">
+        <div class="dashboard-list-box margin-top-20">
+            <h4>Applied Jobs</h4>
+            <ul>
+                <li>
+                    <div class="graph-holder" id="appliedJobsGraphContainer">
+                        <label class="no-graph-available" id="noAppliedJobsGraphAvailable">No Graph Available</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Applied Jobs -->
+    <div class="col-lg-6 col-md-12">
+        <div class="dashboard-list-box margin-top-20">
+            <h4>Closed Jobs</h4>
+            <ul>
+                <li>
+                    <div class="graph-holder" id="activJobsGraphContainer">
+                        <label class="no-graph-available" id="noActiveJobsGraphAvailable">No Graph Available</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Copyrights -->
+    <div class="col-md-12">
+        <div class="copyrights">© 2019 WorkScout. All Rights Reserved.</div>
+    </div>
+</div>
+
+<script src="~/lib/Calendar/js/tail.datetime.js"></script>
+@*<script src="~/js/Admin/Dashboard/AdminDashboardArea.js"></script>*@
+<script src="~/js/Admin/Index/Chart2.js"></script>
+<script src="~/js/common.js"></script>
+<script src="~/js/Admin/Calendar.js"></script>
+<script src="~/js/Admin/Index/Index.js"></script>

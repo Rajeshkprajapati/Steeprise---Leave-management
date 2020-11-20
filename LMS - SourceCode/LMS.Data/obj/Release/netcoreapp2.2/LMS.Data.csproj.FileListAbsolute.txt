@@ -1,0 +1,3 @@
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\obj\Release\netcoreapp2.2\LMS.Data.csproj.CoreCompileInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\obj\Release\netcoreapp2.2\LMS.Data.AssemblyInfoInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\obj\Release\netcoreapp2.2\LMS.Data.AssemblyInfo.cs

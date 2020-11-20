@@ -1,0 +1,17 @@
+﻿@{
+    UserViewModel user = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+    Layout = "_Layout";
+    if (null!=user)
+    {
+        switch (user.RoleName)
+        {
+            case Constants.AdminRole:
+            case Constants.DemandAggregationRole:
+                Layout = "_AdminLayout";
+                break;
+            default:
+                break;
+        }
+    }
+
+}

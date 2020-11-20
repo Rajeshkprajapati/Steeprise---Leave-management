@@ -1,0 +1,44 @@
+﻿@model UserViewModel
+
+<h3>Employer Details  <a onclick="AddEditEmp()" style="font-size:medium;margin-left:5px"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></h3>
+<div class="row">
+    <div class="col-md-12">
+        @*<div class="col-md-12 formrow">
+                    <img class="image-center" src="@Model.ProfilePic" />
+            </div>*@
+        <div class="col-md-12 formrow">
+            <input type="text" class="form-control" readonly asp-for="CompanyName" placeholder="Company Name" />
+        </div>
+        <div class="col-md-6 formrow">
+            <input type="text" class="form-control" readonly asp-for="FirstName" placeholder="First Name" />
+        </div>
+        <div class="col-md-6 formrow">
+            <input type="text" class="form-control" readonly asp-for="LastName" placeholder="Last Name" />
+        </div>
+        <div class="col-md-6 formrow">
+            <textarea asp-for="FullAddress" readonly class="form-control text-area-editor" rows="5" placeholder="Full Address"></textarea>
+        </div>
+        <div class="col-md-6 formrow">
+            <div class="row formrow">
+                <input type="text" class="form-control" readonly asp-for=" MobileNo" placeholder="Contact No" />
+            </div>
+            <div class="row formrow">
+                <input type="text" class="form-control empdashboardTextField" readonly asp-for=" Email" placeholder="Email" />
+            </div>
+        </div>
+        
+            @*<div class="col-md-4 formrow">
+                <input type="text" readonly class="form-control" asp-for="MaritalStatusName" placeholder="Marital Status" />
+            </div>*@
+            <div class="col-md-6 formrow">
+                <input type="text" readonly class="form-control" asp-for="GenderName" placeholder="Gender" />
+            </div>
+            <div class="col-md-6 formrow">
+                <input type="text" readonly class="form-control" asp-for="ActiveFrom" placeholder="Working As An Employer From" />
+            </div>
+        
+        <div class="col-md-12 formrow" >
+            <textarea readonly class="form-control text-area-editor" asp-for="HiringFor" placeholder="Looking For Skills" cols="25"></textarea>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+﻿@*@model IEnumerable<LMS.Model.DataViewModel.Employer.JobPost.JobPostViewModel>
+@{
+    ViewData["Title"] = "Job Post Month And Date Wise";
+}
+
+<link href="~/lib/datatable/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/Loader.css" rel="stylesheet" />
+
+<!-- Page Title start -->
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Admin Area</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Admin</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<div class="container" style="padding-top:20px;padding-bottom:170px;">
+    <div class="row">
+        <h4>Filter List </h4>
+        <hr />
+
+        <div class="col-md-12">
+            <table class="table table-striped table-bordered dt-responsive nowrap" id="dataTable">
+                <thead>
+                    <tr style="background-color: #8c8686;color: white;">
+                        <th>Email Id</th>
+                        <th>Contact Person</th>
+                        <th>Mobile</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Country</th>
+                        <th>Employment Status</th>
+                        <th>Job Industry Area</th>
+                        <th>No. Of Position</th>
+                        <th>Gender</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var jobpost in Model)
+                    {
+                        <tr>
+                            <td>@jobpost.UserName</td>
+                            <td>@jobpost.ContactPerson</td>
+                            <td>@jobpost.Mobile</td>
+                            <td>@jobpost.CityCode</td>
+                            <td>@jobpost.StateCode</td>
+                            <td>@jobpost.CountryCode</td>
+                            <td>@jobpost.EmploymentStatusName</td>
+                            <td>@jobpost.EmploymentTypeName</td>
+                            <td>@jobpost.NoPosition</td>
+                            <td>@jobpost.Gender</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#dataTable').dataTable({
+                // 'columnDefs': [{ "searchable": false, 'orderable': false, 'targets': 5 }]
+                aoColumnDefs: [
+                    {
+                        bSortable: false,
+                        aTargets: [-1]
+                    },
+                    {
+                        bSearchable: false,
+                        aTargets: [-1]
+                    }
+                ]
+            });
+
+        });
+    </script>
+}*@
+

@@ -1,0 +1,55 @@
+﻿@using LMS.Model.DataViewModel.Shared;
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@model UserViewModel
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Login</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Login</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="listpgWraper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="userccount">
+                    @*<div class="socialLogin">
+                        <h5>Login Or Register with Social</h5>
+                        <a href="#." class="fb"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a href="#." class="gp"><i class="fa fa-google-plus" aria-hidden="true"></i></a> <a href="#." class="tw"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    </div>*@
+                    <h5>User Login</h5>
+                    <div asp-validation-summary="All" asp- class="text-danger-custom">
+                    </div>
+                    <!-- login form -->
+                    <div class="formpanel">
+                        <form asp-action="Login" method="post">
+                            <div class="formrow">
+                                <input type="text" asp-for="Email" required class="form-control" placeholder="Username" autofocus="">
+                            </div>
+                            <div class="formrow">
+                                <input type="password" asp-for="Password" required class="form-control" placeholder="Password">
+                            </div>
+                            <input type="submit" class="btn" value="Login">
+                        </form><br />
+                        <span><a asp-action="ForgotPassword">Forgot Password</a></span>
+                    </div>
+                    <!-- login form  end-->
+                    <!-- sign up form -->
+                    <div class="newuser"><i class="fa fa-user" aria-hidden="true"></i> New User? <a asp-action="Registration">Register Here</a></div>                    
+                    <!-- sign up form end-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

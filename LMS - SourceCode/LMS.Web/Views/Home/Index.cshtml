@@ -1,0 +1,408 @@
+﻿@using LMS.Model.DataViewModel.Shared
+@{
+    ViewData["Title"] = "Home";
+}
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet" />
+<link href="~/css/autoComplete.css" rel="stylesheet" />
+<link href="~/css/Home/Home.css" rel="stylesheet" />
+<style>
+    p {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+    .chosen-container-multi .chosen-choices {
+        height: 50px !important; 
+    }
+</style>
+<!-- Search start -->
+<div class="searchwrap">
+    <h3 style="margin-left: 2%;font-size: 31px;">Build Your Tech Careers Here And Join The Digital Revolution</h3>
+    <div class="container">
+        <div class="searchbar row">
+
+            @{
+                UserViewModel user = Context.Session.Get<UserViewModel>
+                   (Constants.SessionKeyUserInfo);
+                if (user != null)
+                {
+                    @if (user.RoleName == Constants.CorporateRole || user.RoleName == Constants.StaffingPartnerRole)
+                    {
+                        <partial name="~/Views/Shared/SearchResumePartial.cshtml" />
+                    }
+                    else if (user.RoleName == Constants.DemandAggregationRole)
+                    {
+                        @*<partial name="~/Views/Shared/SearchJobPartial.cshtml" />*@
+                    }
+                    else
+                    {
+                        <partial name="~/Views/Shared/SearchJobPartial.cshtml" />
+                    }
+                }
+                else
+                {
+                    <partial name="~/Views/Shared/SearchJobPartial.cshtml" />
+                }
+            }
+        </div>
+        <!-- button start -->
+        @{
+            UserViewModel userdata = Context.Session.Get<UserViewModel>
+                    (Constants.SessionKeyUserInfo);
+            @if (userdata == null)
+            {
+                <div class="getstarted"><a href="/Auth/JobseekerLogin"><i class="fa fa-user" aria-hidden="true"></i> Get Started Now</a></div>
+            }
+        }
+
+        <!-- button end -->
+
+    </div>
+</div>
+
+<!-- Search End -->
+<!-- Search End -->
+<!-- Start New Layout Popular Categories-->
+<!-- Categories -->
+<div class="container">
+    <div class="sixteen columns">
+        <h3 class="margin-bottom-20 margin-top-10">Popular Categories</h3>
+        <!-- Popular Categories -->
+        <div class="categories-boxes-container">
+            @if (ViewBag.PopulerSearchesCategory != null && ViewBag.PopulerSearchesCategory.Count > 0)
+            {
+                foreach (var row in ViewBag.PopulerSearchesCategory)
+                {
+                    <a href="/Home/AllJobsByCategory/?id=@row.JobIndustryAreaId" class="category-small-box">
+                        <i class="ln  ln-icon-Student-Female"></i>
+                        <h4>@row.JobIndustryAreaName</h4>
+                        <span>@row.TotalCount</span>
+                    </a>
+
+                }
+            }
+        </div>
+        <div class="clearfix"></div>
+        <div class="margin-top-30"></div>
+        <a href="/home/FindJobVacancies" class="button centered">Browse All Categories</a>
+        <div class="margin-bottom-55"></div>
+    </div>
+</div>
+
+<!-- END New Layout Popular Categories-->
+<!-- Start Recent Jobs-->
+
+<div class="container">
+
+    <!-- Recent Jobs -->
+    <div class="eleven columns">
+        <div class="padding-right">
+            <h3 class="margin-bottom-25">Recent Jobs</h3>
+            <div class="listings-container">
+
+                <!-- Listing -->
+                @if (ViewBag.RecentJobs != null && Enumerable.Count(ViewBag.RecentJobs) > 0)
+                {
+                    foreach (var jobs in ViewBag.RecentJobs)
+                    {
+                        <a href="/Job/JobDetails/?jobid=@jobs.JobPostId" class="listing full-time">
+                            <div class="listing-logo">
+                                <img src="@jobs.CompanyLogo" alt="">
+                            </div>
+                            <div class="listing-title">
+                                <h4>@jobs.JobTitleByEmployer / @jobs.JobTitle <span class="listing-type">@jobs.EmploymentStatus</span></h4>
+                                <ul class="listing-icons">
+                                    <li><i class="ln ln-icon-Management"></i> @jobs.CompanyName</li>
+                                    <li><i class="ln ln-icon-Map2"></i>  @jobs.City</li>
+                                    <li><i class="ln ln-icon-Money-2"></i> @jobs.CTC</li>
+                                    <li><div class="listing-date new">@jobs.NumberOfDays&#8203;d ago</div></li>
+                                </ul>
+                            </div>
+                        </a>
+                    }
+                }
+                else
+                {
+                    <a href="dfh.html" class="listing full-time">
+                        <h3>Now data found!</h3>
+                    </a>
+                }
+            </div>
+            @*<a href="browse-jobs.html" class="button centered"><i class="fa fa-plus-circle"></i> Show More Jobs</a>*@
+            <div class="margin-bottom-55"></div>
+        </div>
+        <div class="padding-right">
+            <h3 class="margin-bottom-25">Walk-in Jobs </h3>
+            <div class="listings-container">
+                <!-- Listing -->
+                @if (ViewBag.WalkinJobs != null && Enumerable.Count(ViewBag.WalkinJobs) > 0)
+                {
+                    foreach (var jobs in ViewBag.WalkinJobs)
+                    {
+                        <a href="/Job/JobDetails/?jobid=@jobs.JobPostId" class="listing internship">
+                            <div class="listing-logo">
+                                <img src="@jobs.CompanyLogo" alt="">
+                            </div>
+                            <div class="listing-title">
+                                <h4>@jobs.JobTitleByEmployer <span class="listing-type">@jobs.EmploymentStatus</span></h4>
+                                <ul class="listing-icons">
+                                    <li><i class="ln ln-icon-Management"></i> @jobs.CompanyName</li>
+                                    <li><i class="ln ln-icon-Map2"></i>  @jobs.City</li>
+                                    <li><i class="ln ln-icon-Money-2"></i> @jobs.CTC</li>
+                                    <li><div class="listing-date new">@jobs.NumberOfDays&#8203;d ago</div></li>
+                                </ul>
+                            </div>
+                        </a>
+                    }
+
+                }
+                else
+                {
+                    <a href="dfh.html" class="listing full-time">
+                        <h3>Now data found!</h3>
+                    </a>
+                }
+
+            </div>
+            @*<a href="browse-jobs.html" class="button centered"><i class="fa fa-plus-circle"></i> Show More Jobs</a>*@
+            <div class="margin-bottom-55"></div>
+        </div>
+    </div>
+
+    <!-- Job Spotlight -->
+    <div class="five columns">
+        <h3 class="margin-bottom-5">Job Spotlight</h3>
+        <!-- Navigation -->
+        @*<div class="showbiz-navigation">
+            <div id="showbiz_left_1" class="sb-navigation-left"><i class="fa fa-angle-left"></i></div>
+            <div id="showbiz_right_1" class="sb-navigation-right"><i class="fa fa-angle-right"></i></div>
+        </div>*@
+        <div class="clearfix"></div>
+
+        <!-- Showbiz Container -->
+        <div id="job-spotlight" class="showbiz-container">
+            <div class="showbiz" data-left="#showbiz_left_1" data-right="#showbiz_right_1" data-play="#showbiz_play_1">
+                <div class="overflowholder">
+                    <ul class="myslideUl" id="myslideUl">
+                        @if (ViewBag.FeaturedJobs != null && Enumerable.Count(ViewBag.FeaturedJobs) > 0)
+                        {
+                            foreach (var jobs in ViewBag.FeaturedJobs)
+                            {
+                                <li class="mySlides">
+                                    <div class="job-spotlight">
+                                        <a href="/Job/JobDetails/?jobid=@jobs.JobPostId"><h4>@jobs.JobTitleByEmployer <span class="part-time">@jobs.EmploymentStatus</span></h4></a>
+                                        <span><i class="fa fa-briefcase"></i> @jobs.CompanyName</span>
+                                        <span><i class="fa fa-map-marker"></i> @jobs.City</span>
+                                        @if (@jobs.CTC == "N/A")
+                                        {
+                                            <span><i class="fa fa-money"></i> -</span>
+                                        }
+                                        else
+                                        {
+                                            <span><i class="fa fa-money"></i> @jobs.CTC INR</span>
+                                        }
+
+                                        <p maxlength="20">@Html.Raw(@jobs.JobDetails)</p>
+                                        <a href="/Job/JobDetails/?jobid=@jobs.JobPostId" class="button">Apply For This Job</a>
+                                    </div>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li>Now data found</li>
+                        }
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!--snow biz 2-->
+        <!-- Showbiz Container -->
+        <div id="spotlightBanner" class="showbiz-container">
+            <div class="showbiz">
+                <img src="~/Assets/images/app-images-v3.png" width="100%">
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div id="spotlightBanner" class="showbiz-container">
+            <div class="showbiz">
+                <img src="~/Assets/images/beware.jpg" width="100%">
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="sixteen columns">
+        <h3 class="margin-bottom-20 margin-top-10">Top Employers</h3>
+        <!-- Popular Categories -->
+        <div class="categories-boxes-container">
+            @if (ViewBag.TopEmployer != null && ViewBag.TopEmployer.Count > 0)
+            {
+                UserViewModel userInformation = Context.Session.Get<UserViewModel>
+                   (Constants.SessionKeyUserInfo);
+                if (userInformation != null)
+                {
+                    foreach (var row in ViewBag.TopEmployer)
+                    {
+                        if (@row.JobseekerId == userInformation.UserId && @row.FollowIsActive != 0)
+                        {
+                            <a class="category-small-box">
+                                <i class="ln  ln-icon-Building"></i>
+                                <h4>@row.CompanyName</h4>
+                                <span>@row.Count</span><br />
+                                <input type="button" value="Followed" style="width:50%;align-self:center" />
+                            </a>
+                        }
+                        else
+                        {
+                            <a onclick="EmployerFollower(@row.UserId)" class="category-small-box">
+                                <i class="ln  ln-icon-Building"></i>
+                                <h4>@row.CompanyName</h4>
+                                <span>@row.Count</span><br />
+                                <input type="button" value="Follow" style="width:50%;align-self:center" />
+                            </a>
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var row in ViewBag.TopEmployer)
+                    {
+                        <a onclick="EmployerFollower(0)" class="category-small-box">
+                            <i class="ln  ln-icon-Building"></i>
+                            <h4>@row.CompanyName</h4>
+                            <span>@row.Count</span><br />
+                            <input type="button" value="Follow" style="width:50%;align-self:center" />
+                        </a>
+                    }
+                }
+            }
+        </div>
+        <div class="clearfix"></div>
+        <div class="margin-top-30"></div>
+        <a href="/home/FindJobVacancies/#CompanyVacancies" class="button centered">Browse All Companies</a>
+        <div class="margin-bottom-55"></div>
+    </div>
+</div>
+
+
+
+<!-- End Recent Jobs-->
+<!-- Start Recent Jobs-->
+<!-- Popular Searches start -->
+<div class="section greybg">
+    <div class="container">
+        <!-- title start -->
+        <div class="titleTop">
+
+            <h3>Popular <span>Searches</span></h3>
+        </div>
+        <!-- title end -->
+        <div class="topsearchwrap row">
+            <div class="col-md-6">
+                <!--Categories start-->
+                <h5>Browse By Categories</h5>
+                <ul class="row catelist">
+                    @if (ViewBag.PopulerSearchesCategory != null && ViewBag.PopulerSearchesCategory.Count > 0)
+                    {
+                        foreach (var row in ViewBag.PopulerSearchesCategory)
+                        {
+                            <li class="col-md-6 col-sm-6"><a href="/Home/AllJobsByCategory/?id=@row.JobIndustryAreaId" class="jslogin">@row.JobIndustryAreaName <span>(@row.TotalCount)</span></a></li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="col-md-6 col-sm-6"><span>Waiting....</span></li>
+                    }
+                </ul>
+                <!--Categories end-->
+            </div>
+            <div class="col-md-6">
+                <!--Cities start-->
+                <h5>Browse By Cities</h5>
+                <ul class="row catelist">
+                    @if (ViewBag.PopulerSearchesCity != null && ViewBag.PopulerSearchesCity.Count > 0)
+                    {
+                        foreach (var city in ViewBag.PopulerSearchesCity)
+                        {
+                            <li class="col-md-4 col-sm-4 col-xs-6"><a href="/Home/AllJobsByCity/?citycode=@city.CityCode" class="jslogin">@city.City <span>(@city.TotalCount)</span></a></li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="col-md-6 col-sm-6"><span>Waiting....</span></li>
+                    }
+
+                    @*<li class="col-md-4 col-sm-4 col-xs-6"><a href="#.">Alexander City</a></li>
+                        <li class="col-md-4 col-sm-4 col-xs-6"><a href="#.">Andalusia</a></li>
+                        <li class="col-md-4 col-sm-4 col-xs-6"><a href="#.">Anniston</a></li>
+                        <li class="col-md-4 col-sm-4 col-xs-6"><a href="#.">Athens</a></li>
+                        <li class="col-md-4 col-sm-4 col-xs-6"><a href="#.">Atmore</a></li>
+                        <li class="col-md-4 col-sm-4 col-xs-6"><a href="#.">Auburn</a></li>
+                        <li class="col-md-4 col-sm-4 col-xs-6"><a href="#.">Bessemer</a></li>*@
+                </ul>
+                <!--Cities end-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Popular Searches ends -->
+<!-- Modal HTML -->
+<div id="myModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="iconbox" class="icon-box">
+                    <i id="iconPopup" class="" aria-hidden="true"></i>
+                </div>
+                <h4 class="modal-title" id="tagiging"></h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-center" id="tagginMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSuccess" style="display:block" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                <button id="btnWarning" onclick="RedirectProfile()" style="display:none" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Confirmation Modal Begin -->
+<div id="confimationModel" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p class="text-center" style="font-size:15px">Are you sure to apply this job?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="applyJobsbutton" value="">Yes</button>
+                <button class="btn btn-success" data-dismiss="modal">NO</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Confirmation Model End -->
+@section Scripts
+    {
+    <!-- <script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
+    <script src="~/js/multiselector.js"></script>
+    <script src="~/js/autoComplete.js"></script>
+    <script src="~/js/autoCompleteIntegration.js"></script> -->
+        <script>
+            $(document).ready(function () {
+                $(".chosen-select").chosen({});
+            });
+        </script>
+    <script src="~/lib/jquery/slick.min.js"></script>
+    <script src="~/js/Home/HomeIndex.js"></script>
+    <script src="~/js/Jobseeker/JobDetails.js"></script>
+   
+}

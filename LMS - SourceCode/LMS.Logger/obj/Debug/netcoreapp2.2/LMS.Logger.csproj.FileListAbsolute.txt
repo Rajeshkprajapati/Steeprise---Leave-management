@@ -1,0 +1,4 @@
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Logger\obj\Debug\netcoreapp2.2\LMS.Logger.csprojAssemblyReference.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Logger\obj\Debug\netcoreapp2.2\LMS.Logger.csproj.CoreCompileInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Logger\obj\Debug\netcoreapp2.2\LMS.Logger.AssemblyInfoInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Logger\obj\Debug\netcoreapp2.2\LMS.Logger.AssemblyInfo.cs

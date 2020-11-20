@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>@ViewData["Title"]</title>
+
+    <link rel="shortcut icon" type="image/png" href="~/images/favicon.ico" />
+    <link href="~/lib/jquery/jquery-ui.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/lib/owl-carousel/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/main.css" rel="stylesheet" />
+    <link href="~/lib/Calendar/css/tail.datetime-default-red.css" rel="stylesheet" />
+    <link href="~/css/CommanPopup.css" rel="stylesheet" />
+    @*<link href="~/css/Modal.css" rel="stylesheet" />*@
+    <link href="~/css/Loader.css" rel="stylesheet" />
+    <link href="~/css/custom.css" rel="stylesheet" />
+    <link href="~/Assets/css/colors.css" rel="stylesheet" />
+    <link href="~/Assets/css/style.css" rel="stylesheet" />
+    <link href="~/Assets/PopBox/messagebox.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="wrapper">
+        @{
+            UserViewModel user = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+            <!-- Header
+            ================================================== -->
+            <header class="sticky-header">
+                <div class="container">
+                    <div class="sixteen columns">
+                        <!-- Logo -->
+                        <div id="logo">
+                            <h1><a href="index-2.html"><img src="~/Assets/images/logo.png" alt="Job Portal" /></a></h1>
+                        </div>
+                        <!-- Menu -->
+                        <nav id="navigation" class="menu">
+                            <ul id="responsive">
+                                <li>
+                                    <a href="/Home/Index/">Home</a>
+                                </li>
+
+                                @if (user != null)
+                                {
+                                    @if (user.RoleName == Constants.CorporateRole || user.RoleName == Constants.StaffingPartnerRole)
+                                    {
+                                        <li><a asp-area="Employer" asp-controller="Dashboard" asp-action="EmpDashboard">Dashboard</a></li>
+                                        <li>
+                                            <a href="javascript:void(0);">Employer</a>
+                                            <ul>
+                                                <li><a asp-controller="Home" asp-action="Index">Search Resume</a></li>
+                                                <li><a asp-area="Employer" asp-controller="JobManagement" asp-action="JobPosting">Post Job</a></li>
+                                                <li><a asp-area="Shared" asp-controller="BulkJobPost" asp-action="Index">Bulk Job Post</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    else if (user.RoleName == Constants.TrainingPartnerRole)
+                                    {
+                                        <li>
+                                            <a asp-area="TrainingPartner" asp-controller="Dashboard" asp-action="TPDashboard">Dashboard</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">Training Partner</a>
+                                            <ul>
+                                                <li><a asp-area="TrainingPartner" asp-controller="BulkJobSeeker" asp-action="Index">Upload Candidates</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    else if (user.RoleName == Constants.StudentRole)
+                                    {
+                                        <li>
+                                            <a asp-area="Jobseeker" asp-controller="JobSeekerManagement" asp-action="Dashboard">Dashboard</a>
+                                        </li>
+                                        <li>
+                                            <a asp-area="Jobseeker" asp-controller="Job" asp-action="RecommendedJobs">Recommended Jobs</a>
+                                            <!-- dropdown end -->
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">Job Seeker</a>
+                                            <ul>
+                                                <li><a asp-area="Jobseeker" asp-controller="JobSeekerManagement" asp-action="Index">Search Job</a></li>
+                                                <li><a asp-area="Jobseeker" asp-controller="ResumeBuilder" asp-action="Index">Create Resume</a></li>
+
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+
+                                    @*<li><a asp-controller="Auth" asp-action="Index">Login</a></li>*@
+                                }
+                                @if (user != null)
+                                {
+                                    <li class="userbtn">
+                                        @if (user.ProfilePic != "")
+                                        {
+                                            <a href="">
+                                                @*<img src="@user.ProfilePic" alt="" class="userimg" />*@
+                                                &nbsp;&nbsp;@user.FullName
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            @*<a href=""><img src="~/ProfilePic/Avatar.jpg" alt="" class="userimg" /></a>*@
+                                        }
+                                        <ul>
+                                            <li><a href="javascript:void(0);"><i class="fa fa-tachometer" aria-hidden="true"></i> @user.FullName</a></li>
+                                            @if (user.RoleName == Constants.StudentRole)
+                                            {
+                                                <li><a asp-area="Jobseeker" asp-controller="JobSeekerManagement" asp-action="Profile"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a></li>
+                                            }
+                                            else if (user.RoleName == Constants.TrainingPartnerRole)
+                                            {
+                                                <li><a asp-area="TrainingPartner" asp-controller="TrainingPartnerProfile" asp-action="EditProfile"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a onclick="AddEditEmp()"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Profile</a></li>
+                                            }
+
+                                            <li><a href="/Auth/CreateNewPassword/"><i class="fa fa-key" aria-hidden="true">&nbsp;</i>Change Password</a></li>
+                                            <li><a href="/Auth/Logout/"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+                            @if (user != null && user.RoleName == Constants.CorporateRole)
+                            {
+                                <ul class="responsive float-right">
+                                    <li><a asp-area="Employer" asp-controller="Dashboard" asp-action="EmpDashboard"><i class="fa fa-cog"></i> Dashboard</a></li>
+                                    <li><a href="/Auth/Logout/"><i class="fa fa-lock"></i> Log Out</a></li>
+                                </ul>
+                            }
+                            else if (user != null && user.RoleName == Constants.StudentRole)
+                            {
+                                <ul class="responsive float-right">
+                                    <li><a href="/Auth/Logout/"><i class="fa fa-lock"></i> Log Out</a></li>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="responsive float-right">
+                                    <li><a href="/Auth/JobSeekerLogin/"><i class="fa fa-user"></i> JOBSEEKER LOGIN</a></li>
+                                    <li><a href="/Auth/EmployerLogin/"><i class="fa fa-lock"></i> LOGIN AS EMPLOYER</a></li>
+                                </ul>
+                            }
+                        </nav>
+                        <!-- Navigation -->
+                        <div id="mobile-navigation">
+                            <a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="clearfix"></div>
+        }
+
+        @*loader*@
+        <div id="loader" hidden>
+            <img id="imgloader" src="~/images/ajax-loader1.gif" />
+        </div>
+
+        @RenderBody()
+        <!-- Footer
+        ================================================== -->
+        <div class="margin-top-30"></div>
+
+        <div id="footer">
+            <!-- Main -->
+            <div class="container">
+
+                <div class="seven columns">
+                    <h4>About</h4>
+                    <p>Morbi convallis bibendum urna ut viverra. Maecenas quis consequat libero, a feugiat eros. Nunc ut lacinia tortor morbi ultricies laoreet ullamcorper phasellus semper.</p>
+                    <a href="#" class="button">Get Started</a>
+                </div>
+
+                <div class="three columns">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Our Blog</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Hiring Hub</a></li>
+                    </ul>
+                </div>
+
+                <div class="three columns">
+                    <h4>Press</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">In the News</a></li>
+                        <li><a href="#">Press Releases</a></li>
+                        <li><a href="#">Awards</a></li>
+                        <li><a href="#">Testimonials</a></li>
+                        <li><a href="#">Timeline</a></li>
+                    </ul>
+                </div>
+
+                <div class="three columns">
+                    <h4>Browse</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Freelancers by Category</a></li>
+                        <li><a href="#">Freelancers in USA</a></li>
+                        <li><a href="#">Freelancers in UK</a></li>
+                        <li><a href="#">Freelancers in Canada</a></li>
+                        <li><a href="#">Freelancers in Australia</a></li>
+                        <li><a href="#">Find Jobs</a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom -->
+            <div class="container">
+                <div class="footer-bottom">
+                    <div class="sixteen columns">
+                        <h4>Follow Us</h4>
+                        <ul class="social-icons">
+                            <li><a class="facebook" href="#"><i class="icon-facebook"></i></a></li>
+                            <li><a class="twitter" href="#"><i class="icon-twitter"></i></a></li>
+                            <li><a class="gplus" href="#"><i class="icon-gplus"></i></a></li>
+                            <li><a class="linkedin" href="#"><i class="icon-linkedin"></i></a></li>
+                        </ul>
+                        <div class="copyrights">©  Copyright 2018 by <a href="#">Work Scout</a>. All Rights Reserved.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Back To Top Button -->
+        @*<div id="backtotop"><a href="#"></a></div>*@
+    </div>
+    <!-- Wrapper / End -->
+    <!-- Scripts
+    ================================================== -->
+    @*<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>*@
+    @*<script src="scripts/jquery-3.4.1.min.js"></script>*@
+    <script src="~/Assets/scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Assets/scripts/jquery-migrate-3.1.0.min.js"></script>
+    <script src="~/Assets/scripts/custom.js"></script>
+    <script src="~/Assets/scripts/jquery.superfish.js"></script>
+    <script src="~/Assets/scripts/jquery.themepunch.tools.min.js"></script>
+    <script src="~/Assets/scripts/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/Assets/scripts/jquery.themepunch.showbizpro.min.js"></script>
+    <script src="~/Assets/scripts/jquery.flexslider-min.js"></script>
+    <script src="~/Assets/scripts/chosen.jquery.min.js"></script>
+    <script src="~/Assets/scripts/jquery.magnific-popup.min.js"></script>
+    <script src="~/Assets/scripts/waypoints.min.js"></script>
+    <script src="~/Assets/scripts/jquery.counterup.min.js"></script>
+    <script src="~/Assets/scripts/jquery.jpanelmenu.js"></script>
+    <script src="~/Assets/scripts/stacktable.js"></script>
+    <script src="~/Assets/scripts/slick.min.js"></script>
+    <script src="~/Assets/scripts/headroom.min.js"></script>
+    <script src="~/Assets/PopBox/messagebox.js"></script>
+    @*<script src="~/lib/jquery/jquery.min.js"></script>*@
+    @*<script src="~/lib/jquery/jquery-ui.js"></script>*@
+    @*<script src="~/lib/Calendar/js/tail.datetime.js"></script>*@
+    @*<script src="~/lib/bootstrap/js/bootstrap.min.js"></script>*@
+    @*<script src="~/lib/owl-carousel/owl.carousel.min.js"></script>*@
+    @*<script src="~/js/Shared/sharedjs.js"></script>
+        <script src="~/js/common.js"></script>
+        <script src="~/js/Validation.js"></script>
+        <script src="~/js/main.js"></script>
+        <script src="~/js/Employer/Profile/empProfile.js"></script>
+        <script src="~/js/_layout.js"></script>*@    
+    <script src="~/Assets/scripts/jquery.validate.min.js"></script>
+    <script src="~/lib/Calendar/js/tail.datetime.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/js/Shared/sharedjs.js"></script>
+    <script src="~/js/common.js"></script>
+    <script src="~/js/Validation.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/_layout.js"></script>
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

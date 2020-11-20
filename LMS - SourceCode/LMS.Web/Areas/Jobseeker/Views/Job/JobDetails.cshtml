@@ -1,0 +1,208 @@
+﻿@using LMS.Model.DataViewModel.Employer.JobPost
+@{
+    ViewData["Title"] = "Job Details";
+}
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+<link href="~/css/Loader.css" rel="stylesheet" />
+
+
+<style>
+    .widget {
+        /* width: 32%; */
+        border: 0px solid #F5F1F1 !important;
+        /* padding: 0px !important; */
+        box-shadow: 0px 0px 0px 0px !important;
+    }
+</style>
+<!-- Page Title End -->
+@{
+    UserViewModel user = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar">
+        <div class="container">
+            <div class="ten columns">
+                <span><a href="browse-jobs.html">@Model.JobTitleByEmployer</a></span>
+                <h2>@Model.CompanyName <span class="full-time">@Model.EmploymentStatusName</span></h2>
+            </div>
+            <div class="six columns">
+                <a href="/JobSeekerManagement" class="button dark"><i class=""></i> Search more jobs</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content
+    ================================================== -->
+    <div class="container">
+
+        <!-- Recent Jobs -->
+        <div class="eleven columns">
+            <div class="padding-right">
+
+                <!-- Company Info -->
+                <div class="company-info">
+                    <img src="@Model.CompanyLogo" alt="">
+                    <div class="content">
+                        <h4>@Model.CompanyName</h4>
+                        <span><a href="#"><i class="fa fa-link"></i> Website</a></span>
+                        <span><a href="#"><i class="fa fa-twitter"></i> twitter</a></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                @*job details here*@
+                <p>@Model.JobTitleByEmployer</p>
+                <h4 class="margin-bottom-10">Job Details</h4>
+                @Html.Raw(@Model.JobDetails)
+            </div>
+        </div>
+
+        <!-- Widgets -->
+        <div class="five columns">
+            <!-- Sort by -->
+            <div class="widget">
+                <h3>Overview</h3>
+                <div class="job-overview">
+
+                    <ul>
+                        <li>
+                            <i class="fa fa-map-marker"></i>
+                            <div>
+                                <strong>Location:</strong>
+                                <span>@Model.StateCode, @Model.CityCode</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa fa-user"></i>
+                            <div>
+                                <strong>Job Role:</strong>
+                                <span>@Model.JobTitle</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa fa-user"></i>
+                            <div>
+                                <strong>Career Level:</strong>
+                                <span>@Model.JobTypeSummary</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa fa-money"></i>
+                            <div>
+                                <strong>Annual Salary:</strong>
+                                <span>@Model.CTC</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa fa-clock-o"></i>
+                            <div>
+                                <strong>Job Posted Date:</strong>
+                                <span>@Model.PositionStartDate</span>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    @if (@Model.IsApplied)
+                    {
+                        <a href="javascript:void(0)" id="btnApply" class="button">Applied</a>
+                    }
+                    else
+                    {
+                        if (@user == null)
+                        {
+                            <a href="#" id="btnApply" class="button" onclick="WarningPopup()">Apply For This Job</a>
+                        }
+                        else if (@user.RoleName == "Student")
+                        {
+                            <a href="#" id="btnApply" class="button" onclick="ConfrimationFoJobApply(@Model.JobPostId)">Apply For This Job</a>
+                        }
+
+                        else
+                        {
+                            <a href="#" id="btnApply" class="button" onclick="ApplyJobs(@Model.JobPostId)">Apply For This Job</a>
+                        }
+
+                    }
+                    @*<a href="" class="popup-with-zoom-anim button">Apply For This Job</a>*@
+
+
+
+                    <div id="small-dialog" class="zoom-anim-dialog mfp-hide apply-popup">
+                        <div class="small-dialog-headline">
+                            <h2>Apply For This Job</h2>
+                        </div>
+                        <div class="small-dialog-content">
+                            <form action="#" method="get">
+                                <input type="text" placeholder="Full Name" value="" />
+                                <input type="text" placeholder="Email Address" value="" />
+                                <textarea placeholder="Your message / cover letter sent to the employer"></textarea>
+                                <!-- Upload CV -->
+                                <div class="upload-info"><strong>Upload your CV (optional)</strong> <span>Max. file size: 5MB</span></div>
+                                <div class="clearfix"></div>
+                                <label class="upload-btn">
+                                    <input type="file" multiple />
+                                    <i class="fa fa-upload"></i> Browse
+                                </label>
+                                <span class="fake-input">No file selected</span>
+                                <div class="divider"></div>
+                                <button class="send">Send Application</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Widgets / End -->
+
+    </div>
+
+
+    <!-- Modal -->
+    <!-- ON Apply Job Begin -->
+    <div id="myModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i id="iconPopup" class="" aria-hidden="true"></i>
+                    </div>
+                    <h4 class="modal-title" id="tagiging"></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center" id="tagginMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success btn-block" style="display:block" id="btnSuccess" data-dismiss="modal">OK</button>
+                    <button class="btn btn-success btn-block" style="display:none" id="btnWarning" onclick="RedirectProfile()" data-dismiss="modal">OK</button>
+                    @*<button class="btn btn-success btn-block" data-dismiss="modal">OK</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ON Apply Job END -->
+    <!-- Confirmation Modal Begin -->
+    <div id="confimationModel" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <p class="text-center" style="font-size:15px">Are you sure to apply this job?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" id="applyJobsbutton" value="">Yes</button>
+                    <button class="btn btn-success" data-dismiss="modal">NO</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Confirmation Model End -->
+    <!---End Model-->
+}
+@section Scripts
+    {
+
+    <script src="~/js/Jobseeker/JobDetails.js"></script>
+}

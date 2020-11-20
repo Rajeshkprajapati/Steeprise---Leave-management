@@ -1,0 +1,67 @@
+﻿div.panel-body > div > div.col-md-6.col-sm-12.col-xs-12.col-lg-6 {
+    height: 100%;
+}
+
+.panel-heading .formrow {
+    margin-top: 5px;
+}
+
+div.panel-body > div {
+    height: 270px;
+    margin-bottom: 20px;
+}
+
+
+div.graph-container {
+    background-color: #dedddd;
+    padding: 1em;
+    border: 1px solid #F5F1F1;
+    box-shadow: 0 -1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+    height: 100%;
+}
+
+div.graph-container > div:last-child {
+    margin-top: 15px;
+}
+
+label.error-class {
+    display: block;
+    text-align: center;
+    margin-top: 15%;
+    font-size: 17px;
+    min-height: 100%;
+}
+
+div.demand-aggregation-colors-info {
+    text-align:right;
+}
+
+    div.demand-aggregation-colors-info > span i {
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+        div.demand-aggregation-colors-info > span i:before {
+            margin-right: 5px;
+        }
+
+        div.demand-aggregation-colors-info > span i label {
+            font-size: 14PX;
+        }
+
+button.multiselect.dropdown-toggle.btn.btn-default.multiselector {
+    padding: 7px 10px;
+}
+
+.filter-instruction {
+    color: forestgreen;
+    text-align: center;
+}
+
+.filter-instruction > span {
+    margin-bottom: 5px;
+}
+
+.non-instructed-row{
+    margin-top:24px !important;
+}

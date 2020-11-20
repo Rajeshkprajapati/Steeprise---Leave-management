@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewData["Title"] = "Bulk Job Post";
+}
+<link href="~/css/fileUploadControl.css" rel="stylesheet" />
+
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">@ViewData["Title"]</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>@ViewData["Title"]</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="listpgWraper">
+        <div class="col-sm-12">
+            <form asp-action="UploadJobs" method="post" onsubmit="return uploadJobs(this)" enctype="multipart/form-data">
+                <div class="col-sm-offset-4 frame">
+                    <div class="col-sm-5 center">
+                        <div asp-validation-summary="All" style="color:red;font-weight:bold;">
+                        </div>
+                        <label id="message" asp-validation-summary="" style="color:red;font-weight:bold;padding-top: 10px;"></label>
+                        <br />
+                        <div class="title">
+                            <h5>Drop file to upload</h5>
+                            <span class="template-download-link-container">
+                                <a asp-action="DownloadTemplate">Download Template</a>
+                            </span>
+
+                        </div>
+                        <div class="dropzone">
+                            <p>Click or drag on bulk upload portion</p>
+                            <h1 class="imgupload"><i class="fa fa-file-excel-o"></i></h1>
+                            <input type="file" name="files" class="upload-input" onchange="fileSelected(this)" />
+                        </div>
+                        <label id="fileName" style="font-weight:bold;text-align:center;margin-bottom:5px;margin-top:5px;"></label>
+                        <button type="submit" class="UploadFilebtn" name="uploadbutton">Upload file</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>*@
+<div class="listpgWraper">
+    <form asp-action="UploadJobs" method="post" onsubmit="return uploadJobs(this)" enctype="multipart/form-data">
+        <div class="zone">
+            <div asp-validation-summary="All" style="color:red;font-weight:bold;">
+            </div>
+            <span id="message" asp-validation-summary="" style="color:red;font-weight:bold;padding-top: 10px;"></span>
+            <br />
+            <div class="title">
+                <span class="template-download-link-container">
+                    <a asp-action="DownloadTemplate" style="color:white">Download Template</a>
+                </span>
+
+            </div>
+
+            <div id="dropZ">
+                <i class="fa fa-cloud-upload"></i>
+                <div>Drag and drop your file here</div>
+                <span>OR</span>
+                <div class="selectFile">
+                    <label for="file" id="fileName">Select file</label>
+                    <input type="file" name="files" onchange="fileSelected(this)" id="file" />
+                </div>
+                <p>File size limit : 10 MB</p>
+            </div>
+
+        </div>
+        <br />
+        <div class="text-center">
+            <button type="submit" style="border-radius:4px" class="UploadFilebtn" name="uploadbutton">Upload file</button>
+        </div>       
+    </form>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/Shared/bulkJobPost.js"></script>
+    <script>
+            //$(document).bind('dragover', function (e) {
+            //    var dropzone = $('.zone'),
+            //        timeout = window.dropzonetimeout;
+            //    if (!timeout) {
+            //        dropzone.addclass('in');
+            //    } else {
+            //        cleartimeout(timeout);
+            //    }
+            //    var found = false,
+            //        node = e.target;
+            //    do {
+            //        if (node === dropzone[0]) {
+            //            found = true;
+            //            break;
+            //        }
+            //        node = node.parentnode;
+            //    } while (node != null);
+            //    if (found) {
+            //        dropzone.addclass('hover');
+            //    } else {
+            //        dropzone.removeclass('hover');
+            //    }
+            //    window.dropzonetimeout = settimeout(function () {
+            //        window.dropzonetimeout = null;
+            //        dropzone.removeclass('in hover');
+            //    }, 100);
+            //});
+        </script>
+}

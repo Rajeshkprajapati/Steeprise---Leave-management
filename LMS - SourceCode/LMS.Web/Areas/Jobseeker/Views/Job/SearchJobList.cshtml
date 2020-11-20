@@ -1,0 +1,378 @@
+﻿@using LMS.Model.DataViewModel.JobSeeker
+@model IEnumerable<SearchJobListViewModel>
+@{
+    ViewData["Title"] = "SearchJobList";
+}
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+<link href="~/lib/jquery/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/css/Loader.css" rel="stylesheet" />
+<link href="~/css/JobSeeker/search-jobs.css" rel="stylesheet" />
+<style>
+    #joblist {
+        max-height: 30rem;
+        overflow-y: scroll;
+    }
+
+    #main-section {
+        margin-top: 1.5rem;
+    }
+
+    #skilldata {
+        margin-bottom: 0.5rem;
+    }
+</style>
+<!-- Page Title start -->
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Job Listing</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Job List</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+@*@{
+        UserViewModel user = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+        var filters = ViewBag.Searches as SearchJobViewModel;
+        var SearchesInJson = JsonConvert.SerializeObject(filters);
+        <input type="hidden" id="hdnFilters" value="@SearchesInJson">
+        <div class="listpgWraper">
+            <div class="container">
+                <!-- Search Result and sidebar start -->
+                <div class="row main-jobs-container" id="main-section">
+                    <div class="col-md-3 col-sm-6 left-pane-filter">
+                        <!-- Side Bar start -->
+                        <div class="sidebar">
+                            <!-- Jobs By Title -->
+                            <!-- title end -->
+                            <!-- Jobs By City -->
+                            <div class="" style="height:45%">
+                                <div class="widgetprofile widgetprofilecity">
+                                    <h4 class="widget-title">Jobs By City</h4>
+                                    <input type="text" class="filter-search-box" placeholder="Search" />
+                                    <ul class="optionlist" style="padding-right:6%;padding-top:5%">
+                                        @{
+                                            if (ViewBag.City != null && ViewBag.City.Count > 0)
+                                            {
+                                                int j = 0;
+                                                foreach (var item in ViewBag.City)
+                                                {
+                                                    if (item.CountValue > 0)
+                                                    {
+                                                        <li>
+                                                            <input type="checkbox" @if (filters.City.Any(c => c == item.CityCode)) { <text> checked</text> } name="checkname" id="Name_@j" value="@item.CityCode" onchange="SearchCity(this)" />
+                                                            <label for="Name_@j"></label>
+                                                            @item.City <span>@item.CountValue</span>
+                                                        </li>
+                                                        j = j + 1;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <label style="color:red;"> Cities not available</label>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <!-- Jobs By Company Name -->
+                            <div class="" style="height:45%;">
+                                <div class="widgetprofile">
+                                    <h4 class="widget-title">Jobs By Company</h4>
+                                    <input type="text" class="filter-search-box " placeholder="Search" />
+                                    <ul class="optionlist" style="padding-right:6%;padding-top:5%">
+                                        @{
+                                            if (ViewBag.Company != null && ViewBag.Company.Count > 0)
+                                            {
+                                                int k = 0;
+                                                foreach (var item in ViewBag.Company)
+                                                {
+                                                    if (item.CountValue > 0)
+                                                    {
+                                                        <li>
+                                                            <input type="checkbox" @if (filters.CompanyUserId.Any(c => c == Convert.ToString(item.UserId))) { <text> checked</text> } name="CompanyName" id="CompanyName_@k" value="@item.UserId" onchange="SearchCompany(this)" />
+                                                            <label for="CompanyName_@k"></label>
+                                                            @item.CompanyName <span>@item.CountValue</span>
+                                                        </li>
+                                                        k = k + 1;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <label style="color:red;"> Company not available</label>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Side Bar end -->
+                    </div>
+                    <div class="col-md-9 col-sm-12 pre-scrollable job-search-result" id="joblist">
+                        @if (Model.Count() < 1)
+                        {
+                            <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong>&nbsp; Jobs not found</div>
+
+                        }
+                        <!-- Search List -->
+                        <ul class="searchList">
+                            <!-- job start -->
+                            @foreach (var item in Model)
+                            {
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-2">
+                                            @if (item.CompanyLogo != "")
+                                            {
+                                                <div class="jobimg"><img src="@item.CompanyLogo" /></div>
+                                            }
+                                            else
+                                            {
+                                                <div class="jobimg"><img src="~/ProfilePic/Avatar.jpg" /></div>
+                                            }
+                                        </div>
+                                        <div class="col-md-7 col-sm-7">
+                                            <div class="jobinfo">
+                                                <h3><a href="/Job/JobDetails/?jobid=@item.JobPostId">@item.JobTitleByEmployer</a></h3>
+                                                <div class=""><a href="javascript:void(0);" class="CompanyTitle">@item.CompanyName</a></div>
+                                                <div class="companyName"><label class="fulltime">Job Title: </label><span> @item.JobTitle</span></div>
+                                                <div class="location"><label class="fulltime">Skills</label>-<span>@item.Skills</span></div>
+                                                <div class="location"><label class="fulltime">@item.EmploymentStatus</label>   - <span>@item.City</span></div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3">
+                                            @if (item.IsApplied == true)
+                                            {
+                                                <div class="listbtn"><a href="javascript:void(0)" id="btnApply" style="cursor:no-drop">Applied</a></div>
+                                            }
+                                            else
+                                            {
+
+                                                if (user == null)
+                                                {
+                                                    <!-- <div class="listbtn"><a href="#" id="btnApply" onclick="javascript:void(0)">Apply Now</a></div> -->
+                                                }
+                                                else if (user.RoleName == "Student")
+                                                {
+                                                    <div class="listbtn"><a href="#" id="btnApply" onclick="ConfrimationFoJobApply(@item.JobPostId)">Apply Now</a></div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="listbtn"><a href="#" id="btnApply" onclick="ApplyJobs(@item.JobPostId)">Apply Now</a></div>
+                                                }
+
+                                            }
+                                        </div>
+
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                        <!-- button end-->
+                    </div>
+                    <!-- Side Bar end -->
+                </div>
+            </div>
+        </div>
+    }
+    <!-- Loader -->
+    <div id="loader" hidden>
+        <img id="imgloader" src="~/images/ajax-loader1.gif" />
+    </div>
+    <!-- Modal -->
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="iconbox" class="icon-box">
+                        <i id="iconPopup" class="" aria-hidden="true"></i>
+                    </div>
+                    <h4 class="modal-title" id="tagiging"></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center" id="tagginMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSuccess" style="display:block" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                    <button id="btnWarning" onclick="RedirectProfile()" style="display:none" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!-- Confirmation Modal Begin -->
+<div id="confimationModel" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p class="text-center" style="font-size:15px">Are you sure to apply this job?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" id="applyJobsbutton" value="">Yes</button>
+                <button class="btn btn-success" data-dismiss="modal">NO</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    UserViewModel user = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+    var filters = ViewBag.Searches as SearchJobViewModel;
+    var SearchesInJson = JsonConvert.SerializeObject(filters);
+    <input type="hidden" id="hdnFilters" value="@SearchesInJson">
+    <div class="container">
+        <!-- Recent Jobs -->
+        <div class="eleven columns">
+            <div class="padding-right">
+                <div class="listings-container">
+                    @foreach (var item in Model)
+                    {
+
+                        <!-- Listing -->
+                        <a href="/Job/JobDetails/?jobid=@item.JobPostId" class="listing full-time">
+                            <div class="listing-logo">
+                                <img src="@item.CompanyLogo" alt="Logo">
+                            </div>
+                            <div class="listing-title">
+                                <h4>@item.JobTitleByEmployer <span class="listing-type">@item.EmploymentStatus</span></h4>
+                                <ul class="listing-icons">
+                                    <li><i class="ln ln-icon-Management"></i> @item.CompanyName</li>
+                                    <li><i class="ln ln-icon-Map2"></i> @item.City</li>
+                                    <li><i class="ln ln-icon-Money-2"></i>@item.CTC</li>
+                                    <li><div class="listing-date new">@item.NumberOfDays&#8203;d ago</div></li>
+                                </ul>
+                            </div>
+                        </a>
+
+                    }
+
+                </div>
+                <div class="clearfix"></div>
+                <div class="pagination-container">
+                    <nav class="pagination">
+                        <ul id="pagin"></ul>
+                    </nav>
+                    <nav class="pagination-next-prev">
+                        <ul>
+                            <li><a class="prev">Previous</a></li>
+                            <li><a class="next">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="five columns">
+            
+            <div class="widget">
+                <h4>Jobs By City</h4>
+                <input type="text" class="filter-search-box" placeholder="Search" />
+                <ul class="checkboxes">
+                    @{
+                        if (ViewBag.City != null && ViewBag.City.Count > 0)
+                        {
+                            int j = 0;
+                            foreach (var item in ViewBag.City)
+                            {
+                                if (item.CountValue > 0)
+                                {
+                                    <li>
+                                        <input type="checkbox" @if (filters.City.Any(c => c == item.CityCode)) { <text> checked</text> } name="checkname" id="Name_@j" value="@item.CityCode" onchange="SearchCity(this)" />
+                                        <label for="Name_@j"></label>
+                                        @item.City <span>@item.CountValue</span>
+                                    </li>
+                                    j = j + 1;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <li>
+                                <label style="color:red;"> Cities not available</label>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="widget">
+                <h4>Jobs By Company</h4>
+                <input type="text" class="filter-search-box" placeholder="Search" />
+                <ul class="checkboxes expandible expanded">
+                    @{
+                        if (ViewBag.Company != null && ViewBag.Company.Count > 0)
+                        {
+                            int k = 0;
+                            foreach (var item in ViewBag.Company)
+                            {
+                                if (item.CountValue > 0)
+                                {
+                                    <li>
+                                        <input type="checkbox" @if (filters.CompanyUserId.Any(c => c == Convert.ToString(item.UserId))) { <text> checked</text> } name="CompanyName" id="CompanyName_@k" value="@item.UserId" onchange="SearchCompany(this)" />
+                                        <label for="CompanyName_@k"></label>
+                                        @item.CompanyName <span>@item.CountValue</span>
+                                    </li>
+                                    k = k + 1;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <li>
+                                <label style="color:red;"> Company not available</label>
+                            </li>
+                        }
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Confirmation Model End -->
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            pageSize = 6;
+            incremSlide = 6;
+            startPage = 0;
+            numberPage = 0;
+            $('ul.expandible').each(function () {
+                var $ul = $(this),
+                    $lis = $ul.find('li:gt(4)'),
+                    isExpanded = $ul.hasClass('expanded');
+                $lis[isExpanded ? 'show' : 'hide']();
+
+                if ($lis.length > 0) {
+                    $ul
+                        .append($('<span class="showmore"><li class="expand">' + (isExpanded ? 'Show Less' : 'Show More') + '</li></span>')
+                            .click(function (event) {
+                                var isExpanded = $ul.hasClass('expanded');
+                                event.preventDefault();
+                                $(this).html(isExpanded ? 'Show More' : 'Show Less');
+                                $ul.toggleClass('expanded');
+                                $lis.toggle();
+                            }));
+                }
+            });
+        });
+    </script>
+    @*<script src="~/lib/jquery/jquery-ui.min.js"></script>*@
+    <script src="~/js/Shared/pagination.js"></script>
+    <script src="~/js/Jobseeker/jobsearch.js"></script>
+    <script src="~/js/Jobseeker/JobDetails.js"></script>
+}

@@ -1,0 +1,55 @@
+﻿
+<link href="~/lib/tag-editor/jquery.tag-editor.css" rel="stylesheet" />
+<div id="titlebar">
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <!-- Breadcrumbs -->
+            <nav id="breadcrumbs">
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li>Manage Resume</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="listpgWraper">
+    <div class="row">
+        <div class="col-md-12 tab" role="tabpanel">
+            <!-- Nav tabs -->
+            <div class="tabs-container-custom">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#PersonalInformation" aria-controls="personal-information" role="tab" data-toggle="tab">Personal Information</a></li>
+                    <li role="presentation"><a href="#Employment" aria-controls="employment" role="tab" data-toggle="tab">Employment</a></li>
+                    <li role="presentation"><a href="#Education" aria-controls="education" role="tab" data-toggle="tab">Education</a></li>
+                </ul>
+            </div>
+            <!-- Tab panes -->
+            <div class="container tab-content tabs">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div role="tabpanel" class="formpanel userccount tab-pane fade in active" id="PersonalInformation">
+                            <partial name="PersonalDetailsFormPartial" />
+                        </div>
+                        <div role="tabpanel" class="formpanel userccount tab-pane fade" id="Employment">
+                            <input type="hidden" name="Skills" />
+                            <partial name="ExperienceDetailsFormPartial" />
+                            <input type="button" id="btnSaveEmploymentInfo" class="btn" onclick="saveExperienceDetails(this);" value="Save and Continue">
+                        </div>
+                        <div role="tabpanel" class="formpanel userccount tab-pane fade" id="Education">
+                            <partial name="EducationalDetailsFormPartial" />
+                            <input type="button" id="btnSaveEducationInfo" class="btn" onclick="saveEducationDetails(this);" value="Save and Preview">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/Jobseeker/resume-builder.js"></script>
+

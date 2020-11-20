@@ -1,0 +1,222 @@
+﻿
+@using LMS.Model.DataViewModel.Employer.JobPost
+@model JobPostViewModel
+@*<link href="~/lib/Calendar/css/tail.datetime-default-red.css" rel="stylesheet" />*@
+@*<link href="~/lib/bootstrap-multiselect//css/bootstrap-multiselect.css" rel="stylesheet" />*@
+@*<link href="~/css/Employer/JobPost.css" rel="stylesheet" />*@
+
+
+<div class="dashboard-content">
+
+    <!-- Titlebar -->
+    <div id="titlebar">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Add Job</h2>
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li>Add Job</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <!-- Table-->
+        <div class="col-lg-12 col-md-12">
+            <form onsubmit="return AddJobPost(this)" id="JobPostForm">
+                <div class="dashboard-list-box margin-top-0">
+                    <h4>Job Details</h4>
+                    <div class="dashboard-list-box-content">
+                        <div class="submit-page">
+
+                            <div class="form">
+                                <h5>Job Industry</h5>
+                                <select asp-for="JobIndustryAreaId" data-placeholder="Industry Type" class="chosen-select-no-single" asp-items="@(new SelectList(@ViewBag.JobIndustryArea,"JobIndustryAreaId", "JobIndustryAreaName"))"></select>
+                            </div>
+
+                            <!--<div class="form">
+                                <h5>Other Industry</h5>
+                                <input type="text" id="txtOtherJobIndustry" asp-for="OtherJobIndustryArea" name="OtherJobIndustryArea" class="search-field" placeholder="Industry Name">
+                            </div> -->
+
+                            <div class="form">
+                                <h5>Job Title By Employer</h5>
+                                <input type="text" id="txtJobTitleByEmployer" required asp-for="JobTitleByEmployer" name="JobTitleByEmployer" class="search-field" placeholder="Job Title">
+                            </div>
+
+                            <div class="form">
+                                <div class="select">
+                                    <h5>Job Title</h5>
+                                    <!-- <input type="hidden" id="hdnJobTitleId" asp-for="JobTitleId" /> -->
+                                    <select id="ddlJobRoles" asp-for="JobTitleId" data-placeholder="Choose Job Title" class="chosen-select" multiple asp-items="@(new SelectList(@ViewBag.JobTitle,"JobTitleId", "JobTitleName"))"></select>
+                                </div>
+                            </div>
+
+                            <div class="form">
+                                <h5>Employment Status</h5>
+                                <select asp-for="EmploymentStatusId" data-placeholder="Choose Employment Status" class="chosen-select-no-single" asp-items="@(new SelectList(@ViewBag.EmploymentStatus,"EmploymentStatusId", "EmploymentStatusName"))"></select>
+                            </div>
+
+
+                            <div class="form">
+                                <h5>Job Type</h5>
+                                @foreach (var jobType in ViewBag.JobTypes)
+                                {
+                                    <label class="radio-inline">
+                                        <input type="radio" asp-for="JobType" id="radioJobType" value="@jobType.Id">
+                                        @jobType.Type
+                                    </label>
+                                }
+                            </div>
+
+                            <div class="form">
+                                <h5>Skill</h5>
+                                <input type="text" id="Skills" required asp-for="Skills" name="Skills" class="search-field" placeholder="Required Skills">
+                            </div>
+
+
+                            <div class="form">
+                                <h5>Hiring Criteria</h5>
+                                <input type="text" required asp-for="HiringCriteria" name="HiringCriteria" class="search-field" placeholder="Minimum Education">
+                            </div>
+
+
+                            <div class="form">
+                                <h5>CTC</h5>
+                                <input type="number" id="annumSalary" required asp-for="CTC" min="0" maxlength="7" name="CTC" class="search-field" placeholder="CTC">
+                            </div>
+
+
+                            <div class="form">
+                                <h5>Job Start Date:</h5>
+                                <div class="input-group">
+                                    <input type="date" required asp-for="PositionStartDate" id="startDate" name="PositionStartDate" class="form-control unstyled">
+                                    <div class="input-group-addon">
+                                        <a href="javascript:void(0)" onclick="toggleCalendar(this)">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                @*<input type="date" required asp-for="PositionStartDate" id="startDate" name="PositionStartDate" class="form-control" placeholder="Job Start Date">*@
+                            </div>
+
+
+                            <div class="form">
+                                <h5>Job Expiration Date:</h5>
+                                <div class="input-group">
+                                    <input type="date" required asp-for="PositionEndDate" id="endDate" name="PositionEndDate" class="form-control unstyled">
+                                    <div class="input-group-addon">
+                                        <a href="javascript:void(0)" onclick="toggleCalendar(this)">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                @*<input type="date" asp-for="PositionEndDate" required id="endDate" name="PositionEndDate" class="form-control" placeholder="Job Expiration Date" onblur="compare();">*@
+                            </div>
+
+                            <div class="form">
+                                <h5>Country</h5>
+                                <select asp-for="CountryCode" id="ddlCountry" class="chosen-select-no-single" asp-items="@(new SelectList(@ViewBag.Country,"CountryCode", "Country"))">
+                                    @*<option value="">Country</option>*@
+                                </select>
+                            </div>
+
+
+                            <div class="form">
+                                <h5>State</h5>
+                                <select asp-for="StateCode" required data-placeholder="Choose State" class="chosen-select-no-single" id="ddlState"></select>
+                            </div>
+
+
+                            <div class="form">
+                                <h5>City</h5>
+                                <select asp-for="CityCode" required data-placeholder="Choose City" class="chosen-select-no-single" id="ddlCity"></select>
+                            </div>
+
+                            <div class="form">
+                                <h5>Contact Person Name</h5>
+                                <input type="text" id="spoc" required asp-for="ContactPerson" name="ContactPerson" class="search-field" placeholder="SPOC Name">
+                            </div>
+
+
+                            <div class="form">
+                                <h5>Mobile</h5>
+                                <input type="text" id="spocContact" required asp-for="Mobile" maxlength="10" name="Mobile" class="search-field" placeholder="SPOC Phone">
+                            </div>
+
+
+                            <div class="form">
+                                <h5>Contact Person Email</h5>
+                                <input type="email" id="spocEmail" required asp-for="SPOCEmail" name="SPOCEmail" class="search-field" placeholder="SPOC Email">
+                            </div>
+
+                            <div class="form">
+                                <h5>Number of Position</h5>
+                                <input type="number" name="NoPosition" min="1" required asp-for="NoPosition" class="search-field" placeholder="Number of Position">
+                            </div>
+
+                            <div class="form">
+                                <h5>Is Walkin Job</h5>
+                                <select asp-for="IsWalkIn" name="IsWalkin" data-placeholder="Is Walkin Job" class="chosen-select-no-single">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+
+                            <div class="form" id="textarea" style="width:100%">
+                                <h5>Description</h5>
+                                <textarea class="WYSIWYG text-area-editor" cols="10" asp-for="JobDetails" id="JobDetails" name="JobDetails" placeholder="Job Detail"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" class="button margin-top-30" value="Post Job">
+            </form>
+
+            @*<a href="#" class="button margin-top-30">Post <i class="fa fa-arrow-circle-right"></i></a>*@
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/Employer/JobPost/JobPost.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".chosen-select").chosen({});
+        $(".chosen-select-no-single").chosen({});
+        //$('#JobPostForm').validate();
+        //$.validator.setDefaults({ ignore: ":hidden:not(select)" });
+        //$.validator.setDefaults({ ignore: ":hidden:not(.chosen-select)" });        
+        //if ($("select.chosen-select").length > 0) {
+        //    $("select.chosen-select").each(function () {
+        //        if ($(this).attr('required') !== undefined) {
+        //            $(this).on("change", function () {
+        //                $(this).valid();
+        //            });
+        //        }
+        //    });
+        //}
+        //if ($("select.chosen-select-no-single").length > 0) {
+        //    $("select.chosen-select-no-single").each(function () {
+        //        if ($(this).attr('required') !== undefined) {
+        //            $(this).on("change", function () {
+        //                $(this).valid();
+        //            });
+        //        }
+        //    });
+        //}        
+        //$('#JobPostForm').validate({
+        //    rule:{
+        //}, message: {
+        //}
+        //});
+    });
+    CKEDITOR.replace('JobDetails');
+</script>
+

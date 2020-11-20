@@ -1,0 +1,332 @@
+﻿@using LMS.Model.DataViewModel.Shared
+@model IEnumerable<UserViewModel>
+@*<div class="row">
+    @if (Convert.ToString(ViewData["isViewdProfile"]) == "1")
+    {
+
+    }
+    else
+    {
+        <div class="col-md-12">
+            <div class="row formpanel">
+                <div class="col-md-4">
+                    <input type="hidden" id="hdnJobRoleIds" name="JobRoles" for="JobRoles" />
+                    <select class="form-control" multiple="multiple" asp-items="@(new SelectList( ViewBag.AllJobRoles, "JobTitleId", "JobTitleName"))" id="ddlJobRoles"></select>
+                </div>
+                <div class="col-md-3 autocomplete">
+                    <input for="City" type="hidden" id="hdnCity" />
+                    <input type="text" id="City" class="form-control autocompletetxtBox" style="height: 40px;" placeholder="Enter city" />
+                </div>
+                <div class="col-md-3">
+                    <select id="dropFilterYear" class="form-control" style="height: 44px;">
+                        @{
+                            int currYears = DateTime.Now.Year;
+                            @for (int i = (currYears - 2); i <= currYears; i++)
+                            {
+                                if (i == currYears)
+                                {
+                                    <option selected value="@i">@i</option>
+                                }
+                                else
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            }
+                        }
+
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="button" onclick="getJobSeekersBasedOnEmployerHiringCriteria()" class="btn searchJobseekerbtn" value="Search" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="col-md-12 table-responsive">
+        @if (Model.Count() > 0)
+        {
+            <table id="tableJobSeekersList" class="display table table-striped table-bordered dt-responsive nowrap">
+                <thead>
+                    <tr>
+                        
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Contact No
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Gender
+                        </th>
+                        <th>
+                            Skills
+                        </th>
+                        <th>
+                            City
+                        </th>
+                        <th>
+                            Job Role
+                        </th>
+                        
+                        <th>
+                            Resume
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model)
+                    {
+                        <tr>
+                            
+                            <td>
+                                @employee.FullName
+                            </td>
+                            <td>
+                                @employee.MobileNo
+                            </td>
+                            <td>
+                                @employee.Email
+                            </td>
+                            <td>
+                                @employee.GenderName
+                            </td>
+                            <td style="word-break:break-all;">
+                                @employee.Skills.SkillSets
+                            </td>
+                            <td>
+                                @employee.CityName
+                            </td>
+                            <td>
+                                @employee.RoleName
+                            </td>
+                            
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(employee.Resume))
+                                {
+                                    <a target="_blank" download href="@employee.Resume">Download Resume</a>
+                                }
+                                else
+                                {
+                                    <span>Resume not attached</span>
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="row data-not-available">
+                <label>
+                    Data not found to display
+                </label>
+            </div>
+        }
+    </div>
+</div>*@
+
+@*<script>
+        $(document).ready(function () {
+
+            $('#tableJobSeekersList').dataTable({
+                // 'columnDefs': [{ "searchable": false, 'orderable': false, 'targets': 5 }]
+                //aoColumnDefs: [
+                //    {
+
+                //        bSortable: false,
+                //        aTargets: [-1]
+                //    },
+                //    {
+                //        bSearchable: false,
+                //        aTargets: [-1]
+                //    }
+                //]
+            });
+
+        });
+    </script>*@
+
+<style>
+    table th {
+        white-space: nowrap;
+    }
+</style>
+
+<div class="dashboard-content">
+    <!-- Titlebar -->
+    <div id="titlebar">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>JobSeekers</h2>
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li>Home</li>
+                        <li>Dashboard</li>
+                        <!-- <li><a href="#">Home</a></li>
+                        <li><a href="#">Dashboard</a></li> -->
+                        <li>JobSeekers</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <!-- Table-->
+        <div class="col-lg-12 col-md-12">
+            <div class="row margin-bottom-10">
+                <div class="form col-sm-6 col-md-6 col-lg-6">
+                    <h5>Jobseekers</h5>
+                </div>
+                @if (Convert.ToString(ViewData["isViewdProfile"]) == "1")
+                {
+
+                }
+                else
+                {
+                    <div class="col-md-12">
+                        <div class="row formpanel">
+                            <div class="col-md-4">
+                                @*<input type="hidden" id="hdnJobRoleIds" name="JobRoles" for="JobRoles" />*@
+                                <select class="chosen-select" data-placeholder="Choose JobRole" name="ddlJobRoles" multiple="multiple" asp-items="@(new SelectList( ViewBag.AllJobRoles, "JobTitleId", "JobTitleName"))" id="ddlJobRoles"></select>
+                            </div>
+                            <div class="col-md-3 autocomplete">
+                                @*<input for="City" type="hidden" id="hdnCity" />*@
+                                <select id="ddlCity" name="ddlCity" class="chosen-select-no-single" data-placeholder="Choose City" asp-items="@(new SelectList(ViewBag.AllCities,"CityCode","City"))" ></select>
+                            </div>
+                            <div class="col-md-3">
+                                <select id="dropFilterYear" class="form-control" style="height: 44px;">
+                                    @{
+                                        int currYears = DateTime.Now.Year;
+                                        @for (int i = (currYears - 2); i <= currYears; i++)
+                                        {
+                                            if (i == currYears)
+                                            {
+                                                <option selected value="@i">@i</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="button" onclick="getJobSeekersBasedOnEmployerHiringCriteria()" class="btn searchJobseekerbtn" value="Search" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            
+            <div class="dashboard-list-box margin-top-30">
+
+                <div class="dashboard-list-box-content">
+                    <!-- Table -->
+                    <table class="manage-table responsive-table">
+                        <tr>
+                        <tr>                            
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Contact No
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Gender
+                            </th>
+                            <th>
+                                Skills
+                            </th>
+                            <th>
+                                City
+                            </th>
+                            @*<th>
+                                Job Role
+                            </th>*@                           
+                            <th>
+                                Resume
+                            </th>
+                        </tr>                        
+                        <!-- Item #1 -->
+                        @if (Model.Count() > 0)
+                        {
+
+                            @foreach (var employee in Model)
+                            {
+                                <tr>                                   
+                                    <td>
+                                        @employee.FullName
+                                    </td>
+                                    <td>
+                                        @employee.MobileNo
+                                    </td>
+                                    <td>
+                                        @employee.Email
+                                    </td>
+                                    <td>
+                                        @employee.GenderName
+                                    </td>
+                                    <td style="word-break:break-all;">
+                                        @employee.Skills.SkillSets
+                                    </td>
+                                    <td>
+                                        @employee.CityName
+                                    </td>
+                                    @*<td>
+                                        @employee.RoleName
+                                    </td>*@                                    
+                                    <td>
+                                        @if (!string.IsNullOrWhiteSpace(employee.Resume))
+                                        {
+                                            <a target="_blank" download href="@employee.Resume">Download Resume</a>
+                                        }
+                                        else
+                                        {
+                                            <span>Resume not attached</span>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8">
+                                    <label>
+                                        Data not found to display
+                                    </label>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ddlJobRoles").chosen({});
+        $(".chosen-select-no-single").chosen({});
+    });
+</script>

@@ -1,0 +1,186 @@
+﻿@using LMS.Model.DataViewModel.Employer.Dashboard
+
+@*@model DashboardSummary*@
+
+@{
+    ViewData["Title"] = "DashBoard";
+}
+
+@*<style>
+        .profileModel {
+            margin-left: 0px !important;
+        }
+        #popwithoutredirectModel .modal-content {
+            max-width:50%!important;
+        }
+    </style>
+
+    <link href="~/css/employer-dashboard.css" rel="stylesheet" />
+    <link href="~/lib/datatable/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/Calendar/css/tail.datetime-default-red.css" rel="stylesheet" />
+    <link href="~/css/autoComplete.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet" />*@
+
+
+
+@*<!-- Page Title start -->
+    <div class="pageTitle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <h1 class="page-heading">@ViewData["Title"]</h1>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="breadCrumb">
+                            <a href="/Home/Index/">Home</a> /
+                            <span>Welcome to @ViewData["Title"]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Page Title End -->
+    <div class="listpgWraper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-3">
+                        <ul class="usernavdash">
+                            <li><a href="javascript:void(0);"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
+                            <li onclick="getMyDetails()"><a href="javascript:void(0);"><i class="fa fa-user" aria-hidden="true"></i> My Details</a></li>
+                            <li onclick="getMyJobs()"><a href="javascript:void(0);"><i class="fa fa-desktop" aria-hidden="true"></i> My Job Details</a></li>
+                            <li onclick="getJobSeekers()"><a href="javascript:void(0);"><i class="fa fa-eye" aria-hidden="true"></i> View Resume</a></li>
+                            <li onclick="getJobSeekersBasedOnEmployerHiringCriteria()"><a href="javascript:void(0);"><i class="fa fa-eye" aria-hidden="true"></i> View Job Seeker</a></li>
+                            @*<li onclick="modifyJobDetails()"><a href="javascript:void(0);"><i class="fa fa-eye" aria-hidden="true"></i> Modify Job Details</a></li>
+                            <li onclick="logOut()"><a href="javascript:void(0);"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9 col-sm-9">
+                        <ul class="row profilestat">
+                            <li class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="inbox" onclick="getViewedProfiles()">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                    <h6>@Model.TotalProfileViewes</h6>
+                                    <strong>Profile Views</strong>
+                                </div>
+                            </li>
+                            <li class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="inbox removePointerEvent">
+                                    <i class="fa fa-tachometer" aria-hidden="true"></i>
+                                    <h6>@Model.RespondTime <span>hr</span></h6>
+                                    <strong>Average Response Time</strong>
+                                </div>
+                            </li>
+                            <li class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="inbox" onclick="getJobSeekers()">
+                                    <i class="fa fa-briefcase" aria-hidden="true"></i>
+                                    <h6>@Model.TotalResumeList</h6>
+                                    <strong>My CV List</strong>
+                                </div>
+                            </li>
+                            <li class="col-md-3 col-sm-6 col-xs-12">
+                                <div class="inbox" onclick="getMessages()">
+                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                    <h6>@Model.TotalMessages</h6>
+                                    <strong>Messages</strong>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 table-responsive">
+                    <div id="contentHolder" class="myads">
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+@*
+    @section Scripts
+            {
+
+            <script src="~/lib/datatable/js/jquery.dataTables.min.js"></script>
+            <script src="~/lib/datatable/js/dataTables.bootstrap4.min.js"></script>
+            <script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
+            <script src="~/lib/Calendar/js/tail.datetime.js"></script>
+            <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+            <script src="~/js/multiselector.js"></script>
+            <script src="~/js/autoComplete.js"></script>
+            <script src="~/js/autoCompleteIntegration.js"></script>
+            <script src="~/js/Employer/Dashboard/dashboard.js?v=28032020"></script>
+
+        }*@
+@*<script src="~/js/Shared/ckeditor.js"></script>*@
+<style>
+    
+</style>
+
+<div id="dashboard">
+    <!-- Navigation
+    ================================================== -->
+    <!-- Responsive Navigation Trigger -->
+    <a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
+
+    <div class="dashboard-nav">
+        <div class="dashboard-nav-inner">
+
+            <ul data-submenu-title="Start">
+                <li class="active"><a href="">Dashboard</a></li>
+                <li onclick="getMessages()"><a href="javascript:void(0)">Messages</a></li>
+                <!-- <li><a href="#">Messages <span class="nav-tag">Model.TotalMessages</span></a></li> -->
+            </ul>
+
+            <ul data-submenu-title="Management">
+                <li>
+                    <a>For Employers</a>
+                    <ul>
+                        <li onclick="getMyJobs()"><a href="javascript:void(0)">Manage Jobs</a></li>
+                        <li onclick="getJobSeekersBasedOnEmployerHiringCriteria()"><a href="javascript:void(0)">View JobSeekers</a></li>
+                        <li onclick="getJobSeekers()"><a href="javascript:void(0);">Manage Application</a></li>
+                        <li onclick="addjobs()"><a href="javascript:void(0)">Add Job</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a>Premium Section</a>
+                    <ul>
+                        <li><a href="#">Comming Soon <span class="nav-tag">2</span></a></li>
+                        <!--<li><a href="#">Job Alerts</a></li>
+                        <li><a href="#">Add Resume</a></li> -->
+                    </ul>
+                </li>
+            </ul>
+
+            <ul data-submenu-title="Account">
+                <li onclick="myProfile()"><a href="javascript:void(0)">My Profile</a></li>
+                <!-- <li><a href="index-2.html">Logout</a></li> -->
+            </ul>
+
+        </div>
+    </div>
+
+    <div id="mycontentHolder">
+    </div>
+    <!-- Content / End -->
+</div>
+
+
+
+@section Scripts
+    {
+    @*<script src="~/lib/datatable/js/jquery.dataTables.min.js"></script>*@
+    @*<script src="~/lib/datatable/js/dataTables.bootstrap4.min.js"></script>*@
+    @*<script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>*@
+    @*<script src="~/lib/Calendar/js/tail.datetime.js"></script>*@
+    <script src="~/js/multiselector.js"></script>
+    <script src="~/js/autoComplete.js"></script>
+    <script src="~/js/autoCompleteIntegration.js"></script>
+    <script src="~/js/Employer/Dashboard/dashboard.js?v=28032020"></script>
+    @*<script src="~/js/Employer/JobPost/JobPost.js"></script>*@
+    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(".chosen-select").chosen({});
+        $(".chosen-select-no-single").chosen({});
+    </script>
+}

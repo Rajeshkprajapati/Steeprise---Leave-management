@@ -1,0 +1,101 @@
+﻿@model IEnumerable<LMS.Model.DataViewModel.JobSeeker.UserProfessionalDetailsViewModel>
+@{
+    ViewData["Title"] = "Applied Job";
+}
+
+<link href="~/lib/datatable/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<!-- Page Title start -->
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Admin Area</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Admin</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<div class="container" style="padding-top:20px;padding-bottom:170px;">
+    <div class="row">
+        <div class="col-md-12" align="center">
+            <h4>Applied Job Month Wise</h4>
+        </div>
+        <hr />
+
+        <div class="col-md-12 table-responsive">
+            <table class="table table-striped table-bordered dt-responsive nowrap" id="appliedJobsDataTable">
+                <thead>
+                    <tr>
+                        <th hidden>UserId</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile No.</th>
+                        <th>City</th>
+                        <th>Applied Date</th>
+                        <th>Company</th>
+                        <th>SPOC</th>
+                        <th>Job Role</th>
+                        <th>Job Location</th>
+                        <th>Job Posted</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var jobpost in Model)
+                    {
+                        <tr>
+                            <td hidden>@jobpost.UserId</td>
+                            <td>@jobpost.Name</td>
+                            <td>@jobpost.Email</td>
+                            <td>@jobpost.MobileNo</td>
+                            <td>@jobpost.City</td>
+                            <td>@jobpost.AppliedDate.ToString("dd/MM/yyyy")</td>
+                            <td>@jobpost.JobPostedCompany</td>
+                            <td>@jobpost.JobPostContactPerson</td>
+                            <td>@jobpost.JobRole</td>
+                            <td>@jobpost.jobPostCity</td>
+                            <td>@jobpost.JobPostedDate.ToString("dd/MM/yyyy")</td>
+
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+
+    <script src="~/lib/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#appliedJobsDataTable').dataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel'
+                ]
+            });
+
+            let tb = $('#appliedJobsDataTable').DataTable();
+            if (!tb.data().count()) {
+                $('#appliedJobsDataTable').dataTable().fnDestroy();
+                $('#appliedJobsDataTable').DataTable({
+                    searching: false
+                })
+            } else {
+                $('span').html('Export Data');
+                $('button').addClass("btn btn-primary");
+                $('button').addClass("exportDataTablBtn");
+            }
+        });
+    </script>
+}

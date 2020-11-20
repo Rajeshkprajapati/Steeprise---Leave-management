@@ -1,0 +1,29 @@
+﻿.candidates-container{
+    min-height:450px;
+}
+
+.data-not-available {
+    text-align: center;
+    margin-top: 15%;
+    color: red;
+    font-size: 16px;
+}
+
+
+div.modal-dialog {
+    margin: auto;
+    margin-top: 70px;
+}
+
+div.modal-dialog div.modal-body {
+    overflow: auto;
+}
+
+
+
+
+
+
+
+
+

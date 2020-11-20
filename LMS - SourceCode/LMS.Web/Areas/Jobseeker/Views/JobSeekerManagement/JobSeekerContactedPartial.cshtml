@@ -1,0 +1,60 @@
+﻿@using LMS.Model.DataViewModel.JobSeeker
+@model MessageViewModel
+
+<div id="titlebar">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Viewed Profile</h2>
+            <!-- Breadcrumbs -->
+            <nav id="breadcrumbs">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="/JobSeekerManagement/Dashboard">Dashboard</a></li>
+                    <li>Contacted List</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <!-- Table-->
+    <div class="col-lg-12 col-md-12">
+        <div class="dashboard-list-box margin-top-0">
+            <div class="dashboard-list-box-content">
+                <!-- Table -->
+                <table class="manage-table resumes responsive-table">
+                    <tr>
+                        <th><i class="fa fa-tags"></i> From</th>
+                        <th><i class="fa fa-file-text"></i>To</th>
+                        <th><i class="fa fa-file-text"></i>Subject</th>
+                        @*<th></th>*@
+                    </tr>
+                    <!-- Item #1 -->
+                    @if (ViewBag.JobSeekerContacted != null && Enumerable.Count(ViewBag.JobSeekerContacted) > 0)
+                    {
+                        foreach (var item in ViewBag.JobSeekerContacted)
+                        {
+                            <tr>
+                                <td>@item.SenderEmail</td>
+                                <td>@item.ReceiverEmail</td>
+                                <td>@item.Subject</td>
+                                @*<td class="action">
+                                    <a onclick="" class="delete"><i class="fa fa-remove"></i> Unfollow</a>
+                                </td>*@
+                            </tr>
+
+                        }
+
+                    }
+                    else
+                    {
+                        <tr><td>No data available!</td></tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,247 @@
+﻿
+.unstyled::-webkit-inner-spin-button,
+.unstyled::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.quickLink{
+    font-size:0.8vw;
+}
+
+#profile-items {
+    line-height: -50px;
+}
+
+#profileimage {
+    height: 80px;
+    width: 100px;
+}
+
+.customehover {
+    cursor: pointer;
+    transition: transform .3s ease;
+}
+
+    .customehover:hover {
+        transform: scale(1.3);
+    }
+
+.img-hover-zoom {
+    height: 4%;
+    width: 3%;
+    overflow: hidden;
+}
+
+.customposition {
+    margin-top: 24%;
+    font-size: 123%;
+}
+
+.bootstrapmodal-center{
+    margin:auto;
+}
+.small-bootstrapmodal-topmargin {
+    margin-top: 10%;
+}
+
+/*Profile picture upload*/
+
+/*.custom-file {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    margin-bottom: 0;
+}
+
+#customImageFile {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    margin: 0;
+    opacity: 0;
+}
+
+
+.custom-file-input {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    margin: 0;
+    opacity: 0;
+}
+
+.custom-file-label {
+    position: absolute;
+    /*top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.custom-file-label::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+    display: block;
+    height: calc(calc(2.25rem + 2px) - 1px * 2);
+    padding: .375rem .75rem;
+    line-height: 1.5;
+    color: #495057;
+    content: "Browse";
+    background-color: #e9ecef;
+    border-left: 1px solid #ced4da;
+    border-radius: 0 .25rem .25rem 0;
+}*/
+@media (min-width: 992px){
+    #profileModalCenter .col-md-12 {
+        width: 100%;
+        /*margin-top: -13px!important;*/
+    }
+   
+}
+
+#dashboard {
+    padding-top: 3px !important;
+}
+
+.dashboard-content {
+    padding: 0px 45px !important;
+}
+
+.uploadCont {
+    text-align: left !important;
+}
+
+.selectDropdown {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 0 0 0 18px;
+    height: 47px;
+    line-height: 47px;
+    border: 1px solid #e0e0e0;
+    background-color: #fcfcfc;
+    color: gray;
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.profile-detail-box {
+    position: relative;
+    margin-top: 28px;
+    padding-left: 40px;
+}
+
+    .profile-detail-box .edit-box {
+        position: relative;
+        display: inline-block;
+        padding-right: 30px;
+    }
+
+    .profile-detail-box:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 1px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #929e8f;
+        opacity: .6;
+    }
+
+    .profile-detail-box:after {
+        content: "";
+        position: absolute;
+        left: 7px;
+        top: 19px;
+        width: 2px;
+        height: calc(100% + 8px);
+        background: #9b9b9b;
+        opacity: .2;
+    }
+
+    .profile-detail-box:last-child:after {
+        width: 0;
+        height: 0;
+    }
+
+    .profile-detail-box:last-child:after {
+        content: "";
+        position: absolute;
+        left: 7px;
+        top: 19px;
+        background: #9b9b9b;
+        opacity: .2;
+    }
+.dashboard-nav {
+    position: absolute!important;
+}
+.addMorebtn {
+    font-family: poppins-semibold-webfont;
+    font-weight: 400;
+    font-size: .929em !important;
+}
+.eduModeltxtbox {
+    height:47px!important;
+}
+.eduRadio {
+    margin: 0px 0px 0px 30px!important;
+}
+textarea.WYSIWYG {
+    min-height: 150px!important;
+}
+.upload-btn:hover, #titlebar.photo-bg a.button.white:hover, a.button.dark:hover {
+    background-color: #26ae61;
+    color: #fff;
+}
+.dashboard-list-box .button.gray {
+    background-color: #e9e9e9;
+    color: #666;
+}
+.profileSummary {
+    font-size: 1rem;
+    margin-left: 5px;
+    width: 84%
+}
+.usrProfile {
+    margin-top: 0px;
+    padding: 0px;
+    border-top: 12px solid #f7f7f7;
+}
+.testimonial-author img {
+   margin: -3px auto!important;
+}
+.ProgressDiv {
+    width: 97%;
+    margin-left: 3px;
+    height: 18px;
+}
+.modal-open {
+   
+}
+.mucss {
+    background-color:yellow;
+}
+.dashboard-content table.manage-table th {
+    background-color: #686b69;
+    color: #fff;
+    border-right: 1px solid #c7c2c2;
+}
+table.manage-table tr td {
+    padding: 3px 20px;
+ }

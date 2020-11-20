@@ -1,0 +1,16 @@
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\obj\Debug\netcoreapp2.2\LMS.Data.csproj.CoreCompileInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\obj\Debug\netcoreapp2.2\LMS.Data.AssemblyInfoInputs.cache
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\obj\Debug\netcoreapp2.2\LMS.Data.AssemblyInfo.cs
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\bin\Debug\netcoreapp2.2\LMS.Data.deps.json
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\bin\Debug\netcoreapp2.2\LMS.Data.runtimeconfig.json
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\bin\Debug\netcoreapp2.2\LMS.Data.runtimeconfig.dev.json
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\bin\Debug\netcoreapp2.2\LMS.Data.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\bin\Debug\netcoreapp2.2\LMS.Data.pdb
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\bin\Debug\netcoreapp2.2\LMS.Model.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\bin\Debug\netcoreapp2.2\LMS.Utility.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\bin\Debug\netcoreapp2.2\LMS.Model.pdb
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\bin\Debug\netcoreapp2.2\LMS.Utility.pdb
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\obj\Debug\netcoreapp2.2\LMS.Data.csproj.CopyComplete
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\obj\Debug\netcoreapp2.2\LMS.Data.dll
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\obj\Debug\netcoreapp2.2\LMS.Data.pdb
+F:\Work Items\Steeprise - Leave management\LMS - SourceCode\LMS.Data\obj\Debug\netcoreapp2.2\LMS.Data.csprojAssemblyReference.cache

@@ -1,0 +1,15 @@
+﻿
+.single {
+    background: url('/images/page-title-bg.jpg') no-repeat !important;
+    background-size: cover !important;
+}
+
+.LoginHeading {
+    color: white;
+}
+.headingReg {
+    text-align: right;
+    font-size: 15px;
+    font-weight: bold;
+    color: #26ae61;
+}

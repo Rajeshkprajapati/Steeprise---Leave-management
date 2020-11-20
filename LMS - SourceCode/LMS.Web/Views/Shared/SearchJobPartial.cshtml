@@ -1,0 +1,59 @@
+﻿@using LMS.Model.DataViewModel.Shared
+@model SearchJobViewModel
+
+<div>
+    @{
+        UserViewModel user = Context.Session.Get<UserViewModel>
+    (Constants.SessionKeyUserInfo);
+        int jRoleId = 0;
+        string jRole = string.Empty;
+        if (null != user)
+        {            
+            jRole = user.JobTitleName;
+        }
+
+
+        <form asp-area="Jobseeker" id="formJobPartial" asp-controller="Job" asp-action="SearchJobList" method="post">
+            <div class="col-md-3">
+                @*<input type="hidden" asp-for="JobRole" value="@jRoleId" id="hiddenjobtitle" />*@
+                <select type="text" asp-for="JobTitle" id="jobtitle" multiple asp-items="@(new SelectList(ViewBag.AllJobRoles,"JobTitleId","JobTitleName"))" autocomplete="off" class="form-control chosen-select" data-placeholder="Choose Job Title"></select>
+            </div>
+            <div class="col-md-2 autocomplete">
+                <input type="text" asp-for="Skills" class="form-control" placeholder="Skill" />
+            </div>
+           
+            <div class="col-md-2">
+                @if (ViewBag.JobIndustryArea != null)
+                {
+                    <select asp-for="JobCategory[0]" class="form-control" asp-items="@(new SelectList(@ViewBag.JobIndustryArea,"JobIndustryAreaId", "JobIndustryAreaName"))">
+                        <option value="">Job Category</option>
+                    </select>
+                }
+                else
+                {
+                    <select asp-for="JobCategory" class="form-control" >
+                        <option value="">Job Category</option>
+                    </select>
+                }
+            </div>
+            <div class="col-md-1">
+                <select class="form-control" asp-for="Experiance">
+                    <option value="-1">Year</option>
+                    <option value="0">Fresher</option>
+                    @for (int i = 1; i <= 15; i++)
+                    {
+                        <option value=@i>@(i)</option>
+
+                    }
+                </select>
+            </div>
+            <div class="col-md-2 autocomplete">
+                <input asp-for="City" type="hidden" id="hdnCity" />
+                <input type="text" id="City" class="form-control" placeholder="Enter city" />
+            </div>
+            <div class="col-md-2">
+                <input type="submit" id="SearchJobPartial" class="btn" value="Search Job">
+            </div>
+        </form>
+    }
+</div>

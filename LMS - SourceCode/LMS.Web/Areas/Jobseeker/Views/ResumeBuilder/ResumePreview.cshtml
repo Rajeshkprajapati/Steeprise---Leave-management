@@ -1,0 +1,36 @@
+﻿@using LMS.Model.DataViewModel.JobSeeker
+
+@model ResumeViewModel;
+
+@{
+    ViewData["Title"] = "ResumePreview";
+}
+
+
+<div class="listpgWraper">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-sm-12" style="color:darkgreen;text-align:right;margin-bottom:10px;">
+                <label><strong>Your resume will look like below:</strong></label>
+            </div>
+            <div class="col-sm-12" style="border:1px solid #9a9a9a;padding-left: 20px;padding-right: 20px;">
+                <partial name="@ViewBag.ResumeTemplate" model="Model" />
+            </div>
+            <div class="col-sm-12" style="text-align:center;">
+                <br />
+                <br />
+                <input type="button" class="btn btn-default" onclick="GenerateCV(this);" value="Create Resume">
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/Jobseeker/resume-builder.js"></script>
+}
+
+
+

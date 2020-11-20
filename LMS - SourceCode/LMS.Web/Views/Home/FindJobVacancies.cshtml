@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewData["Title"] = "Find Job Vacancies";
+}
+
+@{
+    UserViewModel user = Context.Session.Get<UserViewModel>
+        (Constants.SessionKeyUserInfo);
+    if (user != null)
+    {
+        @if (user.RoleName == "Admin")
+        {
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+        }
+        else
+        {
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="photo-bg" style="background-image: url(/Assets/images/all-categories-photo.jpg);">
+    <div class="container">
+        <div class="ten columns">
+            <h2>All Categories</h2>
+        </div>
+        <div class="six columns">
+             <a href="/JobSeekerManagement" class="button">Search more jobs</a>
+        </div>
+    </div>
+</div>
+
+<!-- Content
+================================================== -->
+<div id="categories">
+    <!-- Categories Group -->
+    <div class="categories-group">
+        <div class="container">
+            <div align="left"><h4>Jobs by Industry & Categories  <span class="ln ln-icon-Engineering"></span></h4></div><br/>
+            @if (ViewBag.CategoryJobs != null && Enumerable.Count(ViewBag.CategoryJobs) > 0)
+            {
+                @foreach (var row in ViewBag.CategoryJobs)
+                {
+            <div class="four columns">
+                <ul>
+                    <li><a class="text-overflow" href="/Home/AllJobsByCategory/?id=@row.JobIndustryAreaId">@row.JobIndustryAreaName<span> </span></a></li>
+
+                </ul>
+            </div>
+                }
+            }
+            else
+            {
+                <p> No data found!</p>
+            }
+        </div>
+    </div>
+    <!-- Categories Group -->
+    <div class="categories-group" id="CityVacancies">
+        <div class="container">
+            <div align="left"><h4>Vacancies by Cities  <span class="ln ln-icon-Location-2"></span></h4></div><br />
+            @if (ViewBag.CityJobs != null && Enumerable.Count(ViewBag.CityJobs) > 0)
+            {
+                @foreach (var row in ViewBag.CityJobs)
+                {
+                    <div class="four columns">
+                        <ul>
+                            <li><a href="/Home/AllJobsByCity/?citycode=@row.CityCode">@row.City<span></span></a></li>
+
+                        </ul>
+                    </div>
+                }
+            }
+            else
+            {
+                <p> No data found!</p>
+            }
+
+
+        </div>
+    </div>
+    <!-- Categories Group -->
+    <div class="categories-group" id="CompanyVacancies">
+        <div class="container">
+            <div align="left"><h4>Vacancies by Company  <span class="ln ln-icon-Building"></span></h4></div><br />
+            @if (ViewBag.CompanyJobs != null && Enumerable.Count(ViewBag.CompanyJobs) > 0)
+            {
+                @foreach (var row in ViewBag.CompanyJobs)
+                {
+                    <div class="four columns">
+                        <ul>
+                            <li><a href="/Home/AllJobsByCompany/?UserId=@row.UserId">@row.CompanyName<span></span></a></li>
+
+                        </ul>
+                    </div>
+                }
+            }
+            else
+            {
+                <p> No data found!</p>
+            }
+        </div>
+    </div>
+</div>
+

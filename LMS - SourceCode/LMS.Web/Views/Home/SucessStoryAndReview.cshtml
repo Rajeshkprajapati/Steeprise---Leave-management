@@ -1,0 +1,243 @@
+﻿@using LMS.Model.DataViewModel.Home
+@model SuccessStoryViewModel
+@{
+    ViewData["Title"] = "Sucess Story And Review";
+}
+@{
+    UserViewModel user = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+
+    <link href="~/css/main.css" rel="stylesheet" />
+    <link href="~/lib/jquery/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/css/registration.css" rel="stylesheet" />
+    <link href="~/css/custom.css" rel="stylesheet" />
+    <link href="~/css/Home/successpage.css" rel="stylesheet" />
+    <!-- Page Title start -->
+    <style>
+        #profilelabel {
+            position: relative;
+            top: -17px;
+            z-index: 1;
+            /* height: calc(2rem + 2px) !important; */
+            padding: .375rem .75rem !important;
+            line-height: 2.2;
+            color: #495057;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+        }
+
+        .custom-file-input1 {
+            position: relative;
+            z-index: 2;
+            margin-left: 34px;
+            top: 33px;
+            /* height: calc(2.25rem + 2px); */
+            /* margin: 0; */
+            opacity: 0;
+        }
+    </style>
+
+    <div class="pageTitle">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <h1 class="page-heading">Success Story</h1>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Success Story</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Title End -->
+    <div class="listpgWraper">
+        <div class="container">
+
+            <div class="">
+                <div class="container">
+
+                    <!-- Blog start -->
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <!-- Start Side Bar Training Partner -->
+
+                            <div class="col-md-12 div12">
+                                <h3 class="widgettitles gp-standard-titles">
+                                    <span class="gp-widget-titles">Training Partner</span>
+                                </h3>
+                                @if (ViewBag.SuccessStoryVideo != null)
+                                {
+                                    @foreach (var item in ViewBag.SuccessStoryVideo)
+                                    {
+                                        @if (@item.Type == "Training Partner")
+                                        {
+                                            <div class="col-md-4">
+                                                <iframe height="100%" width="100%" src="@item.Video" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                                                <label class="btn btn-primary buttonLabel text-overflow" title="@item.Title">@item.Title</label><br />
+                                                <label class="updateLbl"><i class="fa fa-user" aria-hidden="true"></i> :&nbsp;@item.UpdatedBy</label>
+                                                <i class="fa fa-clock-o updateLbl dateicon" aria-hidden="true">:&nbsp;@item.CreatedDate.ToString("MM/dd/yyyy")</i>
+                                            </div>
+                                        }
+                                    }
+                                }
+
+
+                            </div>
+                            <!--End Side Bar Training Partner-->
+                            <!-- Start Side Bar Employer -->
+                            <div class="col-md-12 div12">
+                                <h3 class="widgettitles gp-standard-titles">
+                                    <span class="gp-widget-titles" style="margin-bottom:5px;">Employer</span>
+                                </h3>
+
+                                @if (ViewBag.SuccessStoryVideo != null)
+                                {
+                                    @foreach (var item in ViewBag.SuccessStoryVideo)
+                                    {
+                                        @if (@item.Type == "Employer")
+                                        {
+                                            <div class="col-md-4">
+                                                <iframe height="100%" width="100%" src="@item.Video" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                                                <label class="btn btn-primary buttonLabel text-overflow" title="@item.Title">@item.Title</label><br />
+                                                <label class="updateLbl"><i class="fa fa-user" aria-hidden="true"></i> :&nbsp;@item.UpdatedBy</label>
+                                                <i class="fa fa-clock-o updateLbl dateicon" aria-hidden="true">:&nbsp;@item.CreatedDate.ToString("MM/dd/yyyy")</i>
+                                            </div>
+                                        }
+
+                                    }
+                                }
+                                else
+                                {
+                                    <h5>No data to show</h5>
+                                }
+
+
+                            </div>
+                            <!--End Side Bar Employer Partner-->
+                            <!-- Start Side Bar Student Partner -->
+                            <div class="col-md-12 div12">
+                                <h3 class="widgettitles gp-standard-titles">
+                                    <span class="gp-widget-titles">Students</span>
+                                </h3>
+
+                                @if (ViewBag.SuccessStoryVideo != null)
+                                {
+                                    @foreach (var item in ViewBag.SuccessStoryVideo)
+                                    {
+                                        @if (@item.Type == "Student")
+                                        {
+                                            <div class="col-md-4">
+                                                <iframe height="100%" width="100%" src="@item.Video" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                                                <label class="btn btn-primary buttonLabel text-overflow" title="@item.Title">@item.Title</label><br />
+                                                <label class="updateLbl"><i class="fa fa-user" aria-hidden="true"></i> :&nbsp;@item.UpdatedBy</label>
+                                                <i class="fa fa-clock-o updateLbl dateicon" aria-hidden="true">:&nbsp;@item.CreatedDate.ToString("MM/dd/yyyy")</i>
+                                            </div>
+                                        }
+                                    }
+                                }
+
+
+                            </div>
+                            <!--End Side Bar Student Partner-->
+
+
+                        </div>
+                        <div class="col-md-4">
+                            <!-- Blog List start -->
+                            <div class="blogWraper">
+                                <h3 class="widgettitles gp-standard-titles">
+                                    <span class="gp-widget-titles">Reviews</span>
+                                </h3>
+                                <div class="comments reviewdiv">
+
+                                    <ul class="media-list pre-scrollable">
+                                        <!-- COMMENTS -->
+                                        @if (ViewBag.Comment != null)
+                                        {
+                                            @foreach (var data in ViewBag.Comment)
+                                            {
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a>
+                                                            @if (@data.ImgUrl != "")
+                                                            {
+                                                                <img class="media-object img-responsive" src="@data.ImgUrl" alt=""> <br>
+                                                            }
+                                                            else
+                                                            {
+
+                                                                <img class="media-object img-responsive" src="~/ProfilePic/Avatar.jpg" alt=""> <br>
+                                                            }
+
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h6 class="media-heading"> @data.name<span> @data.CreatedDate.ToString("MM/dd/yyyy")</span></h6>
+                                                        @*<p>"@data.Tagline"</p>*@
+                                                        <p>@data.Message</p>
+                                                        @* <p>You would see the biggest gift would be from me and the card attached would say thank you for being a friend! Doin' it our way. Nothin's gonna turn us back now. Straight ahead. </p>*@
+                                                        @*<a href="#." class="btn btn-yellow raply"><i class="fa fa-reply" aria-hidden="true"></i></a>*@
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li><div class="alert alert-success" role="alert"><strong>@ViewData["CommentViewBag"]</strong> </div></li>
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--Start comment Section-->
+
+                    <div class="row">
+                        <div class="col-md-12" style="background-color:#dddee2">
+                            <div class="col-md-12">
+                                <h3 class="widgettitles gp-standard-titles" style="margin-top:20px;">
+                                    <span class="gp-widget-titles">Feedback</span>
+                                </h3>
+                            </div>
+                            @if (@user == null)
+                            {
+                                <label style="margin-bottom:5px;">You must be <a href="/Auth">logged in</a> to post a review.</label>
+                            }
+                            else
+                            {
+                                <form asp-action="PostSucessStoryReview" method="post" enctype="multipart/form-data">
+                                    <div class="col-sm-12 col-md-12">
+                                        @if (TempData["Feedback"] != null)
+                                        {
+                                        <p class="success-message"> @Html.Raw(@TempData["Feedback"].ToString())</p>
+                                        }
+                                        
+                                        <label>
+                                            <textarea class="text-area-editor form-control col-md-12" asp-for="Message" id="areaCommet" name="Message" cols="52" rows="7" placeholder="MESSAGE" required></textarea>
+                                        </label><br />
+                                        <font class="reviewfontwaring">* Should be maximum 100 words</font>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-12" style="margin-bottom:10px;">
+                                        <button type="submit" id="submitReview" class="btn btn-primary submitReview" style="width:40%">SEND</button>
+                                    </div>
+                                    <br />
+                                </form>
+
+                            }
+                        </div>
+                    </div>
+                    <!--End comment Section-->
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts
+    {
+    <script src="~/lib/jquery/jquery-ui.min.js"></script>
+    <script src="~/js/Home/SuccessStoryAndReview.js"></script>
+}

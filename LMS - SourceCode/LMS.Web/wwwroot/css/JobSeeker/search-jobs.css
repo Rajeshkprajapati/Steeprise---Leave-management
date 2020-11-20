@@ -1,0 +1,46 @@
+﻿.optionlist {
+    max-height: 90%;
+    overflow: auto;
+}
+
+.main-jobs-container {
+    height: 700px;
+}
+
+.left-pane-filter {
+    height: 100%;
+}
+
+.job-search-result {
+    height: 100%;
+    overflow: auto;
+    max-height: unset !important;
+}
+
+.widgetprofile {
+    height: 100%;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 5px;
+}
+
+.sidebar .widget-title{
+    margin-bottom:10px;
+}
+
+.filter-search-box {
+    margin-bottom: 10px;
+    width: 100%;
+    padding-left: 10px;
+    /*box-shadow: 1px 1px 0px 1px;*/
+}
+
+.sidebar{
+    height:100%;
+}
+.widgetprofilecity {
+    height: 80%!important;
+}
+.widgetprofile {
+  border-bottom: 0px solid lightgrey!important;
+   
+}

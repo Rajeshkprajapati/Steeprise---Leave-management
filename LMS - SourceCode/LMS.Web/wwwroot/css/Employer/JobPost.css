@@ -1,0 +1,6 @@
+﻿.formpanel .form-control {
+    height: 45px!important;
+    border-radius: 0;
+    padding: 11px 14px;
+    border-color: #ddd;
+}

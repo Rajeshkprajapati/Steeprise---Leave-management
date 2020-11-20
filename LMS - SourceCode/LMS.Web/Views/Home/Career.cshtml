@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewData["Title"] = "Career";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+<!-- Page Title start -->
+
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Career With us</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Career Resources</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<!-- Featured Jobs start -->
+<div class="section greybg">
+    <div class="container">
+        <!-- title start -->
+        <div class="titleTop">
+
+            <h3>Nasscom</h3>
+
+        </div>
+        <p>
+            The National Association of Software and Services Companies (NASSCOM) is a trade association of Indian Information Technology (IT) and Business Process Outsourcing (BPO) industry. Established in 1988, NASSCOM is a non-profit organisation. NASSCOM initiated a program called '10000 Startups' in 2013...
+            <a href="/Home/ContactUs/">Read More</a>
+        </p>
+        <!-- title end -->
+        <!--Featured Job start-->
+        <ul class="jobslist row">
+            <!--Job start-->
+            @if (ViewBag.NasscomJobs != null)
+            {
+                @foreach (var jobs in ViewBag.NasscomJobs)
+                {
+                    <li class="col-md-6">
+                        <div class="jobint">
+                            <div class="row">
+                                <div class="col-md-2 col-sm-2">
+                                    @if (jobs.CompanyLogo != "")
+                                    {
+                                        <img src="@jobs.CompanyLogo" style="height:50px" alt="Job Name" />
+                                    }
+                                    else
+                                    {
+                                        <img class="media-object img-responsive" style="height:50px" src="~/ProfilePic/Avatar.jpg" alt="">
+                                    }
+                                </div>
+                                @*<div class="col-md-1 col-sm-1"></div>*@
+                                <div style="margin-left:10px" class="col-md-6 col-sm-6">
+                                    <div class="company text-overflow" title="@jobs.JobTitle"><a href="/Job/JobDetails/?jobid=@jobs.JobPostId">@jobs.JobTitle</a></div>
+                                    <div class="jobloc"><label class="fulltime">@jobs.EmploymentStatus</label>   - <span>@jobs.City</span></div>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    @if (jobs.IsApplied == true)
+                                    {
+                                        <a href="javascript:void(0)" class="applybtn" id="btnApply" style="cursor:no-drop">Applied</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#." class="applybtn" id="btnApply" onclick="ApplyJobs(@jobs.JobPostId)">Apply Now</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                <li class="col-md-4"></li>
+                <li class="col-md-8">
+                    <span class="h2">No Data Found</span>
+                </li>
+            }
+            <!--Job end-->
+        </ul>
+        <!--Featured Job end-->
+
+    </div>
+</div>
+<!-- Modal -->
+<<!-- Modal HTML -->
+<div id="myModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="iconbox" class="icon-box">
+                    <i id="iconPopup" class="" aria-hidden="true"></i>
+                </div>
+                <h4 class="modal-title" id="tagiging"></h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-center" id="tagginMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSuccess" style="display:block" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                <button id="btnWarning" onclick="RedirectProfile()" style="display:none" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script src="~/js/Jobseeker/JobDetails.js"></script>
+}
+

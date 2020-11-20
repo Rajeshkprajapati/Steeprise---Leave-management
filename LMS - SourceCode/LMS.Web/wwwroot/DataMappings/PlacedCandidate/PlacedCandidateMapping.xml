@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PlacedCandidate>
+  <Column>
+    <FileKey>Sum of Candidate Contact No</FileKey>
+    <DataKey>SumofCandidateContactNo</DataKey>
+    <DataIndex>0</DataIndex>
+    <Type>String</Type>
+    <DefaultValue>0</DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Candidate Email</FileKey>
+    <DataKey>CandidateEmail</DataKey>
+    <DataIndex>1</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>CandidateID</FileKey>
+    <DataKey>CandidateID</DataKey>
+    <DataIndex>2</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>CandidateName</FileKey>
+    <DataKey>CandidateName</DataKey>
+    <DataIndex>3</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Castecategory</FileKey>
+    <DataKey>Castecategory</DataKey>
+    <DataIndex>4</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Certificate Date</FileKey>
+    <DataKey>CertificateDate</DataKey>
+    <DataIndex>5</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Certified</FileKey>
+    <DataKey>Certified</DataKey>
+    <DataIndex>6</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Employer spoc Email</FileKey>
+    <DataKey>EmployerspocEmail</DataKey>
+    <DataIndex>7</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Employer spoc Mobile</FileKey>
+    <DataKey>EmployerspocMobile</DataKey>
+    <DataIndex>8</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>EmployerType</FileKey>
+    <DataKey>EmployerType</DataKey>
+    <DataIndex>9</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Employer Spoc Name</FileKey>
+    <DataKey>EmployerSpocName</DataKey>
+    <DataIndex>10</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>First Employment Created Date</FileKey>
+    <DataKey>FirstEmploymentCreatedDate</DataKey>
+    <DataIndex>11</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>FromDate</FileKey>
+    <DataKey>FromDate</DataKey>
+    <DataIndex>12</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>FY Wise</FileKey>
+    <DataKey>FYWise</DataKey>
+    <DataIndex>13</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Gender</FileKey>
+    <DataKey>Gender</DataKey>
+    <DataIndex>14</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Jobrole</FileKey>
+    <DataKey>Jobrole</DataKey>
+    <DataIndex>15</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Average of No. of days between date of certification and date of Placement</FileKey>
+    <DataKey>AvgofNoofdaysbetweennDOCDOP</DataKey>
+    <DataIndex>16</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Average of No. of Months of Placement</FileKey>
+    <DataKey>AverageofNoOfMonthsofPlacement</DataKey>
+    <DataIndex>17</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Organisation District</FileKey>
+    <DataKey>OrganisationDistrict</DataKey>
+    <DataIndex>18</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Organisation State</FileKey>
+    <DataKey>OrganisationState</DataKey>
+    <DataIndex>19</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Organization Address</FileKey>
+    <DataKey>OrganizationAddress</DataKey>
+    <DataIndex>20</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Organization Name</FileKey>
+    <DataKey>OrganizationName</DataKey>
+    <DataIndex>21</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Partner Name</FileKey>
+    <DataKey>PartnerName</DataKey>
+    <DataIndex>22</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Partner SPOC Mobile</FileKey>
+    <DataKey>PartnerSPOCMobile</DataKey>
+    <DataIndex>23</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Partner SPOC Name</FileKey>
+    <DataKey>PartnerSPOCName</DataKey>
+    <DataIndex>24</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Count of PartnerID</FileKey>
+    <DataKey>CountofPartnerID</DataKey>
+    <DataIndex>25</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Sum of Sallery Per Month</FileKey>
+    <DataKey>SumofSalleryPerMonth</DataKey>
+    <DataIndex>26</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Partner SPOC Email</FileKey>
+    <DataKey>PartnerSPOCEmail</DataKey>
+    <DataIndex>27</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Count of SC Training Centre ID</FileKey>
+    <DataKey>CountofSCTrainingCentreID</DataKey>
+    <DataIndex>28</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>SectorName</FileKey>
+    <DataKey>SectorName</DataKey>
+    <DataIndex>29</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Self Employed District</FileKey>
+    <DataKey>SelfEmployedDistrict</DataKey>
+    <DataIndex>30</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Self Employed State</FileKey>
+    <DataKey>SelfEmployedState</DataKey>
+    <DataIndex>31</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>TC District</FileKey>
+    <DataKey>TCDistrict</DataKey>
+    <DataIndex>32</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>TC SPOC Email</FileKey>
+    <DataKey>TCSPOCEmail</DataKey>
+    <DataIndex>33</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Sum of TC SPOC Mobile</FileKey>
+    <DataKey>SumofTCSPOCMobile</DataKey>
+    <DataIndex>34</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>TC SPOC Name</FileKey>
+    <DataKey>TCSPOCName</DataKey>
+    <DataIndex>35</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>TC State</FileKey>
+    <DataKey>TCState</DataKey>
+    <DataIndex>36</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>ToDate</FileKey>
+    <DataKey>ToDate</DataKey>
+    <DataIndex>37</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Training Centre Name</FileKey>
+    <DataKey>TrainingCentreName</DataKey>
+    <DataIndex>38</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Training Type</FileKey>
+    <DataKey>TrainingType</DataKey>
+    <DataIndex>39</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>EducationAttained</FileKey>
+    <DataKey>EducationAttained</DataKey>
+    <DataIndex>40</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+
+</PlacedCandidate>

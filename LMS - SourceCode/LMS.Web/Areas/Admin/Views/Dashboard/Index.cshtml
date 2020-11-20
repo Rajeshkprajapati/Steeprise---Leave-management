@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewData["Title"] = "Admin Dashboard";
+
+}
+<style>
+    .unstyled::-webkit-inner-spin-button,
+    .unstyled::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
+    #dashboard #titlebar {
+        margin: 0 0 20px !important;
+    }
+</style>
+<link href="~/lib/Calendar/css/tail.datetime-default-red.css" rel="stylesheet" />
+<link href="~/css/Admin/summary-dashboard.css" rel="stylesheet" />
+
+
+<!-- Dashboard -->
+<div id="dashboard">
+    <!-- Navigation
+    ================================================== -->
+    <!-- Responsive Navigation Trigger -->
+    <a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
+    <div class="dashboard-nav">
+        <div class="dashboard-nav-inner">
+            <ul data-submenu-title="Start">
+                <li class="active"><a href="/Dashboard">Dashboard</a></li>
+                @*<li><a href="dashboard-messages.html">Messages <span class="nav-tag">2</span></a></li>*@
+            </ul>
+            <ul>
+                <li>
+                    <a>Administrator</a>
+                    <ul>
+                        <li onclick="ManageUsers()"><a href="javascript:void(0);">Manage Users</a></li>
+                        <li onclick="GetSuccessStoryVideo()"><a href="javascript:void(0);">Success Story</a></li>
+                        <li onclick="GetJobRoles()"><a href="javascript:void(0);">Job Roles</a></li>
+                        <li><a href="dashboard-manage-applications.html">Manage Applications <span class="nav-tag">4</span></a></li>
+                        <li><a href="dashboard-add-job.html">Add Job</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a>For Candidates</a>
+                    <ul>
+                        <li><a href="dashboard-manage-resumes.html">Manage Resumes <span class="nav-tag">2</span></a></li>
+                        <li><a href="dashboard-job-alerts.html">Job Alerts</a></li>
+                        <li><a href="dashboard-add-resume.html">Add Resume</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul data-submenu-title="Account">
+                <li><a href="dashboard-my-profile.html">My Profile</a></li>
+                <li><a href="index-2.html">Logout</a></li>
+            </ul>
+
+        </div>
+    </div>
+    <!-- Navigation / End -->
+    <!-- Content
+    ================================================== -->
+    <div class="dashboard-content" id="contentHolder">
+
+
+    </div>
+
+</div>
+<!-- Dashboard / End -->
+
+
+@section Scripts
+    {
+    <script src="~/lib/Calendar/js/tail.datetime.js"></script>
+    <script src="~/js/Admin/Dashboard/AdminDashboardArea.js"></script>
+    <script src="~/js/Admin/Index/Chart2.js"></script>
+    <script src="~/js/common.js"></script>
+    <script src="~/js/Admin/Calendar.js"></script>
+    <script src="~/js/Admin/Index/Index.js"></script>
+}

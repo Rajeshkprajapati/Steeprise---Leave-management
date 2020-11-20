@@ -1,0 +1,185 @@
+﻿@using LMS.Model.DataViewModel.Shared;
+
+@model LMS.Model.DataViewModel.Shared.EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Employer Registration";
+}
+
+<style>
+    span.text-danger {
+        color: red !important;
+    }
+</style>
+<!-- Titlebar
+================================================== -->
+@*<div id="titlebar" class="single">
+        <div class="container">
+            <div class="sixteen columns">
+                <h2>Job Seeker Registarton</h2>
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li>You are here:</li>
+                        <li><a href="#">Home</a></li>
+                        <li>Registarton</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>*@
+
+<!-- Content
+================================================== -->
+<!-- Container -->
+<div class="container">
+    <div class="my-account">
+        <div class="tabs-container">
+            @if (TempData["successMsg"] != null)
+            {
+                <p style="color:green;font-weight:bold">@TempData["successMsg"]</p>
+            }
+            @if (TempData["errorMsg"] != null)
+            {
+                <p style="color:red;font-weight:bold">@TempData["errorMsg"]</p>
+            }
+            <!-- Register -->
+            <div class="tab-content" id="tab2">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="socialmedia">
+                            Register Via:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <ul class="social-icons">
+                            <li>
+
+
+                                <fb:login-button scope="public_profile,email"
+                                                 onlogin="checkLoginState();">
+                                </fb:login-button>
+
+
+                                <!-- <a class="facebook" href="#"><i class="icon-facebook"></i></a>
+                                <a class="gplus" href="#"><i class="icon-gplus"></i></a> -->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <form autocomplete="off" method="post" class="register" asp-action="/Auth/EmployeeRegistration">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row form-row-wide">
+                        <label asp-for="CompanyName">
+                            Company Name:
+                            <i class="ln ln-icon-Male"></i>
+                            <input type="text" class="input-text" asp-for="CompanyName" id="companyname" placeholder="CompanyName" />
+                        </label>
+                        <span asp-validation-for="CompanyName" class="text-danger"></span>
+                    </div>
+
+                    @*<p class="form-row">
+                            <label>
+                                Gender:
+                                <input type="radio" name="Gender" value="Male" />Male
+                                <input type="radio" name="Gender" value="Female" />Female
+                            </label>
+                        </p>*@
+
+                    <div class="form-row form-row-wide">
+                        <label asp-for="Email">
+                            Official Email:
+                            <i class="ln ln-icon-Mail"></i>
+                            <input type="text" class="input-text" asp-for="Email" id="email" placeholder="Office Email" autocomplete="off" />
+                        </label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row form-row-wide">
+                        <label asp-for="Password">
+                            Password:
+                            <i class="ln ln-icon-Lock-2"></i>
+                            <input class="input-text" type="password" asp-for="Password" id="password" placeholder="Password" />
+                        </label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row form-row-wide">
+                        <label asp-for="Mobile">
+                            Mobile:
+                            <i class="ln ln-icon-Smartphone"></i>
+                            <input type="number" maxlength="10" class="input-text" asp-for="Mobile" id="mobile" placeholder="Mobile" />
+                        </label>
+                        <span asp-validation-for="Mobile" class="text-danger"></span>
+                    </div>
+
+                    @*<div class="form-row form-row-wide">
+                            <label asp-for="Industry">
+                                Industry:
+                                <i class="ln ln-icon-Building"></i>
+                                <input type="text" class="input-text" asp-for="Industry" id="JobIndustryArea" placeholder="Industry" />
+                            </label>
+                            <span asp-validation-for="Industry" class="text-danger"></span>
+                        </div>*@
+
+                    <div class="form-row">
+                        <input type="submit" class="button border fw margin-top-10" name="register" value="Register" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div id="fb-root"></div>
+
+
+@section Scripts
+    {
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v8.0&appId=725641638278516&autoLogAppEvents=1" nonce="f5swL2gR"></script>
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '725641638278516',
+                cookie: true,
+                xfbml: true,
+                version: 'v8.0'
+            });
+
+            FB.AppEvents.logPageView();
+
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                if (response.authResponse != null) {
+                    statusChangeCallback(response);
+                }
+            });
+        }
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                var accessToken = response.authResponse.accessToken;
+                SendAJAXRequest(`/Auth/FBRegistration/`, 'POST', accessToken, 'JSON', (resp) => {
+                    if (resp && resp.isSuccess) {
+                        //console.log('Success');
+                        InformationDialog('Information', 'Registration Successfull Please wait for admin approval!');
+                    } else {
+                        ErrorDialog('Error', 'Email already exist!');
+                    }
+                });
+            } else {
+                ErrorDialog('Error', 'Error occured please retry!');
+            }
+        }
+    </script>
+}

@@ -1,0 +1,65 @@
+﻿@using LMS.Model.DataViewModel.Shared;
+@{
+    ViewData["Title"] = "Employer Login";
+}
+@model UserViewModel
+<link href="~/css/Auth/auth.css" rel="stylesheet" />
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="single">
+    <div class="container">
+        <div class="sixteen columns">
+            <h2 class="LoginHeading">Employer Login</h2>
+            <nav id="breadcrumbs">
+                <ul>
+                    <li>You are here:</li>
+                    <li><a href="#">Home</a></li>
+                    <li>Employer Login</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Content
+================================================== -->
+<!-- Container -->
+<div class="container">
+    <div class="my-account">
+        <div class="tabs-container">
+            <!-- Login -->
+            <div class="tab-content" style="display: none;">
+                <form method="post" class="login" action="/Auth/Login">
+                    <p class="form-row form-row-wide">
+                        <label for="username">
+                            Username:
+                            <i class="ln ln-icon-Male"></i>
+                            <input type="text" class="input-text" name="Email" id="Email" placeholder="Enter Email" />
+                        </label>
+                    </p>
+                    <p class="form-row form-row-wide">
+                        <label for="password">
+                            Password:
+                            <i class="ln ln-icon-Lock-2"></i>
+                            <input class="input-text" type="password" name="password" id="password" placeholder="Enter Password" />
+                        </label>
+                    </p>                    
+                    <p class="form-row">
+                        <input type="submit" class="button border fw margin-top-10" name="login" value="Login" />
+                        <label for="rememberme" class="rememberme">
+                            <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Remember Me
+                        </label>
+                    </p>
+                    <div class="form-row form-row-wide">
+                        <span class="col-sm-6" style="padding-left:0px !important;font-weight:bold">
+                            <a href="#">Lost Your Password?</a>
+                        </span>
+                        <span class="col-sm-6" style="text-align:right;font-weight:bold">
+                            <a href="/Auth/EmployerRegistration">New Registration</a>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

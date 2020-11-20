@@ -1,0 +1,72 @@
+﻿@using LMS.Model.DataViewModel.TrainingPartner
+
+@model IEnumerable<BulkUploadSummaryViewModel<BulkJobSeekerUploadSummaryViewModel>>
+
+@{
+    ViewData["Title"] = "Bulk Job Seeker Summary";
+}
+<link href="~/css/TP/bulkJobSeeker.css" rel="stylesheet" />
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">@ViewData["Title"]</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>@ViewData["Title"]</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="listpgWraper table-responsive">
+    @if (null != Model && Model.Count() > 0)
+    {
+        int summaryIndex = -1;
+        foreach (BulkUploadSummaryViewModel<BulkJobSeekerUploadSummaryViewModel> summary in Model)
+        {
+            summaryIndex++;
+            <h6 class="summar-header">@summary.FileName</h6>
+            <input type="button" class="btn btn-primary BulkExportbtn" onclick="tableToExcel('@("jobPostSummary_"+summaryIndex)', 'bulk upload error')" value="Export Data">
+            int rowIndex = -1;
+            <table id="@("jobPostSummary_"+summaryIndex)" class="table table-striped table-hover">
+                @foreach (BulkJobSeekerUploadSummaryViewModel sDetail in summary.Summary)
+                {
+                    rowIndex++;
+                    var props = sDetail.GetType().GetProperties();
+                    <tr>
+                        @{
+                            foreach (var prop in props)
+                            {
+                                var data = prop.GetValue(sDetail);
+                                <td>
+                                    @if (prop.Name == "ErrorDetails")
+                                    {
+                                        <StringToOrderedList css-classes="@(rowIndex>0?"error-class":"")" html-content="@data"></StringToOrderedList>
+                                    }
+                                    else
+                                    {
+                                        <p class="@(Convert.ToString(data) == "Failed" ? "error-class" : (prop.Name=="Status" && Convert.ToString(data) == "Success")?"success-class":"")" title="@data">@Html.Raw(data)</p>
+                                    }
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+            </table>
+        }
+    }
+</div>
+<script type="text/javascript">
+    var tableToExcel = (function () {
+        var uri = 'data:application/vnd.ms-excel;base64,'
+            , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+            , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+            , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+        return function (table, name) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+            window.location.href = uri + base64(format(template, ctx))
+        }
+    })()
+</script>

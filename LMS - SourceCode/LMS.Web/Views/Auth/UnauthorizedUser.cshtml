@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "Unauthorized User";
+}
+
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">401 Error Page</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>401 Error</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+
+<div class="error-page-wrap">
+    <div class="container">
+        <div class="errormain">
+            <div class="error-msg" style="margin-bottom:50px;">
+                @{
+                    @if (ViewBag.Message != null)
+                    {
+                        <p><b>@ViewBag.Message</b></p>
+                    }
+                }
+
+                <a href="/Home/Index/" class="btn">Go to Home Page</a>
+            </div>
+            <h2>401</h2>
+            <h3>Access Denied</h3>
+        </div>
+    </div>
+</div>
+

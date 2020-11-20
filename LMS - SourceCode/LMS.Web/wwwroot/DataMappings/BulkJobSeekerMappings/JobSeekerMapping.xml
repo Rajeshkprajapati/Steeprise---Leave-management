@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<JobSeekers>
+  <Column>
+    <FileKey>Sl No</FileKey>
+    <DataKey>SequenceNo</DataKey>
+    <DataIndex>0</DataIndex>
+    <Type>Integer</Type>
+    <DefaultValue>0</DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Candidate Id</FileKey>
+    <DataKey>CandidateId</DataKey>
+    <DataIndex>1</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>First Name</FileKey>
+    <DataKey>FirstName</DataKey>
+    <DataIndex>2</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Last Name</FileKey>
+    <DataKey>LastName</DataKey>
+    <DataIndex>3</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+  <Column>
+    <FileKey>Email</FileKey>
+    <DataKey>Email</DataKey>
+    <DataIndex>4</DataIndex>
+    <Type>String</Type>
+    <DefaultValue></DefaultValue>
+  </Column>
+</JobSeekers>

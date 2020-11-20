@@ -1,0 +1,801 @@
+@using LMS.Model.DataViewModel.JobSeeker
+@model UserProfessionalDetailsViewModel
+@{
+    ViewData["Title"] = "Profile";
+}
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+<link href="~/lib/Calendar/css/tail.datetime-default-red.css" rel="stylesheet" />
+<link href="~/css/Profile.css" rel="stylesheet" />
+<link href="~/lib/tag-editor/jquery.tag-editor.css" rel="stylesheet" />
+
+<!-- Dashboard -->
+<div id="dashboard">
+    <!-- Navigation
+    ================================================== -->
+    <!-- Responsive Navigation Trigger -->
+    <a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
+    <div class="dashboard-nav">
+        <div class="dashboard-nav-inner">
+            <div class="testimonial-author">
+                <h4>Profile Score</h4>
+                <div class="progress ProgressDiv" id="ProgressDiv">
+                    @*<div class="progress-bar" role="progressbar"  style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>*@
+                </div>
+
+            </div>
+        </div>
+        <div class="dashboard-nav-inner usrProfile">
+            <ul data-submenu-title="">
+                <li><a id="ResumeUploadWithLabel">Attach Resume <span class="listing-type">Add</span></a></li>
+                <li><a id="ProfileSkillsModalCenterADD" data-toggle="modal" onclick="EditProfileSkills()">Key Skills<span class="listing-type">Add</span></a></li>
+                <li><a href="" id="employementModalCenterADD" data-toggle="modal" onclick="ShowModal('employementModalCenter')">Employment<span class="listing-type">Add</span></a></li>
+                <li><a href="" id="educationModalCenterADD" data-toggle="modal" onclick="ShowModal('educationModalCenter')">Education<span class="listing-type">Add</span></a></li>
+                <li><a href="" id="ProfileSummaryModalCenterADD" onclick="EditProfileSummary()" data-toggle="modal">Profile Summary<span class="listing-type">Add</span></a></li>
+                <li><a href="" id="profileModalCenterADD" data-toggle="modal" onclick="EditProfileData()">Personal Details<span class="listing-type">Add</span></a></li>
+                <li><a href="" id="locationeModalCenterADD" data-toggle="modal" onclick="ShowModal('locationModalCenter')">Pref. Location<span class="listing-type">Add</span></a></li>
+            </ul>
+        </div>
+
+        <div class="dashboard-nav-inner usrProfile">
+            <div class="testimonial-author">
+                @{
+                    UserViewModel usrProfile = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+                    <input type="file" name="ImageFile" class="custom-file-input" onchange="UploadProfilePicture(this)" id="customImageFile" accept=".jpg, .jpeg,.png" required style="display:none" />
+
+                    <a id="usrprofilepicupload" class="addMorebtn"><img src="" id="profileimage" alt=""><i class="fa fa-camera" aria-hidden="true" style="margin-left:-10px"></i></a>
+                    <h4>@usrProfile.FullName <span>@usrProfile.MobileNo</span><span>@usrProfile.JobTitleName</span></h4>
+                    <h6>@usrProfile.Email &nbsp;<img src="~/Assets/images/RightMark.png" style="max-width:17px"></h6>
+                    <h6><strong>Annual salary:</strong>&nbsp;<span id="usrProfileCTC"></span></h6>
+                    <h6><strong>Employment :</strong>&nbsp;<span id="usrEmploymentStatus"></span></h6>
+                    <h6><strong>Allow job alert :</strong>&nbsp; <input type="checkbox" class="form-check-input" id="btnJobAlert"></h6>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- Navigation / End -->
+    <!-- Content
+    ================================================== -->
+    <div class="dashboard-content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="dashboard-list-box margin-top-0">
+                    <h4>Resume</h4>
+                </div>
+                <div class="application">
+
+                    <div class="app-content">
+
+                        <div class="info">
+                            <img src="~/Assets/images/Resume.png" alt="">
+                            <span id="Resumename"></span>
+                            <ul>
+                                <li><a href="javascript:void(0)" id="Resumefile"><i class="fa fa-file-text"></i> Download CV</a></li>
+                                <li><a asp-area="Jobseeker" asp-controller="ResumeBuilder" asp-action="Index"><i class="fa fa-envelope"></i> Build Resume</a></li>
+                            </ul>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="buttons">
+
+                            <label class="upload-btn">
+                                <input type="file" name="files" id="uplaodFile" accept=".doc, .docx,.pdf" onchange="UploadResume('uplaodFile')" style="" />
+                                <i class="fa fa-upload"></i> Browse Resume
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-list-box margin-top-3">
+                    <h4>Add Key Skill</h4>
+                </div>
+                <div class="application">
+                    <div class="app-content">
+                        <p class="subHeadinfo">
+                            Helps recruiter in finding you for relevant jobs.
+                        </p>
+                        <div class="info uploadCont">
+                            <label id="txtSkillsValues" class="profileSummary"></label>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="buttons" style="margin-top:10px">
+                            <label class="upload-btn">
+                                <span onclick="EditProfileSkills()"> <i class="fa fa-plus-circle"></i> Add More</span>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-list-box margin-top-3">
+                    <h4>IT Skills<a data-toggle="modal" onclick="AddITSkills()" class="addMorebtn pull-right">+Add More</a></h4>
+                </div>
+                <div class="application">
+                    <div class="app-content">
+                        <div class="col-lg-12 col-md-12">
+
+                            <div class="dashboard-list-box margin-top-0">
+                                <div class="dashboard-list-box-content">
+                                    <!-- Table -->
+                                    <table class="manage-table responsive-table">
+                                        <tr>
+                                            <th hidden><i class="fa fa-file-text"></i> id</th>
+                                            <th><i class="fa fa-file-text"></i> Skill</th>
+                                            <th><i class="fa fa-check-square-o"></i> Version</th>
+                                            <th><i class="fa fa-calendar"></i> Last Used</th>
+                                            <th><i class="fa fa-user"></i> Experience(y)</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        <tbody id="ITSkills"></tbody>
+
+
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-list-box margin-top-3">
+
+                    <h4>Employment Details  <a data-toggle="modal" onclick="ShowModal('employementModalCenter')" class="addMorebtn pull-right">+Add More</a></h4>
+
+                </div>
+                <div class="application">
+
+                    <div class="app-content">
+                        <div id="addEmployment">
+
+                        </div>
+
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-list-box margin-top-3">
+                    <h4>Education Details <a data-toggle="modal" onclick="ShowModal('educationModalCenter')" class="addMorebtn pull-right">+Add More</a></h4>
+                </div>
+                <div class="application">
+                    <div class="app-content">
+                        <div id="addEducation">
+
+                        </div>
+
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-list-box margin-top-3">
+                    <h4>Profile Summary</h4>
+                </div>
+                <div class="application">
+                    <div class="app-content">
+
+                        <div class="info uploadCont">
+                            <label id="txtProfileSummary" class="profileSummary"></label>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="buttons">
+                            <label class="upload-btn">
+                                <span onclick="EditProfileSummary()"> <i class="fa fa-plus-circle"></i> Add More</span>
+                            </label>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-list-box margin-top-3">
+                    <h4>Preferred Location <a data-toggle="modal" onclick="ShowModal('locationModalCenter')" class="addMorebtn pull-right">+Add More</a></h4>
+                </div>
+                <div class="application">
+                    <div class="app-content">
+                        <div id="preferredlocationdata">
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-list-box margin-top-3">
+                    <h4>Personal Details<a data-toggle="modal" onclick="EditProfileData()" class="addMorebtn pull-right">+Add More</a></h4>
+                </div>
+                <div class="application">
+                    <div class="app-content">
+                        <div class="row" id="divpersonalDetails">
+                            <div class="col-md-12 col-sm-12">
+                                <br />
+                                <div class="col-md-6">
+                                    <h6>
+                                        Date of Birth
+                                    </h6>
+                                    <div class="emp" id="personaldob"></div>
+                                    <br />
+                                    <h6>
+                                        Gender
+                                    </h6>
+                                    <div class="emp" id="personalgender"></div><br />
+                                    <h6>
+                                        Email Id
+                                    </h6>
+                                    <div class="emp" id="personalemail"></div><br />
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>
+                                        Address
+                                    </h6>
+                                    <div class="emp" id="personaladdress"></div><br />
+                                    <h6>
+                                        Mobile Number
+                                    </h6>
+                                    <div class="emp" id="personalphone"></div><br />
+                                    <h6>
+                                        Marital Status
+                                    </h6>
+                                    <div class="emp" id="personalMaritalSatatusName"></div><br />
+
+                                    <div>
+                                        <input type="hidden" id="hdnCurrentSalary" value="" />
+                                        <input type="hidden" id="hdnMaritalStatus" value="" />
+                                        <input type="hidden" id="hdnExpectedSalary" value="" />
+                                        <input type="hidden" id="hdnAboutMe" value="" />
+                                        <input type="hidden" id="hdnJobCategory" value="" />
+                                        <input type="hidden" id="hdnEmploymentStatus" value="" />
+                                        <input type="hidden" id="hdnCountry" value="" />
+                                        <input type="hidden" id="hdnState" value="" />
+                                        <input type="hidden" id="hdnCity" value="" />
+                                        <input type="hidden" id="hdnTotalExperience" value="" />
+                                        <input type="hidden" id="hdnJobTitleId" value="" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>
+                                        Linkedin Profile
+                                    </h6>
+                                    <div class="emp" id="personalLinkedinProfile"></div><br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Content / End -->
+</div>
+<!-- Dashboard / End -->
+@*<! End html tag of new tempate>*@
+
+
+<!-- Modal -->
+<div class="modal fade" id="employementModalCenter" tabindex="-1" role="dialog" aria-labelledby="employementModalCenter" aria-hidden="true" style="background-color: rgb(128 128 128 / 88%);">
+    <div class="dashboard-content">
+        <div class="row">
+            <!-- Table-->
+            <div class="col-lg-12 col-md-12 popupdata">
+                <label class="close" data-dismiss="modal" style="margin-right:4px;">&times;</label>
+                <div class="dashboard-list-box margin-top-5">
+
+                    <h4>Employment</h4>
+                    <form onsubmit="AddJobProfile(this);return false" id="AddJobProfileForm">
+                        <div class="dashboard-list-box-content">
+                            <div class="submit-page">
+
+                                <input type="hidden" name="Id" value="0" />
+                                <input type="hidden" name="Industry" value="" />
+                                <input type="hidden" name="Skills" value="" />
+                                <input type="hidden" name="WorkLocation" value="" />
+                                @*<input type="hidden" name="ServingNoticePeriod" value=true />*@
+                                <!-- designation -->
+                                <div class="form">
+                                    <h5>Designation</h5>
+                                    <input class="search-field eduModeltxtbox" type="text" name="Designation" id="Designation" placeholder="Type Your Designation" value="" required />
+                                </div>
+                                <!-- organization -->
+                                <div class="form">
+                                    <h5>Organization</h5>
+                                    <input class="search-field eduModeltxtbox" type="text" name="Organization" id="Organization" placeholder="Type Your Organization" value="" required />
+                                </div>
+                                <div class="form" style="width:100%">
+                                    <h5>Is this your current company?</h5>
+                                    <input type="radio" name="IsCurrentOrganization" value="true" id="chkYes" class="eduRadio" required>Yes
+                                    <input type="radio" name="IsCurrentOrganization" value="false" id="chkNo" class="eduRadio" required> No
+                                </div>
+                                <!-- working from -->
+                                <div class="form">
+                                    <h5>Working from</h5>
+                                    <select class="selectDropdown" name="WorkingFromYear" id="workStartYear" required>
+                                        <option value="">Year</option>
+                                        @{
+                                            int currYear = DateTime.Now.Year;
+                                            @for (int i = (currYear - 30); i <= (currYear); i++)
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        }
+                                    </select>
+
+                                </div>
+                                <!-- month -->
+                                <div class="form">
+                                    <h5>Month</h5>
+                                    <select class="selectDropdown" name="WorkingFromMonth" id="workStartMonth" required>
+                                        <option value="">Month</option>
+                                        @for (int i = 0; i < 12; i++)
+                                        {
+                                            <option value="@i">@(i + 1)</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <!-- Select end from -->
+                                <div class="form">
+                                    <h5>Select end from</h5>
+                                    <select class="selectDropdown" name="WorkingTill" id="workEndYear" required>
+                                        <option value="-1">Present</option>
+                                        @{
+                                            int currYearTill = DateTime.Now.Year;
+                                            for (int i = (currYearTill - 20); i <= (currYearTill); i++)
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+
+                                <!-- Notice Period -->
+                                <div class="form">
+                                    <h5>Notice Period</h5>
+                                    <select class="selectDropdown" name="NoticePeriod" id="ddlNotice">
+                                        <option value="0">Select</option>
+                                        <option value="15">15 Days</option>
+                                        <option value="30">30 Days</option>
+                                        <option value="45">45 Days</option>
+                                        <option value="60">60 Days</option>
+                                        <option value="90+">90 Days or more</option>
+                                    </select>
+                                </div>
+                                <!-- Current Salary Lk-->
+                                <div class="form">
+                                    <h5>Current salary(Lakhs)</h5>
+                                    <select class="selectDropdown" name="AnnualSalaryInLakhs" id="ddlLacRupee" required>
+                                        <option value="">Select</option>
+                                        @for (int i = 0; i < 100; i++)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    </select>
+                                </div>
+                                <!-- Current Salary Th -->
+                                <div class="form">
+                                    <h5>salary(Thous)</h5>
+                                    <select class="selectDropdown" name="AnnualSalaryInThousands" id="ddlThRupee" required>
+                                        @for (int i = 0; i < 100; i += 5)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    </select>
+                                </div>
+
+
+                                <!-- Description -->
+                                <div class="form" style="width: 100%;">
+                                    <h5>Describe your Job Profile</h5>
+                                    <textarea class="WYSIWYG" name="JobProfile" placeholder="Type here" id="txtDescribe" cols="15" rows="3" spellcheck="true" required></textarea>
+                                </div>
+                                <div class="form">
+                                    <input type="submit" class="button border fw margin-top-10 pull-right" value="Save changes" />
+                                </div>
+                                <div class="form">
+                                    <input type="button" class="button border fw margin-top-10 " data-dismiss="modal" id="closeModelPupup" value="Close" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="educationModalCenter" tabindex="-1" role="dialog" aria-labelledby="educationModalCenter" aria-hidden="true" style="background-color: rgb(128 128 128 / 88%);">
+    <div class="dashboard-content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 popupdata">
+                <label class="close" data-dismiss="modal" style="margin-right:4px;">&times;</label>
+                <div class="dashboard-list-box margin-top-5">
+
+                    <h4>Add Education</h4>
+                    <form onsubmit="AddEducation(this);return false">
+                        <div class="dashboard-list-box-content">
+                            <div class="submit-page">
+                                <input type="hidden" name="Id" value="0" />
+
+                                <div class="form">
+                                    <h5>Education</h5>
+                                    <select class="selectDropdown" id="CourseCategory" name="Qualification" asp-items="@(new SelectList(@ViewBag.Coursecategory, "Id", "Name"))">
+                                        <option>--Select Course Category--</option>
+                                    </select>
+                                </div>
+
+                                <div class="form">
+                                    <h5>Course</h5>
+                                    <select class="selectDropdown" name="Course" id="ddlcourse"></select>
+                                </div>
+                                <div class="form">
+                                    <h5>Specialization</h5>
+                                    <input type="text" name="Specialization" id="Specialization" class="search-field eduModeltxtbox" placeholder="Type Your Specialization">
+                                </div>
+                                <div class="form">
+                                    <h5>University/Institute</h5>
+                                    <input type="text" name="University" id="UniversityInstitute" class="search-field eduModeltxtbox" placeholder="Type Your University/Institute">
+                                </div>
+                                <div class="form" width="100%">
+                                    <h5>Course Type</h5>
+                                    <input type="radio" name="CourseType" value="1" class="eduRadio"> Full Time
+                                    <input type="radio" name="CourseType" value="2" class="eduRadio"> Part Time
+                                    <input type="radio" name="CourseType" value="3" class="eduRadio"> Correspondence
+                                </div>
+                                <div class="form">
+                                </div>
+                                <div class="form">
+                                    <h5>Pass Out Year</h5>
+                                    <select class="selectDropdown" name="PassingYear">
+                                        @{
+                                            int currYearPassing = DateTime.Now.Year;
+                                            @for (int i = (currYearPassing - 50); i <= (currYearPassing + 1); i++)
+                                            {
+                                                <option value="@i">@i</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form">
+                                    <h5>Grading System/Percentage</h5>
+                                    <input type="text" name="Percentage" id="GradingSystemPercentages" class="search-field eduModeltxtbox" placeholder="Grading System/Percentage">
+                                </div>
+
+                                <div class="form">
+                                    <input type="submit" class="button border fw margin-top-10 pull-right" value="Save changes" />
+                                </div>
+                                <div class="form">
+                                    <input type="button" class="button border fw margin-top-10 " data-dismiss="modal" id="closeModelPupupEdu" value="Close" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="profileModalCenter" tabindex="-1" role="dialog" aria-labelledby="profileModalCenter" aria-hidden="true" style="background-color: rgb(128 128 128 / 88%);">
+    <div class="dashboard-content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 popupdata">
+                <label class="close" data-dismiss="modal" style="margin-right:4px;">&times;</label>
+                <div class="dashboard-list-box margin-top-5">
+
+                    <h4>Add Profile Detail</h4>
+                    <div class="dashboard-list-box-content">
+                        <div class="submit-page">
+                            <div class="form" style="width:100%">
+                                @foreach (var jobType in ViewBag.JobTypes)
+                                {
+                                    <label class="radio-inline">
+                                        <input type="radio" id="radioJobType" name="jobType" value="@jobType.Id" class="eduRadio">
+                                        @jobType.Type
+                                    </label>
+                                }
+                            </div>
+                            <div class="form">
+                                <select name="years" class="selectDropdown">
+                                    @for (int i = 0; i <= 15; i++)
+                                    {
+                                        <option value=@i>@(i) Year(s)</option>
+
+                                    }
+                                </select>
+                            </div>
+                            <div class="form">
+                                <select name="months" class="selectDropdown">
+                                    @for (int i = 0; i <= 11; i++)
+                                    {
+                                        <option value=@i>@(i) Month(s)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form">
+                                <h5>Linkedin Profile</h5>
+                                <input type="text" required id="LinkedinProfile" name="LinkedinProfile" class="search-field eduModeltxtbox" placeholder="">
+                            </div>
+                            <div class="form">
+                                <h5>Date of Birth</h5>
+                                <input type="date" required id="DOB" name="DOB" class="selectDropdown unstyled" placeholder="" style="width:100%">
+                            </div>
+                            <div class="form">
+                                <h5>Current Salary</h5>
+                                <input type="text" name="CurrentSalary" id="CurrentSalary" class="search-field eduModeltxtbox" placeholder="Please enter Current Salary">
+                            </div>
+                            <div class="form">
+                                <h5>Expected Salary</h5>
+                                <input type="text" name="ExpectedSalary" id="ExpectedSalary" class="search-field eduModeltxtbox" placeholder="Type Your Expected Salary">
+                            </div>
+                            <div class="form">
+                                <h5>Email Id</h5>
+                                @{
+                                    UserViewModel users = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+                                    <input type="text" name="Emailid" id="emailId1" value=@users.Email class="search-field eduModeltxtbox" placeholder="Type Your email Id" readonly>
+                                }
+                            </div>
+                            <div class="form">
+                                <h5>Phone Number</h5>
+                                <input type="text" maxlength="10" name="phone" id="phoneNumber1" class="search-field eduModeltxtbox" placeholder="Type Your phone number">
+                            </div>
+                            <div class="form">
+                                <h5>Job Category</h5>
+                                <select id="ddlJobCategory" class="selectDropdown" asp-items="@(new SelectList(@ViewBag.JobIndustryArea,"JobIndustryAreaId", "JobIndustryAreaName"))"></select>
+                            </div>
+                            <div class="form">
+                                <h5>Job Title</h5>
+                                <select id="ddlJobTitle" class="selectDropdown" name="JobTitle" asp-items="@(new SelectList(@ViewBag.AllJobTitle,"JobTitleId", "JobTitleName"))">
+                                    <option value="">Select Job Title</option>
+                                </select>
+                            </div>
+                            <div class="form">
+                                <h5>Employment Status</h5>
+                                <select id="ddlEmploymentStatus" class="selectDropdown" asp-items="@(new SelectList(@ViewBag.EmploymentStatus,"EmploymentStatusId", "EmploymentStatusName"))">
+                                    <option value="">Employment Status</option>
+                                </select>
+                            </div>
+                            <div class="form">
+                                <h5>Marital Status</h5>
+                                <select class="selectDropdown" id="ddlMaritalStatus">
+                                    <option value="">Select Marital Status</option>
+                                    <option value="single">UnMarried</option>
+                                    <option value="married">Married</option>
+                                </select>
+                            </div>
+                            <div class="form">
+                                <h5>Gender</h5>
+                                <input type="radio" name="gender" id="btnMale">&nbsp; Male&nbsp;&nbsp;
+                                <input type="radio" name="gender" id="btnFemale">&nbsp;Female
+                            </div>
+                            <div class="form" style="width:33%">
+                                <h5>Country</h5>
+                                <select id="ddlCountry" class="selectDropdown" required asp-items="@(new SelectList(@ViewBag.Country,"CountryCode", "Country"))">
+                                    <option value="">Select Country</option>
+                                </select>
+                            </div>
+                            <div class="form" style="width:33%">
+                                <h5>State</h5>
+                                <select class="selectDropdown" id="ddlState" required>
+                                    <option value="">Select State</option>
+                                </select>
+                            </div>
+                            <div class="form" style="width:34%">
+                                <h5>City</h5>
+                                <select class="selectDropdown" id="ddlCity" required>
+                                    <option value="">Select City</option>
+                                </select>
+                            </div>
+                            <div class="form">
+                                <h5>Address</h5>
+                                <input type="text" name="Address" id="txtAddress" class="search-field eduModeltxtbox" placeholder="Type Your Address">
+                            </div>
+                            <div class="form">
+                                <h5>About Me</h5>
+                                <input type="text" name="AboutMe" id="AboutMe" class="search-field eduModeltxtbox" placeholder="Type Your About Me">
+                            </div>
+                            <div class="form">
+                                <input type="submit" class="button border fw margin-top-10 pull-right" onclick="AddProfileDetail();" value="Save changes" />
+                            </div>
+                            <div class="form">
+                                <input type="button" class="button border fw margin-top-10 " data-dismiss="modal" id="closeModelPupupProfile" value="Close" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="locationModalCenter" tabindex="-1" role="dialog" aria-labelledby="locationModalCenter" aria-hidden="true" style="background-color: rgb(128 128 128 / 88%);">
+    <div class="dashboard-content">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 popupdata">
+                <label class="close" data-dismiss="modal" style="margin-right:8px;">&times;</label>
+                <div class="dashboard-list-box margin-top-5">
+                    <h4 id="locationModalTitle">Add Preferred Location</h4>
+                    <div class="dashboard-list-box-content">
+                        <div class="submit-page">
+                            <div class="form" style="width:100%">
+                                <select class="selectDropdown" id="location1" required>
+                                    <option value="">Select City</option>
+                                </select>
+                            </div>
+
+                            <div class="form" style="width:100%">
+                                <select class="selectDropdown" id="location2" required>
+                                    <option value="">Select City</option>
+                                </select>
+                            </div>
+
+                            <div class="form" style="width:100%">
+                                <select class="selectDropdown" id="location3" required>
+                                    <option value="">Select City</option>
+                                </select>
+                            </div>
+
+                            <div class="form">
+                                <input type="submit" class="button border fw margin-top-10 pull-right" onclick="AddPreferredLocation();" value="Save changes" />
+
+                            </div>
+                            <div class="form">
+                                <input type="button" class="button border fw margin-top-10 " data-dismiss="modal" id="closeModelPupuppSkills" value="Close" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ProfileSummaryModalCenter" tabindex="-1" role="dialog" aria-labelledby="ProfileSummaryModalCenter" aria-hidden="true" style="background-color: rgb(128 128 128 / 88%);">
+    <div class="dashboard-content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 popupdata">
+                <label class="close" data-dismiss="modal" style="margin-right:8px;">&times;</label>
+                <div class="dashboard-list-box margin-top-5">
+                    <h4 id="ProfileSummaryModalLongTitle">Add Profile Summary</h4>
+                    <div class="dashboard-list-box-content">
+                        <div class="submit-page">
+                            <div class="form" style="width:100%">
+                                <textarea id="txtareaprofileSummary" class="WYSIWYG" placeholder="Type here" cols="15" rows="3" spellcheck="true" required></textarea>
+                            </div>
+                            <div class="form">
+                                <input type="submit" class="button border fw margin-top-10 pull-right" onclick="AddProfileSummary();" value="Save changes" />
+
+                            </div>
+                            <div class="form">
+                                <input type="button" class="button border fw margin-top-10 " data-dismiss="modal" id="closeModelPupuppSummary" value="Close" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="skillsModalCenter" tabindex="-1" role="dialog" aria-labelledby="skillsModalCenter" aria-hidden="true">
+    <div class="modal-dialog bootstrapmodal-center small-bootstrapmodal-topmargin" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="skillsModalLongTitle">Add Key Skills</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="formrow">
+                            <div class="action">
+                                <div class="formrow">
+                                    @*<input type="text" id="skillsValue" class="form-control" placeholder="Enter your skill" />*@
+                                    <textarea id="skillsValue" class="form-control text-area-editor"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer footerProfileModel">
+                    <button type="button" class="btn btn-primary popupmodelbutton" onclick="AddProfileSkills();">Save changes</button>
+                    <button type="button" class="btn btn-primary popupmodelbutton" data-dismiss="modal" id="closeModelPupuppSkills">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ITSkillsModel" tabindex="-1" role="dialog" aria-labelledby="ITSkillsModel" aria-hidden="true" style="background-color: rgb(128 128 128 / 88%);">
+    <div class="dashboard-content">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 popupdata">
+                <label class="close" data-dismiss="modal" style="margin-right:8px;">&times;</label>
+                <div class="dashboard-list-box margin-top-5">
+                    <h4 id="">IT Skills</h4>
+                    <div class="dashboard-list-box-content">
+                        <div class="submit-page">
+                            <input type="hidden" name="ITSkillId" id="ITSkillId" value="0" />
+                            <div class="form" style="width:20%">
+                                <input type="text" name="ITSkill" id="ITSkill" class="search-field eduModeltxtbox" placeholder="Skill">
+                            </div>
+                            <div class="form" style="width:20%">
+                                <input type="text" name="SkillVersion" id="SkillVersion" class="search-field eduModeltxtbox" maxlength="10" placeholder="Skill Version">
+                            </div>
+                            <div class="form" style="width:20%">
+                                <select name="LastUsed" id="LastUsed" class="selectDropdown">
+                                    <option value="" disabled selected>Last Used</option>
+                                    @{
+                                        int nowYear = DateTime.Now.Year;
+                                        @for (int i = (nowYear - 10); i <= nowYear; i++)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form" style="width:20%">
+                                <select name="ExperienceYear" id="ExperienceYear" class="selectDropdown">
+                                    <option value="" disabled selected>Exp. Years</option>
+                                    @for (int i = 0; i <= 11; i++)
+                                    {
+                                        <option value=@i>@(i)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form" style="width:20%">
+                                <select name="ExperienceMonth" id="ExperienceMonth" class="selectDropdown">
+                                    <option value="" disabled selected>Exp. Months</option>
+                                    @for (int i = 0; i <= 11; i++)
+                                    {
+                                        <option value=@i>@(i) Month(s)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form">
+                                <input type="submit" class="button border fw margin-top-10 pull-right" onclick="UpdateITSKill();" value="Save changes" />
+                            </div>
+                            <div class="form">
+                                <input type="button" class="button border fw margin-top-10 " data-dismiss="modal" id="closeModelPupuppSummary" value="Close" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal HTML -->
+<div id="alertpopup" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div id="iconbox" class="icon-box">
+                    <i id="iconPopup" class="" aria-hidden="true"></i>
+                </div>
+                <h4 class="modal-title" id="tagiging"></h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-center" id="tagginMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="btnSuccess" onclick="dissmissModal()" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+    {
+    <script src="~/Assets/PopBox/messagebox.js"></script>
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/jquery/jquery-ui.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/Calendar/js/tail.datetime.js"></script>
+    <script src="~/lib/tag-editor/jquery.caret.min.js"></script>
+    <script src="~/lib/tag-editor/jquery.tag-editor.min.js"></script>
+    <script src="~/js/Jobseeker/Profile.js"></script>
+    <script src="~/js/common.js"></script>
+}

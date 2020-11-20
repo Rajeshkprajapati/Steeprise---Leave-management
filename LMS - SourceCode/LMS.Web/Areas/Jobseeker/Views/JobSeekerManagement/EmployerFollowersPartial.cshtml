@@ -1,0 +1,58 @@
+﻿@using LMS.Model.DataViewModel.JobSeeker
+@model EmployerFollowers
+
+<div id="titlebar">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Viewed Profile</h2>
+            <!-- Breadcrumbs -->
+            <nav id="breadcrumbs">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="/JobSeekerManagement/Dashboard">Dashboard</a></li>
+                    <li>Comapny followed</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <!-- Table-->
+    <div class="col-lg-6 col-md-6">
+        <div class="dashboard-list-box margin-top-0">
+            <div class="dashboard-list-box-content">
+                <!-- Table -->
+                <table class="manage-table resumes responsive-table">
+                    <tr>
+                        <th><i class="fa fa-tags"></i> Company</th>
+                        <th><i class="fa fa-file-text"></i> Following Date</th>
+                        <th></th>
+                    </tr>
+                    <!-- Item #1 -->
+                    @if (ViewBag.EmployerFollowers != null && Enumerable.Count(ViewBag.EmployerFollowers) > 0)
+                    {
+                        foreach (var item in ViewBag.EmployerFollowers)
+                        {
+                            <tr>
+                                <td>@item.CompanyName</td>
+                                <td>@item.CreatedDate</td>
+                                <td class="action">
+                                    <a onclick="UnfollowComapny(@item.EmployerID)" class="delete"><i class="fa fa-remove"></i> Unfollow</a>
+                                </td>
+                            </tr>
+
+                        }
+
+                    }
+                    else
+                    {
+                        <tr><td>No data available!</td></tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "Upload Candidates";
+}
+<link href="~/css/fileUploadControl.css" rel="stylesheet" />
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Upload Hired Candidates</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>@ViewData["Title"]</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="listpgWraper">
+    <div class="col-sm-12">
+        <form asp-action="UploadPlacedCandidate" method="post" onsubmit="return uploadCandidate(this)" enctype="multipart/form-data">
+            @*@if (!string.IsNullOrWhiteSpace(Convert.ToString(ViewData["SuccessMessage"])))
+                {
+                    <div class="alert alert-success" style="text-align: center;font-weight: bold;" role="alert">@ViewData["SuccessMessage"]</div>
+                }*@
+            <div class="col-sm-offset-4 frame">
+                @*<h2 class="white">Upload Candidate</h2>*@
+                <div class="col-sm-5 center">
+                    <div asp-validation-summary="All" style="color:red;font-weight:bold;">
+                    </div>
+                    @if (!string.IsNullOrWhiteSpace(Convert.ToString(ViewData["SuccessMessage"])))
+                    {
+                        <label id="success" style="color:green;font-weight:bold;padding-top: 10px;">@ViewData["SuccessMessage"]</label>
+                    }
+
+                    <label id="message" asp-validation-summary="" style="color:red;font-weight:bold;padding-top: 10px;"></label>
+
+                    <br />
+                    <div class="title">
+                        <h5>Drop file to upload</h5>
+                        <span class="template-download-link-container">
+                            <a asp-action="DownloadTemplate">Download Template</a>
+                        </span>
+
+                    </div>
+                    <div class="dropzone">
+                        <p>Click or drag on bulk upload portion</p>
+                        <h1 class="imgupload"><i class="fa fa-file-excel-o"></i></h1>
+                        <input type="file" name="files" class="upload-input" onchange="fileSelected(this)" />
+                    </div>
+                    <label id="fileName" style="font-weight:bold;text-align:center;margin-bottom:5px;margin-top:5px;"></label>
+
+                    <button type="submit" class="UploadFilebtn" name="uploadbutton">Upload file</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/js/Admin/PlacedCandidate/placedcandidate.js"></script>
+}

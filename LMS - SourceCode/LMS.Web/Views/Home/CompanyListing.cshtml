@@ -1,0 +1,63 @@
+﻿@using LMS.Model.DataViewModel.JobSeeker
+@model IEnumerable<SearchJobListViewModel>
+@{
+    ViewData["Title"] = "Company Listings";
+}
+
+<link href="~/lib/jquery/jquery-ui.min.css" rel="stylesheet" />
+<!-- Page Title start -->
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Company Listings</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Companies List</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+
+@{
+    int i = 1;
+    <div class="listpgWraper">
+        <div class="container">
+            <!-- Search Result and sidebar start -->
+            @*<div class="row" id="main-section">*@
+            <ul class="jobslist row">
+                @if (Model != null && Model.Count() > 0)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <li class="col-md-4">
+                            <div class="jobint">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3">
+                                        @if (item.CompanyLogo != "")
+                                        {
+                                            <img src="@item.CompanyLogo" style="height:45px;width:42px;" alt="logo" />
+                                        }
+                                        else
+                                        {
+                                            <img class="media-object img-responsive" style="height:50px" src="~/ProfilePic/Avatar.jpg" alt="">
+                                        }
+                                    </div>
+                                    <div class="col-md-7 col-sm-7">
+                                        <div class="h5 bold" style="height:30px">@item.CompanyName</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- Side Bar end -->
+                    }
+                }
+                else
+                {
+                    <li class="col-md-12" style="color:red;">Companies not available yet !</li>
+                        }
+                </ul>
+        </div>
+    </div>
+}

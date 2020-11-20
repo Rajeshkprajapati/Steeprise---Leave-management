@@ -1,0 +1,49 @@
+﻿.notification-badge {
+    background-color: red;
+    margin-left: 10px;
+    display:none;
+}
+
+.notification-bell {
+    color: red;
+    margin-left:5px;
+    display:none;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+    margin: 2px;
+}
+
+.tableButtonCenter {
+     display: flex;
+}
+#profileImage.sf-with-ul::after {
+    content:none!important;
+
+}
+.data-table-pasiganation {
+    width: max-content!important;
+}
+.data-table-SearchFilter {
+    width: 30%!important;
+    float: right!important;
+    margin-right: 5px!important;
+}
+.data-table-lenthFilter {
+    width: 15%;
+    margin-left: 5px;
+}
+.dashboard-list-box-content {
+    background-color: #f7f7f7;
+}
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #4a4c4e;
+    border-color: #333435;
+}
+.pagination > li > a {
+    color: #333638;
+}
+
+.display-content {
+    display: contents;
+}

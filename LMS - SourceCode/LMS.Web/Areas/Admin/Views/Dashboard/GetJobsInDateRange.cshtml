@@ -1,0 +1,92 @@
+﻿@model IEnumerable<LMS.Model.DataViewModel.Employer.JobPost.JobPostViewModel>
+@{
+    ViewData["Title"] = "Posted Jobs";
+}
+
+<link href="~/lib/datatable/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<!-- Page Title start -->
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Admin Area</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Admin</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+<div class="container" style="padding-top:20px;padding-bottom:170px;">
+    <div class="row">
+        <div class="col-md-12" align="center">
+            <h4>Jobs</h4>
+        </div>
+        <div class="col-md-12 table-responsive">
+            <table class="table table-striped table-bordered dt-responsive nowrap" id="jobPostDataTable">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Job Title</th>
+                        <th>State</th>
+                        <th>City</th>
+                        <th>Job Type</th>
+                        <th hidden>Job Details</th>
+                        <th>CTC</th>
+                        <th>Posted On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var jobpost in Model)
+                    {
+                    <tr>
+                        <td>@jobpost.CompanyName</td>
+                        <td>@jobpost.JobTitleByEmployer</td>
+                        <td>@jobpost.State</td>
+                        <td>@jobpost.City</td>
+                        <td>@jobpost.JobTypeSummary</td>
+                        <td hidden>@Html.Raw(@jobpost.JobDetails)</td>
+                        <td>@jobpost.CTC</td>
+                        <td>@jobpost.PostedOn.Date.ToString("MM/dd/yyyy")</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+
+    <script src="~/lib/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#jobPostDataTable').dataTable({
+                orders:[],
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel'
+                ]
+            });
+
+            let tb = $('#jobPostDataTable').DataTable();
+            if (!tb.data().count()) {
+                $('#jobPostDataTable').dataTable().fnDestroy();
+                $('#jobPostDataTable').DataTable({
+                    searching: false
+                })
+            } else {
+                $('span').html('Export Data');
+                $('button').addClass("btn btn-primary");
+                $('button').addClass("exportDataTablBtn");
+            }
+        });
+    </script>
+}
+

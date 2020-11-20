@@ -1,0 +1,114 @@
+﻿@using LMS.Model.DataViewModel.JobSeeker
+@model IEnumerable<SearchJobListViewModel>
+@{
+    ViewData["Title"] = "Recommended Jobs";
+}
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+<!-- Page Title start -->
+
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Recommended Jobs</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Recommended Jobs</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    UserViewModel user = Context.Session.Get<UserViewModel>(Constants.SessionKeyUserInfo);
+
+    <!-- Page Title End -->
+    <!-- Featured Jobs start -->
+    <div class="section greybg">
+        <div class="container">
+
+            <ul class="jobslist row">
+                <!--Job start-->
+                @if (Model.Count() != 0)
+                {
+                    @foreach (var jobs in Model)
+                    {
+                        <li class="col-md-6">
+                            <div class="jobint">
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2">
+                                        @if (jobs.CompanyLogo != "")
+                                        {
+                                            <img src="@jobs.CompanyLogo" alt="Job Name" />
+                                        }
+                                        else
+                                        {
+                                            <img class="media-object img-responsive" src="~/ProfilePic/Avatar.jpg" alt="">
+                                        }
+                                    </div>
+                                    <div class="col-md-7 col-sm-7 text-overflow">
+                                        <h4><a href="/Job/JobDetails/?jobid=@jobs.JobPostId">@jobs.JobTitleByEmployer</a></h4>
+                                        <div class="company"><a href="#." class="CompanyTitle">@jobs.CompanyName</a></div>
+                                        <div class="jobloc"><label class="fulltime">@jobs.EmploymentStatus</label>   - <span>@jobs.City</span></div>
+                                    </div>
+                                    @if (jobs.IsApplied == true)
+                                    {
+                                        <div class="col-md-3 col-sm-3"><a href="javascript:void(0)" class="applybtn" id="btnApply" style="cursor:no-drop">Applied</a></div>
+                                    }
+                                    else
+                                    {
+                                        if (@user.RoleName == "Student")
+                                        {
+                                            <div class="col-md-3 col-sm-3"><a href="#." class="applybtn" id="btnApply" onclick="ConfrimationFoJobApply(@jobs.JobPostId)">Apply Now</a></div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-3 col-sm-3"><a href="#." class="applybtn" id="btnApply" onclick="ApplyJobs(@jobs.JobPostId)">Apply Now</a></div>
+                                        }
+                                    }
+
+
+
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="col-md-4 nodatafounddiv"></li>
+                    <li class="col-md-8 ">
+                        <h5>There is no relevant jobs@*Hey @user.FullName there in no relevant jobs please search more*@</h5>
+                    </li>
+                }
+                <!--Job end-->
+            </ul>
+            <!--Featured Job end-->
+
+        </div>
+    </div>
+    <!-- Modal -->
+    <<!-- Modal HTML -->
+    <div id="myModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div id="iconbox" class="icon-box">
+                        <i id="iconPopup" class="" aria-hidden="true"></i>
+                    </div>
+                    <h4 class="modal-title" id="tagiging"></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center" id="tagginMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSuccess" style="display:block" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                    <button id="btnWarning" onclick="RedirectProfile()" style="display:none" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts
+    {
+    <script src="~/js/Jobseeker/JobDetails.js"></script>
+}

@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewData["Title"] = "Bulk Jobs List";
+}
+<link href="~/lib/datatable/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/Loader.css" rel="stylesheet" />
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+<div class="">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row formrow">
+                <div class="col-md-12" align="center">
+                    <h4>Bulk Job Search</h4><br />
+                </div>
+            </div>
+
+            <div class="formrow row">
+                <div class="formrow col-md-2 non-instructed-row">
+                    <select class="form-control" id="ddlFinancialYear" onchange="yearChanged(this)">
+                        @{
+                            int currYear = DateTime.Now.Year;
+                            @for (int i = (currYear - 2); i <= currYear; i++)
+                            {
+                                if (i == currYear)
+                                {
+                                    <option selected value="@i">@i</option>
+                                }
+                                else
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="formrow col-md-3 non-instructed-row">
+
+                    <select class="form-control" id="StateId" asp-items="@(new SelectList(@ViewBag.States,"StateCode", "State"))">
+                        <option value="">State State</option>
+                    </select>
+                </div>
+                <div class="formrow col-md-3 non-instructed-row">
+
+                    <select class="form-control" id="CityId">
+                        <option value="">State City</option>
+                    </select>
+                </div>
+
+                <div class="formrow col-md-2 non-instructed-row">
+
+                    <select class="form-control" required id="CompanyId" asp-items="@(new SelectList(@ViewBag.EmployersData,"UserId", "CompanyName"))">
+                        <option value="">Select Company</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button id="bulkdelete" onclick='SearchBulkJob()' class="btn btn-primary">Search Jobs</button>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                        <div class="col-md-12" id="searchlistbulk">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <script src="~/lib/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/lib/jquery/jquery-ui.min.js"></script>
+    <script src="~/js/Admin/BulkJobDelete/BulkJobDelete.js"></script>
+}

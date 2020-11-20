@@ -1,0 +1,285 @@
+﻿@using LMS.Model.DataViewModel.Employer.JobPost
+@using LMS.Model.DataViewModel.Shared
+@model JobPostViewModel
+@{
+    ViewData["Title"] = "Post Job";
+}
+<link href="~/lib/Calendar/css/tail.datetime-default-red.css" rel="stylesheet" />
+<link href="~/lib/bootstrap-multiselect//css/bootstrap-multiselect.css" rel="stylesheet" />
+<link href="~/css/Employer/JobPost.css" rel="stylesheet" />
+<!-- Page Title start -->
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">Post Job</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb"><a href="/Home/Index/">Home</a> / <span>Post Job</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+
+<div class="listpgWraper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="userccount">
+                    <div class="formpanel">
+
+                        <!-- Job Information -->
+                        <h5>Job Information</h5>
+                        @if (!string.IsNullOrWhiteSpace(Convert.ToString(ViewData["SuccessMessage"])))
+                        {
+                            <div class="alert alert-success" role="alert"><strong>Well done!</strong>&nbsp; @ViewData["SuccessMessage"]</div>
+                        }
+                        <form asp-action="AddJobPost" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="formrow">
+                                        <select asp-for="JobIndustryAreaId" name="JobIndustryAreaId" required class="form-control" asp-items="@(new SelectList(@ViewBag.JobIndustryArea,"JobIndustryAreaId", "JobIndustryAreaName"))">
+                                            <option value="">Industry Type</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="otherJobIndustrydiv" style="display:none">
+                                    <div class="formrow">
+                                        <input type="text" id="txtOtherJobIndustry" asp-for="OtherJobIndustryArea" name="OtherJobIndustryArea" class="form-control" placeholder="Industry Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="formrow">
+                                        <input type="text" id="txtJobTitleByEmployer" required asp-for="JobTitleByEmployer" name="JobTitleByEmployer" class="form-control" placeholder="Job Title">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="formrow">
+                                        <input type="hidden" id="hdnJobTitleId" asp-for="JobTitleId" />
+                                        <select id="ddlJobRoles" multiple="multiple" required class="form-control" asp-items="@(new SelectList(@ViewBag.JobTitle,"JobTitleId", "JobTitleName"))"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="formrow">
+                                        <select asp-for="EmploymentStatusId" required class="form-control" asp-items="@(new SelectList(@ViewBag.EmploymentStatus,"EmploymentStatusId", "EmploymentStatusName"))">
+                                            <option value="">Employment Status</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                @*<div class="col-md-12">
+                                        <div class="formrow">
+                                            <input type="text" style="height: 3.1rem;" asp-for="JobType" name="JobType" class="form-control" placeholder="(Fresher/Experience)">
+                                            <span id="errmsg" style="color:red"></span>
+                                        </div>
+                                    </div>*@
+
+                                <div class="col-md-12 formrow">
+                                    <div class="formrow">
+                                        @foreach (var jobType in ViewBag.JobTypes)
+                                        {
+                                            <label class="radio-inline">
+                                                <input type="radio" asp-for="JobType" id="radioJobType" value="@jobType.Id">
+                                                @jobType.Type
+                                            </label>
+                                        }
+                                    </div>
+                                    <div class="formrow">
+                                        <div class="row col-md-6">
+                                            <label for="minExp" class="label-for-input-field">Min Exp</label>
+                                            <select name="minExp" class="form-control" asp-for="MinExp">
+                                                <option value="0">Fresher</option>
+                                                @for (int i = 1; i <= 15; i++)
+                                                {
+                                                    <option value=@i>@(i) Year(s)</option>
+
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="maxExp" class="label-for-input-field">Max Exp</label>
+                                            <select name="maxExp" class="form-control" asp-for="MaxExp">
+                                                <option value="0">Fresher</option>
+                                                @for (int i = 1; i <= 15; i++)
+                                                {
+                                                    <option value=@i>@(i) Year(s)</option>
+
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="formrow">
+                                        <input type="text" id="Skills" required asp-for="Skills" name="Skills" class="form-control" placeholder="Required Skills">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="formrow">
+                                        <input type="text" required asp-for="HiringCriteria" name="HiringCriteria" class="form-control" placeholder="Minimum Education">
+                                    </div>
+                                </div>
+                                <div class="row col-md-12">
+                                    <div class="formrow col-md-6">
+                                        <input type="number" id="annumSalary" required asp-for="CTC" min="0" maxlength="7" name="CTC" class="form-control" placeholder="CTC">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="formrow">
+                                        <label for="PositionStartDate" class="label-for-input-field">Job Start Date:</label>
+                                        <div class="input-group">
+                                            <input type="date" required asp-for="PositionStartDate" id="startDate" name="PositionStartDate" class="form-control unstyled">
+                                            <div class="input-group-addon">
+                                                <a href="javascript:void(0)" onclick="toggleCalendar(this)">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        @*<input type="date" required asp-for="PositionStartDate" id="startDate" name="PositionStartDate" class="form-control" placeholder="Job Start Date">*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="formrow">
+                                        <label for="PositionEndDate" class="label-for-input-field">Job Expiration Date:</label>
+                                        <div class="input-group">
+                                            <input type="date" required asp-for="PositionEndDate" id="endDate" name="PositionEndDate" class="form-control unstyled">
+                                            <div class="input-group-addon">
+                                                <a href="javascript:void(0)" onclick="toggleCalendar(this)">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        @*<input type="date" asp-for="PositionEndDate" required id="endDate" name="PositionEndDate" class="form-control" placeholder="Job Expiration Date" onblur="compare();">*@
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="formrow">
+                                        @*<input type="number" title="Financial Year" required asp-for="FinancialYear" id="txtFinancialYear" class="form-control" placeholder="Financial Year" min="2019">*@
+
+                                        @*<label for="FinancialYear" class="label-for-input-field">Financial Year</label>*@
+                                        <select name="FinancialYear" class="form-control" required asp-for="FinancialYear"  min="2019" >
+                                            <option value="">Financial Year</option>
+                                            @for (int i = 2020; i <= 2029; i++)
+                                            {
+                                                <option value=@i>@(i) </option>
+
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row col-md-12">
+                                    <div class="col-md-12">
+                                        <label class="label-for-input-field">Quarterly Openings</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="formrow">
+                                            <input type="number" required asp-for="Quarter1" id="quarter1" min="0" class="form-control" placeholder="AMJ">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="formrow">
+                                            <input type="number" required asp-for="Quarter2" id="quarter2" min="0" class="form-control" placeholder="JAS">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="formrow">
+                                            <input type="number" required asp-for="Quarter3" id="quarter3" min="0" class="form-control" placeholder="OND">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="formrow">
+                                            <input type="number" required asp-for="Quarter4" id="quarter4" min="0" class="form-control" placeholder="JFM">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="formrow">
+                                        <select asp-for="CountryCode" required id="ddlCountry" class="form-control" asp-items="@(new SelectList(@ViewBag.Country,"CountryCode", "Country"))">
+                                            @*<option value="">Country</option>*@
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="formrow">
+                                        <select asp-for="StateCode" class="form-control" required id="ddlState">
+                                            <option value="">State</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="formrow">
+                                        <select asp-for="CityCode" class="form-control" required id="ddlCity">
+                                            <option value="">City</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="formrow">
+                                        <input type="text" id="spoc" required asp-for="ContactPerson" name="ContactPerson" class="form-control" placeholder="SPOC Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="formrow">
+                                        <input type="text" id="spocContact" required asp-for="Mobile" maxlength="10" name="Mobile" class="form-control" placeholder="SPOC Phone">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="formrow">
+                                        <input type="email" id="spocEmail" required asp-for="SPOCEmail" name="SPOCEmail" class="form-control" placeholder="SPOC Email">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+
+                                </div>
+
+                                @*<div class="col-md-6">
+                                        <div class="formrow">
+                                            <input type="text" id="salary" asp-for="MonthlySalary" maxlength="7" name="MonthlySalary" class="form-control" placeholder="Monthly Salary">
+
+                                        </div>
+                                    </div>
+                                                                <div class="col-md-6">
+                                        <div class="formrow">
+                                            <select id="Gender" asp-for="Gender" name="Gender" required asp-items="@(new SelectList(@ViewBag.Gender,"GenderCode", "Gender"))" class="form-control">
+                                                <option value="">Gender</option>
+                                            </select><br /><br />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="formrow">
+                                            <select asp-for="Nationality" id="ddlNationality" required class="form-control" asp-items="@(new SelectList(@ViewBag.Country,"CountryCode", "Country"))">
+                                                <option value="">Nationality</option>
+                                            </select>
+
+                                        </div>
+                                    </div>*@
+                                <div class="col-md-12">
+                                    <div class="formrow" id="textarea">
+                                        <textarea class="form-control text-area-editor" asp-for="JobDetails" required name="JobDetails" placeholder="Job Detail"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <input type="submit" class="btn" value="Post Job">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/Calendar/js/tail.datetime.js"></script>
+    <script src="~/lib/bootstrap-multiselect/js/bootstrap-multiselect.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+    <script src="~/js/multiselector.js"></script>
+    <script src="~/js/Employer/JobPost/JobPost.js"></script>
+
+    <script>
+        CKEDITOR.replace('JobDetails');
+    </script>
+}

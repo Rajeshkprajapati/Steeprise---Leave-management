@@ -1,0 +1,60 @@
+﻿@using LMS.Model.DataViewModel.Shared
+@model SearchResumeViewModel
+<style>
+    .multiselect-selected-text {
+        height: 50px !important;
+        border-radius: 0 !important;
+        /* padding: 0px 0px; */
+        border: none !important;
+        font-size: 18px !important;
+        margin-top: -4px;
+    }
+</style>
+<div>
+    <form asp-area="Employer" asp-controller="SearchResume" asp-action="SearchResumeList" method="post">
+        @*<div class="col-md-2">
+            <input type="text" asp-for="Skills" class="form-control" placeholder="Enter Skills" />
+        </div>*@
+        @*<div class="col-md-2">
+            <select asp-for="JobCategory[0]" class="form-control" asp-items="@(new SelectList(@ViewBag.JobIndustryArea,"JobIndustryAreaId", "JobIndustryAreaName"))">
+                <option value="">Job Category</option>
+            </select>
+        </div>*@
+        <div class="col-md-4">
+            @*<input type="hidden" id="hdnJobRoleIds" asp-for="JobRoles"/>
+            <select class="form-control" multiple="multiple" asp-items="@(new SelectList( ViewBag.AllJobRoles, "JobTitleId", "JobTitleName"))" id="ddlJobRoles"></select>*@
+            
+            <input type="text" class="form-control" asp-for="Skills" placeholder="Enter a skill">
+
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" title="Min Exp" name="minExp" asp-for="MinExp">
+                <option value="-1">Min Exp</option>
+                <option value="0">Fresher</option>
+                @for (int i = 1; i <= 15; i++)
+                {
+                    <option value=@i>@(i) Year(s)</option>
+
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-control" title="Max Exp" name="maxExp" asp-for="MaxExp">
+                <option value="-1">Max Exp</option>
+                <option value="0">Fresher</option>
+                @for (int i = 1; i <= 15; i++)
+                {
+                    <option value=@i>@(i) Year(s)</option>
+
+                }
+            </select>
+        </div>
+        <div class="col-md-2 autocomplete">
+            <input asp-for="City" type="hidden" id="hdnCity" />
+            <input type="text" id="City" class="form-control" placeholder="Enter city" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" class="btn" value="Search Resume">
+        </div>
+    </form>
+</div>

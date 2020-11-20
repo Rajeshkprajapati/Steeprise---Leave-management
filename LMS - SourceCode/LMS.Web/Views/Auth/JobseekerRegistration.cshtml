@@ -1,0 +1,157 @@
+﻿@using LMS.Model.DataViewModel.Shared;
+
+@model LMS.Model.DataViewModel.Shared.JobSeekerViewModel;
+
+@{
+    ViewData["Title"] = "Jobseeker Registration";
+}
+
+<style>
+    span.text-danger {
+        color: red !important;
+    }
+    .header {
+        box-shadow: 0 12px 0 rgba(0,0,0,.12) !important;
+    }
+</style>
+
+<!-- Titlebar
+================================================== -->
+@*<div id="titlebar" class="single">
+        <div class="container">
+            <div class="sixteen columns">
+                <h2>Job Seeker Registarton</h2>
+                <nav id="breadcrumbs">
+                    <ul>
+                        <li>You are here:</li>
+                        <li><a href="#">Home</a></li>
+                        <li>Registarton</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>*@
+
+<!-- Content
+================================================== -->
+<!-- Container -->
+<div class="container">
+    <div class="my-account">
+        <div class="tabs-container">
+            @if (TempData["successMsg"] != null)
+            {
+                <p style="color:green;font-weight:bold">@TempData["successMsg"]</p>
+            }
+            @if (TempData["errorMsg"] != null)
+            {
+                <p style="color:red;font-weight:bold">@TempData["errorMsg"]</p>
+            }
+            <!-- Register -->
+            <div class="tab-content" id="tab2">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="socialmedia">
+                            Register Via:
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <ul class="social-icons">
+                            <li>
+                                <a class="facebook" href="#"><i class="icon-facebook"></i></a>
+                                <a class="gplus" href="#"><i class="icon-gplus"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <form autocomplete="off" method="post" class="register" asp-action="/Auth/JobseekerRegistration">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-row form-row-wide">
+                        <label asp-for="FirstName">
+                            First Name:
+                            <i class="ln ln-icon-Male"></i>
+                            <input type="text" class="input-text" asp-for="FirstName" id="Firstname" placeholder="FirstName" />
+                        </label>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row form-row-wide">
+                        <label asp-for="LastName">
+                            Last Name:
+                            <i class="ln ln-icon-Male"></i>
+                            <input type="text" class="input-text" asp-for="LastName" id="Lastname" placeholder="LastName" />
+                        </label>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    @*<p class="form-row" >
+                    <label>
+                        Gender:
+                        <input type="radio" asp-for="Gender" value="Male" />Male
+                        <input type="radio" asp-for="Gender" value="Female"/>Female
+                    </label>
+                </p>*@
+
+                    <div class="form-row form-row-wide">
+                        <label asp-for="Email">
+                            Email Address:
+                            <i class="ln ln-icon-Mail"></i>
+                            <input type="text" class="input-text" asp-for="Email" id="email" placeholder="Email" />
+                        </label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-row form-row-wide">
+                        <label asp-for="Password">
+                            Password:
+                            <i class="ln ln-icon-Lock-2"></i>
+                            <input class="input-text" type="password" asp-for="Password" placeholder="Password" />
+                        </label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-row form-row-wide">
+                        <label asp-for="TotalExperience">
+                            Experiance:
+                            <i class="ln ln-icon-Mouse-2"></i>
+                            <input type="number" class="input-text" asp-for="TotalExperience" placeholder="Experience in years" />
+                        </label>
+                        <span asp-validation-for="TotalExperience" class="text-danger"></span>
+                    </div>*@
+                    <div class="form-row form-row-wide">
+                        <label for="Mobile">
+                            Mobile:
+                            <i class="ln ln-icon-Smartphone"></i>
+                            <input type="number" maxlength="10" class="input-text" asp-for="MobileNo" placeholder="Mobile" />
+                        </label>
+                        <span asp-validation-for="MobileNo" class="text-danger"></span>
+                    </div>
+                    @*<div class="form-row form-row-wide">
+                        <label asp-for="Skills">
+                            Skills:
+                            <i class="ln ln-icon-Wrench"></i>
+                            <input type="text" class="input-text" asp-for="Skills" id="Skills" placeholder="skills" />
+                        </label>
+                        <span asp-validation-for="Skills" class="text-danger"></span>
+                    </div>*@
+                    @*<div class="form-row form-row-wide">
+                        <label asp-for="Industry">
+                            Industry:
+                            <i class="ln ln-icon-Building"></i>
+                            <input type="text" class="input-text" asp-for="Industry" id="JobIndustryArea" placeholder="Industry" />
+                        </label>
+                        <span asp-validation-for="Industry" class="text-danger"></span>
+                    </div>*@
+                    @*<div class="form-row form-row-wide">
+                        <label asp-for="PreferredLocation">
+                            Preferred Location:
+                            <i class="ln ln-icon-Map-Marker2"></i>
+                            <input type="text" class="input-text" asp-for="PreferredLocation" placeholder="Location" />
+                        </label>
+                        <span asp-validation-for="PreferredLocation" class="text-danger"></span>
+                    </div>*@
+                    <div class="form-row">
+                        <input type="submit" class="button border fw margin-top-10" name="register" value="Register" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

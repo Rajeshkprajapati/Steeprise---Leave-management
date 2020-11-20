@@ -1,0 +1,156 @@
+﻿@using LMS.Model.DataViewModel.TrainingPartner
+@model IList<CandidatesViewModel>
+
+@{
+    ViewData["Title"] = "DashBoard";
+}
+
+<link href="~/css/TP/dashboard.css" rel="stylesheet" />
+<link href="~/lib/datatable/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/CommanPopup.css" rel="stylesheet" />
+<style>
+    #WRSuccessPopup .modal-content {
+        width: 100%!important;
+    }
+</style>
+
+<!-- Page Title start -->
+<div class="pageTitle">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <h1 class="page-heading">@ViewData["Title"]</h1>
+            </div>
+            <div class="col-md-6 col-sm-6">
+                <div class="breadCrumb">
+                    <a href="/Home/Index/">Home</a> /
+                    <span>Welcome to @ViewData["Title"]</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Title End -->
+
+<div class="listpgWraper">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 table-responsive candidates-container">
+                @if (null != Model && Model.Count > 0)
+                {
+                    <table id="tblCandidates" class="display table table-striped table-bordered dt-responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th>
+                                    CandidateId
+                                </th>
+                                <th>
+                                    First Name
+                                </th>
+                                <th>
+                                    Last Name
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Password
+                                </th>
+                                <th>
+                                    Is Active
+                                </th>
+                                <th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var candidate in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @candidate.CandidateId
+                                    </td>
+                                    <td>
+                                        @candidate.FirstName
+                                    </td>
+                                    <td>
+                                        @candidate.LastName
+                                    </td>
+                                    <td>
+                                        @candidate.Email
+                                    </td>
+                                    <td>
+                                        @candidate.Password
+                                    </td>
+                                    <td>
+                                        @candidate.IsActive
+                                    </td>
+                                    <td>
+                                        <a onclick="getCandidateDetails(@candidate.Id)"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</a>
+                                        &nbsp;|&nbsp;
+                                        <a onclick="ConfrimationDeleteMessage(@candidate.Id)"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="row data-not-available">
+                        <label>
+                            Data not found to display
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Edit Candidate Popup Container *@
+<div class="modal fade" id="editCandidate" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCandidateInCenter">Edit Candidate</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateCandidate(this)">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+@* ........................ *@
+
+
+<!--Delete Confirmation Modal Begin -->
+<div id="confimationDeleteModel" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true" align="center">
+    <div class="modal-dialog modal-confirm" id="confirmDelBox">
+        <div class="modal-content">
+
+            <div class="modal-body" title="Confirmation Required">
+                <p class="text-center" style="font-size:15px">Are you sure?</p>
+            </div>
+            <div class="modal-footer" id="confirmDelButtons">
+                <button class="btn btn-success" id="btndelete" data-dismiss="modal">Yes</button>
+                <button class="btn btn-success" data-dismiss="modal">NO</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatable/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/TrainingPartner/dashboard.js"></script>
+}
